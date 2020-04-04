@@ -11,7 +11,8 @@ android {
         minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
-        versionName "1.0"
+        versionName "PIB:1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -21,6 +22,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    // Butterknife requires Java 8.
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
 }
@@ -34,4 +40,85 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // CardView dependency
+    implementation "androidx.cardview:cardview:1.0.0"
+
+    // Bottom navigation menu dependency
+    implementation 'com.github.armcha:SpaceNavigationView:1.6.0'
+
+    // Kotlin dependency
+    implementation "org.koin:koin-core:2.1.0-alpha-1"
+
+    // Material design library dependecy
+    implementation 'com.google.android.material:material:1.2.0-alpha01'
+
+    // Android support dependency
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    def appcompat_version = "1.1.0"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+
+    // Fragment dependency
+    implementation 'androidx.fragment:fragment:1.1.0-rc04'
+
+    // sdp size dependency
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+
+    // Intent animation dependency
+    implementation 'com.github.hajiyevelnur92:intentanimation:1.0'
+
+//    // Google signin builder
+//    implementation 'com.google.android.gms:play-services-auth:15.0.1'
+
+    // Google playservice dependency
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+    implementation 'com.google.android.gms:play-services-gcm:17.0.0'
+    implementation 'com.google.android.gms:play-services-drive:17.0.0'
+
+    // Circle Image view dependency
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
+
+    // Image Picker dependency
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    // Constraint layout dependency
+    implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta4"
+
+    // Multidex dependecy
+    def multidex_version = "2.0.1"
+    implementation "androidx.multidex:multidex:$multidex_version"
+
+    // Recyclerview dependency
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    // For control over item selection of both touch and mouse driven selection
+    implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc01"
+
+    // Firebase:::
+    // Analytic dependency
+    implementation 'com.google.firebase:firebase-analytics:17.2.0'
+    // Authentication
+    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    // Cloude messaging for notification
+    implementation 'com.google.firebase:firebase-messaging:20.1.0'
+    // Cloude storage dependency
+    implementation 'com.google.firebase:firebase-storage:19.1.0'
+    // Cloude firestore dependency
+    implementation 'com.google.firebase:firebase-firestore:21.4.1'
+
+
+    // Room Database:::
+    def room_version = "2.2.3"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
+
+    // Lifecycle:::
+    def lifecycle_version = "2.1.0"
+
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+
+
+    // Kotter knife
+    implementation 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'
 }

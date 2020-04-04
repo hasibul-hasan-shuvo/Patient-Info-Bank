@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Patient Info Bank</string>
+    <string name="app_description">Keep your prescriptions\nsafe and secure forever</string>
 </resources>

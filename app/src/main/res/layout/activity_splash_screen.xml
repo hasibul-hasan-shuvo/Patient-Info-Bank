@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".View.SplashScreen.SplashScreen"
+    android:background="@color/colorPrimaryDark"
+    android:theme="@style/fullScreenTheme"
+    >
+
+    <ImageView
+        android:id="@+id/logoHeartId"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_120sdp"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:src="@drawable/heart"
+        app:layout_constraintEnd_toEndOf="@+id/logoHandId"
+        app:layout_constraintStart_toStartOf="@+id/logoHandId"
+        app:layout_constraintTop_toTopOf="@+id/logoHandId" />
+
+    <ImageView
+        android:id="@+id/logoHandId"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_200sdp"
+        android:src="@drawable/logo_hand"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="418dp" />
+
+    <TextView
+        android:id="@+id/appNameId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/berlin_sans_fb_demi_bold"
+        android:text="@string/app_name"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/_25sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <TextView
+        android:id="@+id/descriptionId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_description"
+        android:textColor="@color/darkViolet"
+        android:textSize="@dimen/_14sdp"
+        android:fontFamily="@font/berlin_sans_fb_demi_bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appNameId" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

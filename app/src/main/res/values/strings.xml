@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Patient Info Bank</string>
     <string name="app_description">Keep your prescriptions\nsafe and secure forever</string>
+
+    <string name="web_client_id">996192410867-tlonlhedb9d693183qc3kq438gdt5gfo.apps.googleusercontent.com</string>
+
+    <string name="signInWarn">Sign in with your Google account.\nWe are just collecting your email and username.\nYour account is safe from anything.</string>
+    <string name="signIn">Sign in</string>
+    <string name="signOut">Sign Out</string>
+
 </resources>

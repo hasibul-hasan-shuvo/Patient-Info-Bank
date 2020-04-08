@@ -11,7 +11,9 @@ import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import com.google.firebase.auth.FirebaseAuth
 import finalyear.project.patientinfobank.R
+import finalyear.project.patientinfobank.View.Login.Login
 import finalyear.project.patientinfobank.View.MainActivity.MainActivity
 import kotterknife.bindView
 import maes.tech.intentanim.CustomIntent
@@ -20,6 +22,7 @@ class SplashScreen : AppCompatActivity() {
 
     private val imageView: ImageView by bindView(R.id.logoHeartId)
     private lateinit var animation: Animation
+    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,17 +34,29 @@ class SplashScreen : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_splash_screen)
 
+        firebaseAuth = FirebaseAuth.getInstance()
+
 
         animation = AnimationUtils.loadAnimation(this, R.anim.heart_beat)
         imageView.startAnimation(animation)
 
-        val handler: Handler = Handler()
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val handler: Handler = Handler()
         handler.postDelayed({
-            val intent: Intent = Intent(applicationContext, MainActivity:: class.java)
+            val intent: Intent
+            if (firebaseAuth.currentUser != null) {
+                intent = Intent(applicationContext, MainActivity::class.java)
+            } else {
+                intent = Intent(applicationContext, Login::class.java)
+            }
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            CustomIntent.customType(this, "fadein-to-fadeout")
             startActivity(intent)
+            CustomIntent.customType(this, "fadein-to-fadeout")
         }, 8000)
     }
 }

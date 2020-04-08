@@ -1,7 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -23,10 +24,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    // Butterknife requires Java 8.
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+
+
+    dataBinding {
+        enabled = true
     }
 
 }
@@ -71,9 +72,9 @@ dependencies {
 //    implementation 'com.google.android.gms:play-services-auth:15.0.1'
 
     // Google playservice dependency
-    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+    def play_services_version = "18.0.0"
+    implementation "com.google.android.gms:play-services-auth:$play_services_version"
     implementation 'com.google.android.gms:play-services-gcm:17.0.0'
-    implementation 'com.google.android.gms:play-services-drive:17.0.0'
 
     // Circle Image view dependency
     implementation 'de.hdodenhof:circleimageview:3.0.1'
@@ -95,9 +96,9 @@ dependencies {
 
     // Firebase:::
     // Analytic dependency
-    implementation 'com.google.firebase:firebase-analytics:17.2.0'
+    implementation 'com.google.firebase:firebase-analytics:17.2.2'
     // Authentication
-    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'com.google.firebase:firebase-auth:19.3.0'
     // Cloude messaging for notification
     implementation 'com.google.firebase:firebase-messaging:20.1.0'
     // Cloude storage dependency

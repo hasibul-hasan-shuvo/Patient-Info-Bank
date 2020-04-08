@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "996192410867",
+    "firebase_url": "https://patient-info-bank.firebaseio.com",
+    "project_id": "patient-info-bank",
+    "storage_bucket": "patient-info-bank.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996192410867:android:d6ac1c16458a99e95c2b86",
+        "android_client_info": {
+          "package_name": "finalyear.project.patientinfobank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "996192410867-fcclab1kpvb55apet569h35hfdjd16gi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "finalyear.project.patientinfobank",
+            "certificate_hash": "6245bf4c3f22b8e8bebbd86d4c9f45f822f62699"
+          }
+        },
+        {
+          "client_id": "996192410867-h99l211jl260mploaurbeoouicsndtn5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMqR66j8vVp_fw200By3PMCzSeYgo5b5k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "996192410867-h99l211jl260mploaurbeoouicsndtn5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -14,6 +14,7 @@ import android.widget.ImageView
 import com.google.firebase.auth.FirebaseAuth
 import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.View.Login.Login
+import finalyear.project.patientinfobank.View.Login.UserCategory
 import finalyear.project.patientinfobank.View.MainActivity.MainActivity
 import kotterknife.bindView
 import maes.tech.intentanim.CustomIntent
@@ -50,7 +51,7 @@ class SplashScreen : AppCompatActivity() {
         handler.postDelayed({
             val intent: Intent
             if (firebaseAuth.currentUser != null) {
-                intent = Intent(applicationContext, MainActivity::class.java)
+                intent = Intent(applicationContext, UserCategory::class.java)
             } else {
                 intent = Intent(applicationContext, Login::class.java)
             }

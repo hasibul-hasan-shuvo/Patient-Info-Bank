@@ -10,17 +10,22 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.Login.Login"></activity>
-        <activity
-            android:name=".View.SplashScreen.SplashScreen"
-            android:screenOrientation="fullSensor">
+        <activity android:name=".View.Login.UserCategory">
+
+        </activity>
+        <activity android:name=".View.Login.Login">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.MainActivity.MainActivity"></activity>
+        <activity
+            android:name=".View.SplashScreen.SplashScreen"
+            android:screenOrientation="fullSensor">
+        </activity>
+        <activity android:name=".View.MainActivity.MainActivity" />
     </application>
 
 </manifest>

@@ -7,5 +7,6 @@
     <color name="red">#E21414</color>
     <color name="white">#FFFFFF</color>
     <color name="gray">#CACACA</color>
+    <color name="progressBackground">#60000000</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">@color/gray</color>
 </resources>

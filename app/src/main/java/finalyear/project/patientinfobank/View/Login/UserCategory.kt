@@ -1,6 +1,9 @@
 package finalyear.project.patientinfobank.View.Login
 
 import android.app.DatePickerDialog
+import android.content.Intent
+import android.os.AsyncTask
+import android.os.AsyncTask.execute
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -18,7 +21,10 @@ import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.Utils.Spinner.SpinnerCategoryUtils
 import finalyear.project.patientinfobank.Utils.UserCategory.UserCategoryUtils
 import finalyear.project.patientinfobank.Utils.Util
+import finalyear.project.patientinfobank.View.Doctor.DoctorActivity
+import finalyear.project.patientinfobank.View.Patient.PatientActivity
 import finalyear.project.patientinfobank.databinding.ActivityUserCategoryBinding
+import maes.tech.intentanim.CustomIntent
 import java.util.*
 import kotlin.properties.Delegates
 
@@ -85,6 +91,12 @@ class UserCategory : AppCompatActivity() {
 
     // Uploading data to database
     private fun uploadToDatabase(userCategoryUtils: UserCategoryUtils) {
+
+        val animation = AnimationUtils.loadAnimation(applicationContext, R.anim.heart_beat)
+        binding.progressHeart.startAnimation(animation)
+        binding.progress.visibility = View.VISIBLE
+
+
         val email = FirebaseAuth.getInstance().currentUser?.email
         val database: FirebaseFirestore = FirebaseFirestore.getInstance()
         try {
@@ -98,6 +110,19 @@ class UserCategory : AppCompatActivity() {
                             Util.REGISTRATION_SUCCESSFUL_MESSAGE,
                             Toast.LENGTH_SHORT
                         ).show()
+                        binding.progress.visibility = View.GONE
+
+                        val intent: Intent
+
+                        if (isDoctor) {
+                            intent = Intent(this, DoctorActivity::class.java)
+                        } else {
+                            intent = Intent(this, PatientActivity::class.java)
+                        }
+
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                        CustomIntent.customType(this, "fadein-to-fadeout")
                     }
                     .addOnFailureListener {
                         Toast.makeText(
@@ -121,7 +146,6 @@ class UserCategory : AppCompatActivity() {
 
         if (phoneNumber == null ||
             phoneNumber == Util.EMPTY_VALUE) {
-//            Log.d(TAG, "Validity: ${binding.phoneNumber.text.toString()}")
             binding.phoneNumber.requestFocus()
             binding.phoneNumber.error = Util.EMPTY_ERROR_MESSAGE
             return false
@@ -132,7 +156,6 @@ class UserCategory : AppCompatActivity() {
 
         if (phoneNumber.length < 11 ||
                 !regex.containsMatchIn(phoneNumber)) {
-//            Log.d(TAG, "Validity: ${binding.phoneNumber.text.toString()}")
             binding.phoneNumber.requestFocus()
             binding.phoneNumber.error = Util.INVALID_PHONE_NUMBER_ERROR_MESSAGE
             return false
@@ -206,6 +229,7 @@ class UserCategory : AppCompatActivity() {
             Log.d(TAG, "DegreeList:")
             binding.degreesList.visibility = View.GONE
             binding.degreesListHint.visibility = View.GONE
+            binding.degreesListUndo.visibility = View.GONE
         }
 
         binding.addDegreeButton.setOnClickListener {
@@ -219,8 +243,10 @@ class UserCategory : AppCompatActivity() {
                     animation = AnimationUtils.loadAnimation(this, R.anim.bottomtotop)
                     binding.degreesList.startAnimation(animation)
                     binding.degreesListHint.startAnimation(animation)
+                    binding.degreesListUndo.startAnimation(animation)
                     binding.degreesList.visibility = View.VISIBLE
                     binding.degreesListHint.visibility = View.VISIBLE
+                    binding.degreesListUndo.visibility = View.VISIBLE
                 }
                 animation = AnimationUtils.loadAnimation(this, R.anim.fade_in)
                 binding.doctorDegree.startAnimation(animation)
@@ -230,6 +256,22 @@ class UserCategory : AppCompatActivity() {
                 binding.doctorDegree.setText(Util.EMPTY_VALUE)
                 setDegreeList()
             }
+        }
+
+        binding.degreesListUndo.setOnClickListener {
+            degreesList.removeAt(degreesList.size - 1)
+            if (degreesList.size == 0) {
+                Log.d(TAG, "DegreeList:")
+                animation = AnimationUtils.loadAnimation(this, R.anim.fade_out)
+                binding.degreesList.startAnimation(animation)
+                binding.degreesListHint.startAnimation(animation)
+                binding.degreesListUndo.startAnimation(animation)
+                binding.degreesList.visibility = View.GONE
+                binding.degreesListHint.visibility = View.GONE
+                binding.degreesListUndo.visibility = View.GONE
+            }
+
+            setDegreeList()
         }
     }
 

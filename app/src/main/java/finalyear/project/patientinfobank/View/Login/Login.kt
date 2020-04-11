@@ -5,6 +5,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -14,16 +19,21 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
-import dagger.Binds
+import com.google.firebase.firestore.FirebaseFirestore
 import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.Utils.Util
-import finalyear.project.patientinfobank.View.MainActivity.MainActivity
+import finalyear.project.patientinfobank.View.Doctor.DoctorActivity
+import finalyear.project.patientinfobank.View.Patient.PatientActivity
+import kotlinx.android.synthetic.main.activity_login.*
 import kotterknife.bindView
 import maes.tech.intentanim.CustomIntent
 
 class Login : AppCompatActivity() {
     private val loginButton: CardView by bindView(R.id.logInButtonId)
+    private val progress: LinearLayout by bindView(R.id.progress)
+    private val heartLogo: ImageView by bindView(R.id.progressHeart)
     private val TAG: String = "Login"
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var firebaseAuth: FirebaseAuth
@@ -82,6 +92,11 @@ class Login : AppCompatActivity() {
 
     // Signing in firebase
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
+        val animation = AnimationUtils.loadAnimation(this, R.anim.heart_beat)
+        progressHeart.startAnimation(animation)
+
+        progress.visibility = View.VISIBLE
+        progressHeart.visibility = View.VISIBLE
 
         val authCredential: AuthCredential = GoogleAuthProvider.getCredential(account.idToken, null)
 
@@ -90,31 +105,67 @@ class Login : AppCompatActivity() {
                 if (task.isSuccessful){
                     Toast.makeText(
                         this,
-                        "Successfully signed in",
+                        Util.SIGN_IN_SUCCESSFUL_MESSAGE,
                         Toast.LENGTH_SHORT
                     ).show()
 
-                    updateUI()
+                    FirebaseAuth.getInstance().currentUser?.let { updateUI(it) }
+
+                    progress.visibility = View.VISIBLE
+                    progressHeart.visibility = View.VISIBLE
 
                 } else {
 
                     Log.d(TAG, "Firebase sign in failed "+ (task.exception?.message ?: null))
                     Toast.makeText(
                         this,
-                        "Sign in failed",
+                        Util.SIGN_IN_FAILED_MESSAGE,
                         Toast.LENGTH_SHORT
                     ).show()
+
+                    progress.visibility = View.VISIBLE
+                    progressHeart.visibility = View.VISIBLE
                 }
             }
 
     }
 
-    // Opening main activity
-    private fun updateUI() {
-        val intent = Intent(this, UserCategory:: class.java)
+    private fun updateUI(currentUser: FirebaseUser) {
+        val email = currentUser.email
+        val database = FirebaseFirestore.getInstance()
 
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
-        CustomIntent.customType(this, "left-to-right")
+        if (email != null) {
+            database.collection("UsersCategory")
+                .document(email)
+                .get()
+                .addOnSuccessListener {
+                    Log.d(TAG, "UserCategory: ${it.data?.get("doctor")}")
+
+                    var intent: Intent
+
+                    if (it.data == null) {
+                        intent = Intent(applicationContext, UserCategory::class.java)
+                    } else {
+                        val isdoctor: Boolean = it.data!!.get("doctor") as Boolean
+                        if (isdoctor) {
+                            intent = Intent(applicationContext, DoctorActivity::class.java)
+                        } else {
+                            intent = Intent(applicationContext, PatientActivity::class.java)
+                        }
+                    }
+
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    CustomIntent.customType(this, "right-to-left")
+                }
+                .addOnFailureListener {
+                    Log.d(TAG, "Sign in failed "+ it.message)
+                    Toast.makeText(
+                        this,
+                        Util.SIGN_IN_FAILED_MESSAGE,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+        }
     }
 }

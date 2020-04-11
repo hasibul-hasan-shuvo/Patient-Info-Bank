@@ -3,7 +3,7 @@
     <string name="app_description">Keep your prescriptions\nsafe and secure forever</string>
 
 
-    <string name="signInWarn">Sign in with your Google account.\nWe are just collecting your email and username.\nYour account is safe from anything.</string>
+    <string name="signInWarn">Safe sign in with your Google account.\nAnd keep your prescription safe and secure forever.</string>
     <string name="signIn">Sign in</string>
     <string name="signOut">Sign Out</string>
 

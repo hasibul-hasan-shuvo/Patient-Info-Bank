@@ -6,6 +6,7 @@ class Util {
         val EMPTY_VALUE = ""
         val REGISTRATION_SUCCESSFUL_MESSAGE = "Registration Successful"
         val REGISTRATION_FAILED_MESSAGE = "Registration Failed"
+        val DATA_NOT_FOUND_MESSAGE = "Data not found!"
 
 
         // Sign in
@@ -23,6 +24,14 @@ class Util {
         val NO_DEGREE_ADDED_ERROR_MESSAGE = "No degree is added"
         val INVALID_PHONE_NUMBER_ERROR_MESSAGE = "Invalid phone number"
         val INVALID_BIRTH_DATE_ERROR_MESSAGE = "Invalid birth date"
+
+
+        // DatabasePaths
+        val USER_CATEGORY_DATABASE = "UsersCategory"
+
+        // FirebaseDatabase utils
+        // UserCategory:
+        val USER_CATEGORY_IS_DOCTOR = "doctor"
     }
 
 }

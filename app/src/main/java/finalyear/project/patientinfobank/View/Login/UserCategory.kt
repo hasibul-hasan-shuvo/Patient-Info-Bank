@@ -101,7 +101,7 @@ class UserCategory : AppCompatActivity() {
         val database: FirebaseFirestore = FirebaseFirestore.getInstance()
         try {
             if (email != null) {
-                database.collection("UsersCategory")
+                database.collection(Util.USER_CATEGORY_DATABASE)
                     .document(email)
                     .set(userCategoryUtils)
                     .addOnSuccessListener {

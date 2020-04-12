@@ -5,4 +5,9 @@ data class UserCategoryUtils(
     val phoneNumber: String,
     val patientBirthDate: String? = null,
     val doctorDegreeList: List<String>? = null) {
+    constructor() : this(
+        false,
+        "",
+    "",
+    emptyList())
 }

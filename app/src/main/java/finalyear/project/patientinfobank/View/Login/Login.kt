@@ -135,18 +135,18 @@ class Login : AppCompatActivity() {
         val database = FirebaseFirestore.getInstance()
 
         if (email != null) {
-            database.collection("UsersCategory")
+            database.collection(Util.USER_CATEGORY_DATABASE)
                 .document(email)
                 .get()
                 .addOnSuccessListener {
-                    Log.d(TAG, "UserCategory: ${it.data?.get("doctor")}")
+                    Log.d(TAG, "UserCategory: ${it.data?.get(Util.USER_CATEGORY_IS_DOCTOR)}")
 
                     var intent: Intent
 
                     if (it.data == null) {
                         intent = Intent(applicationContext, UserCategory::class.java)
                     } else {
-                        val isdoctor: Boolean = it.data!!.get("doctor") as Boolean
+                        val isdoctor: Boolean = it.data!!.get(Util.USER_CATEGORY_IS_DOCTOR) as Boolean
                         if (isdoctor) {
                             intent = Intent(applicationContext, DoctorActivity::class.java)
                         } else {

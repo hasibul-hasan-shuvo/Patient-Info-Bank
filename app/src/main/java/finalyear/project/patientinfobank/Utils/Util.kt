@@ -6,13 +6,17 @@ class Util {
         val EMPTY_VALUE = ""
         val REGISTRATION_SUCCESSFUL_MESSAGE = "Registration Successful"
         val REGISTRATION_FAILED_MESSAGE = "Registration Failed"
-        
+
 
         // Sign in
         val SIGN_IN_SUCCESSFUL_MESSAGE = "Sign in successful"
         val SIGN_IN_FAILED_MESSAGE = "Sign in failed"
 
 
+        //Bottom Navigation Item
+        //Doctor:
+        val DOCTOR_HOME = 0
+        val DOCTOR_PROFILE = 1
 
         // Error messages
         val EMPTY_ERROR_MESSAGE = "Field is empty"

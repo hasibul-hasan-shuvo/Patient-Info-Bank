@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "finalyear.project.patientinfobank"
-        minSdkVersion 19
+        minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
         versionName "PIB:1.0"
@@ -46,7 +46,7 @@ dependencies {
     implementation "androidx.cardview:cardview:1.0.0"
 
     // Bottom navigation menu dependency
-    implementation 'com.github.armcha:SpaceNavigationView:1.6.0'
+    implementation 'com.ismaeldivita.chipnavigation:chip-navigation-bar:1.3.0'
 
     // Kotlin dependency
     implementation "org.koin:koin-core:2.1.0-alpha-1"

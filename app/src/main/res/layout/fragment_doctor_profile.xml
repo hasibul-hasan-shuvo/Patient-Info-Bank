@@ -21,68 +21,127 @@
                 android:layout_height="?attr/actionBarSize"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView"
-                android:layout_width="@dimen/_150sdp"
-                android:layout_height="@dimen/_150sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:elevation="@dimen/_7sdp"
-                app:cardCornerRadius="@dimen/_15sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar">
-
-                <ImageView
-                    android:id="@+id/profilePicture"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/doctorProfileColor"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_launcher" />
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/cardView"
-                app:layout_constraintStart_toStartOf="@+id/cardView"
-                app:layout_constraintTop_toBottomOf="@+id/cardView"
-                android:text="@string/app_name"
-                android:textSize="@dimen/_16sdp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/nevrada"
-                android:gravity="center"
-                android:background="@drawable/input_box_style"
+                app:layout_constraintTop_toTopOf="parent"
+                android:theme="@style/overFlowMenuTheme"
+                app:popupTheme="@style/popupStyle"
                 />
 
-            <LinearLayout
-                android:id="@+id/divider"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"
-                android:background="@color/gray"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/name"
-                android:orientation="horizontal" />
+
+
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider">
+                app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView"
+                        android:layout_width="@dimen/_150sdp"
+                        android:layout_height="@dimen/_150sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:elevation="@dimen/_7sdp"
+                        app:cardCornerRadius="@dimen/_15sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
+                        <ImageView
+                            android:id="@+id/profilePicture"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/doctorProfileColor"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/ic_launcher" />
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="@+id/cardView"
+                        app:layout_constraintStart_toStartOf="@+id/cardView"
+                        app:layout_constraintTop_toBottomOf="@+id/cardView"
+                        android:textSize="@dimen/_16sdp"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/nevrada"
+                        android:gravity="center"
+                        android:background="@drawable/input_box_style"
+                        />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/nameEditLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="true"
+                        android:textColorHint="@color/white"
+                        android:visibility="gone"
+                        tools:visibility="visible"
+                        app:boxStrokeColor="@color/white"
+                        app:boxStrokeErrorColor="@color/red"
+                        app:layout_constraintEnd_toEndOf="@id/name"
+                        app:layout_constraintStart_toStartOf="@id/name"
+                        app:layout_constraintTop_toTopOf="@id/name"
+                        app:layout_constraintBottom_toBottomOf="@id/name"
+                        android:minWidth="@dimen/_50sdp"
+                        android:gravity="center"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/nameEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:inputType="textPersonName"
+                            android:singleLine="true"
+                            android:minWidth="@dimen/_50sdp"
+                            android:textColor="@color/white"
+                            android:theme="@style/textInputEditTextTheme" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:id="@+id/saveName"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:background="@drawable/ic_done"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/nameEditLayout"
+                        app:layout_constraintStart_toEndOf="@+id/nameEditLayout"
+                        app:layout_constraintTop_toTopOf="@+id/nameEditLayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:visibility="gone"
+                        tools:visibility="visible"
+                        />
+                    <ImageView
+                        android:id="@+id/closeNameEdit"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:background="@drawable/ic_close"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/nameEditLayout"
+                        app:layout_constraintTop_toTopOf="@+id/nameEditLayout"
+                        app:layout_constraintEnd_toStartOf="@id/nameEditLayout"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:visibility="gone"
+                        tools:visibility="visible"
+                        />
+                    <LinearLayout
+                        android:id="@+id/divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:background="@color/gray"
+                        android:layout_marginStart="@dimen/_20sdp"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/name"
+                        android:orientation="horizontal" />
                     <TextView
                         android:id="@+id/emailTitle"
                         android:layout_width="wrap_content"
@@ -96,13 +155,14 @@
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="@id/divider" />
 
                     <TextView
                         android:id="@+id/email"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
                         android:fontFamily="@font/nevrada"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_14sdp"
@@ -133,6 +193,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
                         android:fontFamily="@font/nevrada"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_14sdp"
@@ -142,6 +203,49 @@
                         app:layout_constraintTop_toTopOf="@id/contactTitle"
                         tools:text="0162745798"
                         android:textIsSelectable="true" />
+
+                    <EditText
+                        android:id="@+id/contactEditText"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:fontFamily="@font/nevrada"
+                        android:inputType="phone"
+                        android:maxLength="11"
+                        android:minWidth="@dimen/_50sdp"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/contact"
+                        app:layout_constraintEnd_toStartOf="@+id/closeContactEdit"
+                        app:layout_constraintStart_toStartOf="@id/contact"
+                        app:layout_constraintTop_toTopOf="@id/contact" />
+
+                    <ImageView
+                        android:id="@+id/saveContact"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:background="@drawable/ic_done"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/contact"
+                        app:layout_constraintTop_toTopOf="@+id/contact"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:visibility="gone"
+                        tools:visibility="visible"
+                        />
+                    <ImageView
+                        android:id="@+id/closeContactEdit"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:background="@drawable/ic_close"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/saveContact"
+                        app:layout_constraintTop_toTopOf="@+id/saveContact"
+                        app:layout_constraintEnd_toStartOf="@id/saveContact"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:visibility="gone"
+                        tools:visibility="visible"
+                        />
                     <TextView
                         android:id="@+id/degreesTitle"
                         android:layout_width="wrap_content"
@@ -163,7 +267,10 @@
                         app:layout_constraintTop_toBottomOf="@id/degreesTitle"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_20sdp"
+                        android:background="@drawable/input_box_style"
                         />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

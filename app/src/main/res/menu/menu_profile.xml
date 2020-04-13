@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/changeProfilePicture"
+        android:title="@string/changeProfilePicture"
+        android:iconTintMode="src_over"
+        />
+    <item
+        android:id="@+id/changeName"
+        android:title="@string/changeName"
+        android:iconTintMode="src_over"
+        />
+    <item
+        android:id="@+id/changeContact"
+        android:title="@string/changeContact"
+        android:iconTintMode="src_over"
+        />
+    <item
+        android:id="@+id/signOut"
+        android:title="@string/signOut"
+        android:iconTintMode="src_over"
+        />
+
+</menu>

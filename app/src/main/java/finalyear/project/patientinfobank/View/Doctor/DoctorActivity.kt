@@ -2,6 +2,7 @@ package finalyear.project.patientinfobank.View.Doctor
 
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager.widget.ViewPager
@@ -26,6 +27,7 @@ class DoctorActivity : AppCompatActivity() {
         setContentView(R.layout.activity_doctor)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_doctor)
 
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
         setUpNavigationView()
     }
 

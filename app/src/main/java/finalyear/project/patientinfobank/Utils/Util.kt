@@ -4,9 +4,14 @@ class Util {
     companion object {
         val RC_SIGN_IN: Int = 1
         val EMPTY_VALUE = ""
-        val REGISTRATION_SUCCESSFUL_MESSAGE = "Registration Successful"
-        val REGISTRATION_FAILED_MESSAGE = "Registration Failed"
+        val REGISTRATION_SUCCESSFUL_MESSAGE = "Registration successful"
+        val REGISTRATION_FAILED_MESSAGE = "Registration failed"
+        val OPERATION_FAILED_MESSAGE = "Operation failed"
         val DATA_NOT_FOUND_MESSAGE = "Data not found!"
+        val UPDATE_SUCCESSFUL_MESSAGE = "Update successful"
+
+        // Toolbar titles
+        val PROFILE = "Profile"
 
 
         // Sign in

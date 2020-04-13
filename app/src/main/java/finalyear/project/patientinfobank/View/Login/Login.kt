@@ -82,10 +82,12 @@ class Login : AppCompatActivity() {
                 Log.d(TAG, "Google sign in failed "+ e.message)
                 Toast.makeText(
                     this,
-                    "Sign in failed",
+                    Util.SIGN_IN_FAILED_MESSAGE,
                     Toast.LENGTH_SHORT
                 ).show()
-                // ...
+
+                progress.visibility = View.GONE
+                progressHeart.visibility = View.GONE
             }
         }
     }
@@ -123,8 +125,8 @@ class Login : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
 
-                    progress.visibility = View.VISIBLE
-                    progressHeart.visibility = View.VISIBLE
+                    progress.visibility = View.GONE
+                    progressHeart.visibility = View.GONE
                 }
             }
 
@@ -165,6 +167,9 @@ class Login : AppCompatActivity() {
                         Util.SIGN_IN_FAILED_MESSAGE,
                         Toast.LENGTH_SHORT
                     ).show()
+
+                    progress.visibility = View.GONE
+                    progressHeart.visibility = View.GONE
                 }
         }
     }

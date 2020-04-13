@@ -12,6 +12,7 @@
     <string name="patientBirthDateHint">Patient birth date</string>
     <string name="doctorDegreeHint">Doctor degree</string>
     <string name="degreesListHint">Degrees list</string>
+    <string name="nameHint">Degrees list</string>
 
     <!--    Menu titles-->
     <string name="home">Home</string>
@@ -19,6 +20,9 @@
     <string name="blood">Blood</string>
     <string name="notifications">Notifications</string>
     <string name="reminders">Reminders</string>
+    <string name="changeProfilePicture">Change Picture</string>
+    <string name="changeName">Change Name</string>
+    <string name="changeContact">Change Contact</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

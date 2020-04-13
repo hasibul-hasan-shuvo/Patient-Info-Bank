@@ -204,7 +204,7 @@ class DoctorProfile : Fragment() {
             .collection(Util.USER_CATEGORY_DATABASE)
             .document(email)
             .update(
-                "phoneNumber",
+                Util.USER_CATEGORY_PHONE_NUMBER,
                 userCategoryUtils.phoneNumber
             )
             .addOnSuccessListener {

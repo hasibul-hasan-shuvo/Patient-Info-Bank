@@ -37,6 +37,9 @@ class Util {
         // FirebaseDatabase utils
         // UserCategory:
         val USER_CATEGORY_IS_DOCTOR = "doctor"
+        val USER_CATEGORY_PHONE_NUMBER = "phoneNumber"
+        val USER_CATEGORY_DOCTOR_DEGREE_LIST = "doctorDegreeList"
+        val USER_CATEGORY_PATIENT_BIRTH_DATE = "patientBirthDate"
     }
 
 }

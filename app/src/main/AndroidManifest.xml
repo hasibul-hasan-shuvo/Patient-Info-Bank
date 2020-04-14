@@ -10,21 +10,20 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.Patient.PatientActivity"></activity>
-        <activity android:name=".View.Login.UserCategory"></activity>
-        <activity android:name=".View.Login.Login">
-        </activity>
+        <activity android:name=".View.Doctor.Prescription.PatientPrescription"></activity>
+        <activity android:name=".View.Patient.PatientActivity" />
+        <activity android:name=".View.Login.UserCategory" />
+        <activity android:name=".View.Login.Login"></activity>
         <activity
             android:name=".View.SplashScreen.SplashScreen"
-            android:screenOrientation="fullSensor"></activity>
-        <activity android:name=".View.Doctor.DoctorActivity" >
+            android:screenOrientation="fullSensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+        <activity android:name=".View.Doctor.DoctorActivity"></activity>
     </application>
 
 </manifest>

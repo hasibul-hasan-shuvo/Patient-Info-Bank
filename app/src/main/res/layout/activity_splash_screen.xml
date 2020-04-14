@@ -9,25 +9,34 @@
     android:theme="@style/fullScreenTheme"
     >
 
-    <ImageView
-        android:id="@+id/logoHeartId"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/logoLayout"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/_120sdp"
-        android:layout_marginTop="@dimen/_6sdp"
-        android:src="@drawable/heart"
-        app:layout_constraintEnd_toEndOf="@+id/logoHandId"
-        app:layout_constraintStart_toStartOf="@+id/logoHandId"
-        app:layout_constraintTop_toTopOf="@+id/logoHandId" />
-
-    <ImageView
-        android:id="@+id/logoHandId"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_200sdp"
-        android:src="@drawable/logo_hand"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:transitionName="@string/logoTransition"
+        >
+        <ImageView
+            android:id="@+id/logoHeartId"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_120sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:src="@drawable/heart"
+            app:layout_constraintEnd_toEndOf="@+id/logoHandId"
+            app:layout_constraintStart_toStartOf="@+id/logoHandId"
+            app:layout_constraintTop_toTopOf="@+id/logoHandId" />
+
+        <ImageView
+            android:id="@+id/logoHandId"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_200sdp"
+            android:src="@drawable/logo_hand"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

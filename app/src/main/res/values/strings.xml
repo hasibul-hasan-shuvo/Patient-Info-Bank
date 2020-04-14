@@ -13,6 +13,7 @@
     <string name="doctorDegreeHint">Doctor degree</string>
     <string name="degreesListHint">Degrees list</string>
     <string name="nameHint">Degrees list</string>
+    <string name="searchHint">Search by patient id</string>
 
     <!--    Menu titles-->
     <string name="home">Home</string>
@@ -32,4 +33,7 @@
     <string name="profileContactTitle">Contact:</string>
     <string name="profileDegreesTitle">Degrees:</string>
 
+    <!--    animation transition name-->
+    <string name="searchBarTransition">search_bar_transition</string>
+    <string name="logoTransition">logo_transition</string>
 </resources>

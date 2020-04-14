@@ -10,8 +10,11 @@ class Util {
         val DATA_NOT_FOUND_MESSAGE = "Data not found!"
         val UPDATE_SUCCESSFUL_MESSAGE = "Update successful"
 
+        val SEARCH_PATIENT_ID = "SearchPatientId"
+
         // Toolbar titles
         val PROFILE = "Profile"
+        val PATIENT_PRESCRIPTION = "Patient information"
 
 
         // Sign in

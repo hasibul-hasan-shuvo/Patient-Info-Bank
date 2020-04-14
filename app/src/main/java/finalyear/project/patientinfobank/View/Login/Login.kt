@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -33,7 +34,7 @@ import maes.tech.intentanim.CustomIntent
 class Login : AppCompatActivity() {
     private val loginButton: CardView by bindView(R.id.logInButtonId)
     private val progress: LinearLayout by bindView(R.id.progress)
-    private val heartLogo: ImageView by bindView(R.id.progressHeart)
+    private val heartLogo: ImageView by bindView(R.id.logoHeartId)
     private val TAG: String = "Login"
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var firebaseAuth: FirebaseAuth
@@ -42,12 +43,22 @@ class Login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        setLogoAnimation()
+
         firebaseAuth = FirebaseAuth.getInstance()
         googleSignInClientCreate()
 
         loginButton.setOnClickListener {
             signIn()
         }
+    }
+
+    private fun setLogoAnimation() {
+
+        window?.enterTransition  = null
+        val animation = AnimationUtils.loadAnimation(this, R.anim.heart_beat)
+        heartLogo.startAnimation(animation)
+
     }
 
     private fun googleSignInClientCreate() {
@@ -98,7 +109,6 @@ class Login : AppCompatActivity() {
         progressHeart.startAnimation(animation)
 
         progress.visibility = View.VISIBLE
-        progressHeart.visibility = View.VISIBLE
 
         val authCredential: AuthCredential = GoogleAuthProvider.getCredential(account.idToken, null)
 
@@ -114,7 +124,6 @@ class Login : AppCompatActivity() {
                     FirebaseAuth.getInstance().currentUser?.let { updateUI(it) }
 
                     progress.visibility = View.VISIBLE
-                    progressHeart.visibility = View.VISIBLE
 
                 } else {
 
@@ -126,7 +135,6 @@ class Login : AppCompatActivity() {
                     ).show()
 
                     progress.visibility = View.GONE
-                    progressHeart.visibility = View.GONE
                 }
             }
 
@@ -156,9 +164,9 @@ class Login : AppCompatActivity() {
                         }
                     }
 
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                     CustomIntent.customType(this, "right-to-left")
+                    finish()
                 }
                 .addOnFailureListener {
                     Log.d(TAG, "Sign in failed "+ it.message)
@@ -169,7 +177,6 @@ class Login : AppCompatActivity() {
                     ).show()
 
                     progress.visibility = View.GONE
-                    progressHeart.visibility = View.GONE
                 }
         }
     }

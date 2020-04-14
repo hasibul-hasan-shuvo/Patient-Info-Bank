@@ -9,6 +9,7 @@
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
         <item name="actionBarPopupTheme">@color/colorPrimary</item>
         <item name="popupMenuStyle">@style/popupStyle</item>
+        <item name="android:windowContentTransitions">true</item>
     </style>
 
 <!--    overflow menu theme-->

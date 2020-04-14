@@ -1,16 +1,19 @@
 package finalyear.project.patientinfobank.View.SplashScreen
 
+import android.app.ActivityOptions
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.util.Pair
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -22,10 +25,12 @@ import finalyear.project.patientinfobank.View.Login.UserCategory
 import finalyear.project.patientinfobank.View.Patient.PatientActivity
 import kotterknife.bindView
 import maes.tech.intentanim.CustomIntent
+import java.lang.Exception
 
 class SplashScreen : AppCompatActivity() {
 
     private val imageView: ImageView by bindView(R.id.logoHeartId)
+    private val logoLayout: ConstraintLayout by bindView(R.id.logoLayout)
     private lateinit var animation: Animation
     private lateinit var firebaseAuth: FirebaseAuth
     private val TAG = "SplashScreen"
@@ -33,6 +38,7 @@ class SplashScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        window?.exitTransition  = null
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
 
         window.setFlags(
@@ -51,21 +57,25 @@ class SplashScreen : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        var time = 8000
+        if (firebaseAuth.currentUser != null) {
 
+            time = 3000
+        }
         val handler: Handler = Handler()
         handler.postDelayed({
-            if (firebaseAuth.currentUser != null) {
+            try {
+                if (firebaseAuth.currentUser != null) {
 
-                Log.d(TAG, "CurrentUser: ${firebaseAuth.currentUser!!.email}")
-                checkUserCategory(firebaseAuth.currentUser!!)
-            } else {
-                var intent: Intent
-                intent = Intent(applicationContext, Login::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
-                CustomIntent.customType(this, "fadein-to-fadeout")
+                    Log.d(TAG, "CurrentUser: ${firebaseAuth.currentUser!!.email}")
+                    checkUserCategory(firebaseAuth.currentUser!!)
+                } else {
+                    openLoginActivity()
+                }
+            } catch (e: Exception) {
+                Log.d(TAG, e.message)
             }
-        }, 2000)
+        }, time.toLong())
     }
 
     private fun checkUserCategory(currentUser: FirebaseUser) {
@@ -92,16 +102,46 @@ class SplashScreen : AppCompatActivity() {
                         }
                     }
 
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                     CustomIntent.customType(this, "right-to-left")
+                    finish()
                 }
                 .addOnFailureListener {
-                    val intent: Intent = Intent(this, Login::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
-                    CustomIntent.customType(this, "fadein-to-fadeout")
+                    openLoginActivity()
                 }
         }
+    }
+
+    private fun openLoginActivity() {
+        try {
+            val intent = Intent(this, Login::class.java)
+
+            val pair = Pair<View, String>(
+                logoLayout,
+                resources.getString(R.string.logoTransition)
+            )
+
+            val options = ActivityOptions.makeSceneTransitionAnimation(this, pair)
+            startActivity(intent, options.toBundle())
+            CustomIntent.customType(this, "fadein-to-fadeout")
+            finish()
+        } catch (e: Exception) {
+            Log.d(TAG, "Splash: ${e.message}")
+            val intent = Intent(this, Login::class.java)
+            startActivity(intent)
+            CustomIntent.customType(this, "fadein-to-fadeout")
+            finish()
+        }
+    }
+
+    override fun onPause() {
+        Log.d(TAG, "onPause:")
+        finish()
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        Log.d(TAG, "onDistroy:")
+        super.onDestroy()
     }
 }

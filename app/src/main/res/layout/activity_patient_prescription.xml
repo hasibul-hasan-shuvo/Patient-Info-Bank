@@ -2,20 +2,28 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".View.Doctor.Home.DoctorHome">
+    tools:context=".View.Doctor.Prescription.PatientPrescription">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:background="@color/colorPrimaryDark"
-        android:gravity="center">
-
+        android:theme="@style/overFlowMenuTheme"
+        >
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            />
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/patientIdSearchLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/view_search_edit_text"
-            android:layout_margin="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:transitionName="@string/searchBarTransition"
             >
 

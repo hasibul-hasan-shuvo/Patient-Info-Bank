@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<shape xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:shape="rectangle"-->
+<!--    >-->
+<!--    <solid android:color="@color/doctorProfileColor"/>-->
+<!--    <corners-->
+<!--        android:topRightRadius="@dimen/_20sdp"-->
+<!--        android:bottomRightRadius="@dimen/_20sdp"-->
+<!--        />-->
+
+<!--</shape>-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/shadowColor"/>
+            <corners
+                android:topRightRadius="@dimen/_20sdp"
+                android:bottomRightRadius="@dimen/_20sdp"
+                />
+            <padding
+                android:left="@dimen/_3sdp"
+                />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+<!--            <solid android:color="@color/doctorHomeColor"/>-->
+            <gradient
+                android:angle="0"
+                android:centerX="0%"
+                android:startColor="@color/doctorHomeColor"
+                android:endColor="#8202A3"
+                android:type="linear"
+                />
+            <corners
+                android:topRightRadius="@dimen/_20sdp"
+                android:bottomRightRadius="@dimen/_20sdp"
+                />
+        </shape>
+    </item>
+
+</layer-list>
+

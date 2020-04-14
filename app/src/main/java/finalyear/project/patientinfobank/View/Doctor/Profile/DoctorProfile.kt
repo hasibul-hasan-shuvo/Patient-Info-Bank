@@ -98,15 +98,17 @@ class DoctorProfile : Fragment() {
         binding.saveName.visibility = View.VISIBLE
         binding.closeNameEdit.visibility = View.VISIBLE
         binding.name.visibility = View.INVISIBLE
-        binding.nameEditText.requestFocus()
 
         name = firebaseAuth.currentUser?.displayName.toString()
         binding.nameEditText.setText(name)
+        binding.nameEditText.requestFocus()
+        binding.nameEditText.setSelection(name.length)
 
         binding.saveName.setOnClickListener {
             if (binding.nameEditText.text.toString() == ""
                 || binding.nameEditText.text == null) {
                 binding.nameEditText.error = Util.EMPTY_ERROR_MESSAGE
+                binding.nameEditText.requestFocus()
             } else {
                 val newName = binding.nameEditText.text.toString()
                 name = newName
@@ -176,9 +178,10 @@ class DoctorProfile : Fragment() {
         binding.saveContact.visibility = View.VISIBLE
         binding.closeContactEdit.visibility = View.VISIBLE
         binding.contact.visibility = View.INVISIBLE
-        binding.contactEditText.requestFocus()
 
         binding.contactEditText.setText(userCategoryUtils.phoneNumber)
+        binding.contactEditText.requestFocus()
+        binding.contactEditText.setSelection(binding.contactEditText.text.length)
 
         binding.saveContact.setOnClickListener {
             if (checkContactValidity()) {
@@ -245,6 +248,7 @@ class DoctorProfile : Fragment() {
             !regex.containsMatchIn(phoneNumber)) {
             binding.contactEditText.requestFocus()
             binding.contactEditText.error = Util.INVALID_PHONE_NUMBER_ERROR_MESSAGE
+            binding.contactEditText.setSelection(2)
             return false
         }
 
@@ -316,9 +320,9 @@ class DoctorProfile : Fragment() {
             firebaseAuth.signOut()
 
             val intent = Intent(context, Login::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             CustomIntent.customType(context, "left-to-right")
+            activity?.finish()
         }
     }
     override fun onResume() {

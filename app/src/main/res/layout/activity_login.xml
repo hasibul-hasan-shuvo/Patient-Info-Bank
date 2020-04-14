@@ -10,6 +10,37 @@
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark"
         >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/logoLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:transitionName="@string/logoTransition"
+            app:layout_constraintStart_toStartOf="@+id/googleSignInMessageId"
+            app:layout_constraintEnd_toEndOf="@id/googleSignInMessageId"
+            app:layout_constraintBottom_toTopOf="@id/googleSignInMessageId"
+            >
+
+            <ImageView
+                android:id="@+id/logoHeartId"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_56sdp"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:src="@drawable/heart"
+                app:layout_constraintEnd_toEndOf="@+id/logoHandId"
+                app:layout_constraintStart_toStartOf="@+id/logoHandId"
+                app:layout_constraintTop_toTopOf="@+id/logoHandId" />
+
+            <ImageView
+                android:id="@+id/logoHandId"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_100sdp"
+                android:src="@drawable/logo_hand"
+                app:layout_constraintBottom_toTopOf="@+id/guideline"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
         <TextView
             android:id="@+id/googleSignInMessageId"
             android:layout_width="wrap_content"
@@ -18,11 +49,12 @@
             android:text="@string/signInWarn"
             android:textColor="@color/white"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/logInButtonId"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/_20sdp"
             app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/logInButtonId"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/logInButtonId"
@@ -42,8 +74,8 @@
                 android:padding="@dimen/_25sdp"
                 >
                 <ImageView
-                    android:layout_width="@dimen/_100sdp"
-                    android:layout_height="@dimen/_100sdp"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_80sdp"
                     android:src="@drawable/ic_google" />
             </LinearLayout>
 

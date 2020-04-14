@@ -185,7 +185,7 @@ class DoctorProfile : Fragment() {
                 Log.d(TAG, "SaveContact: " + binding.contactEditText.text.toString())
                 userCategoryUtils.phoneNumber = binding.contactEditText.text.toString()
                 binding.contact.text = userCategoryUtils.phoneNumber
-                updateUserCategory()
+                updateContact()
             }
         }
 
@@ -194,7 +194,7 @@ class DoctorProfile : Fragment() {
         }
     }
 
-    fun updateUserCategory() {
+    private fun updateContact() {
 
         runProgess()
 
@@ -257,6 +257,51 @@ class DoctorProfile : Fragment() {
         binding.saveContact.visibility = View.GONE
         binding.closeContactEdit.visibility = View.GONE
         binding.contact.visibility = View.VISIBLE
+    }
+
+    private fun setAddDegreeLayout() {
+        binding.addDegreeButton.setOnClickListener {
+            val degree = binding.doctorDegree.text.toString()
+            if (degree == null
+                || degree == "")
+                binding.doctorDegree.error = Util.EMPTY_ERROR_MESSAGE
+            else {
+                userCategoryUtils.doctorDegreeList.add(degree)
+                updateDegreeList()
+            }
+        }
+    }
+    private fun updateDegreeList() {
+
+        runProgess()
+
+        val database = FirebaseFirestore.getInstance()
+
+        database
+            .collection(Util.USER_CATEGORY_DATABASE)
+            .document(email)
+            .update(
+                Util.USER_CATEGORY_DOCTOR_DEGREE_LIST,
+                userCategoryUtils.doctorDegreeList
+            )
+            .addOnSuccessListener {
+                Toast.makeText(
+                    context,
+                    Util.UPDATE_SUCCESSFUL_MESSAGE,
+                    Toast.LENGTH_SHORT
+                ).show()
+                stopProgress()
+                binding.doctorDegree.setText("")
+            }
+            .addOnFailureListener{
+                Log.d(TAG, "UpdateUserCategory: ${it.message}")
+                Toast.makeText(
+                    context,
+                    Util.OPERATION_FAILED_MESSAGE,
+                    Toast.LENGTH_SHORT
+                ).show()
+                stopProgress()
+            }
     }
 
     private fun signOut() {
@@ -339,10 +384,13 @@ class DoctorProfile : Fragment() {
             } }
             binding.degreesList.adapter = arrayAdapter
 
+            setAddDegreeLayout()
+
         } catch (e: Exception) {
             Log.d(TAG, "SetViewData: ${e.message}")
         }
     }
+
 
     private fun stopProgress() {
         binding.progress.visibility = View.GONE

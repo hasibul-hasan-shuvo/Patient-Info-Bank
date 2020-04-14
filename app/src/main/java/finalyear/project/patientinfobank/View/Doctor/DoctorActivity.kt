@@ -27,7 +27,7 @@ class DoctorActivity : AppCompatActivity() {
         setContentView(R.layout.activity_doctor)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_doctor)
 
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         setUpNavigationView()
     }
 

@@ -2,8 +2,6 @@ package finalyear.project.patientinfobank.View.Login
 
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.os.AsyncTask
-import android.os.AsyncTask.execute
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -26,6 +24,7 @@ import finalyear.project.patientinfobank.View.Patient.PatientActivity
 import finalyear.project.patientinfobank.databinding.ActivityUserCategoryBinding
 import maes.tech.intentanim.CustomIntent
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.properties.Delegates
 
 class UserCategory : AppCompatActivity() {
@@ -81,7 +80,7 @@ class UserCategory : AppCompatActivity() {
                     Log.d(TAG, "Submit: $userCategoryUtils")
                     uploadToDatabase(userCategoryUtils)
                 } else {
-                    val userCategoryUtils = UserCategoryUtils(isDoctor, phoneNumber, patientBirthDate)
+                    val userCategoryUtils = UserCategoryUtils(isDoctor, phoneNumber, patientBirthDate, ArrayList())
                     Log.d(TAG, "Submit: $userCategoryUtils")
                     uploadToDatabase(userCategoryUtils)
                 }

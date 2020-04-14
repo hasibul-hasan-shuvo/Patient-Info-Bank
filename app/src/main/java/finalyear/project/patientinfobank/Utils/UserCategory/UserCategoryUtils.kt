@@ -4,10 +4,11 @@ data class UserCategoryUtils(
     var isDoctor: Boolean,
     var phoneNumber: String,
     var patientBirthDate: String? = null,
-    var doctorDegreeList: List<String>? = null) {
+    var doctorDegreeList: ArrayList<String>) {
     constructor() : this(
         false,
         "",
     "",
-    emptyList())
+        ArrayList<String>()
+    )
 }

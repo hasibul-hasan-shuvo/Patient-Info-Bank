@@ -2,4 +2,9 @@
 <resources>
     <color name="doctorHomeColor">#C300FF</color>
     <color name="doctorProfileColor">#FF00A1</color>
+
+    <color name="patientHomeColor">#00CCFF</color>
+    <color name="patientRemindersColor">#D0FF00</color>
+    <color name="patientBloodColor">#FF0000</color>
+    <color name="patientProfileColor">#00FFA6</color>
 </resources>

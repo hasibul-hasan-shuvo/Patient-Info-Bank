@@ -26,6 +26,11 @@ class Util {
         //Doctor:
         val DOCTOR_HOME = 0
         val DOCTOR_PROFILE = 1
+        // Patient
+        val PATIENT_HOME = 0
+        val PATIENT_REMINDERS = 1
+        val PATIENT_BLOOD = 2
+        val PATIENT_PROFILE = 3
 
         // Error messages
         val EMPTY_ERROR_MESSAGE = "Field is empty"

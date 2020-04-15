@@ -4,64 +4,80 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".View.Doctor.Prescription.PatientPrescription">
 
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/colorPrimaryDark"
-        android:theme="@style/overFlowMenuTheme"
-        >
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        android:background="@color/colorPrimaryDark">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            />
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/patientIdSearchLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/view_search_edit_text"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:transitionName="@string/searchBarTransition"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:theme="@style/overFlowMenuTheme"
             >
-
-            <EditText
-                android:id="@+id/searchId"
-                android:layout_width="0dip"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/patientIdSearchLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/searchButton"
-                android:textColor="@color/white"
-                android:textColorHint="@color/gray"
-                android:textSize="@dimen/_16sdp"
-                android:singleLine="true"
-                android:background="@null"
-                android:hint="@string/searchHint"
-                android:paddingEnd="@dimen/_5sdp"
-                android:paddingStart="@dimen/_15sdp"
-                android:paddingTop="@dimen/_10sdp"
-                android:paddingBottom="@dimen/_10sdp"
-                />
+                android:background="@drawable/view_search_edit_text"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:transitionName="@string/searchBarTransition"
+                >
 
-            <ImageView
-                android:id="@+id/searchButton"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
-                android:src="@drawable/ic_search"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:background="@drawable/patient_search_button"
-                android:paddingTop="@dimen/_7sdp"
-                android:paddingEnd="@dimen/_7sdp"
-                android:paddingBottom="@dimen/_7sdp"
-                android:paddingStart="@dimen/_9sdp"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/searchId"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/searchButton"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/gray"
+                    android:textSize="@dimen/_16sdp"
+                    android:singleLine="true"
+                    android:background="@null"
+                    android:hint="@string/searchHint"
+                    android:paddingEnd="@dimen/_5sdp"
+                    android:paddingStart="@dimen/_15sdp"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    />
+
+                <ImageView
+                    android:id="@+id/searchButton"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:src="@drawable/ic_search"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:background="@drawable/patient_search_button"
+                    android:paddingTop="@dimen/_7sdp"
+                    android:paddingEnd="@dimen/_7sdp"
+                    android:paddingBottom="@dimen/_7sdp"
+                    android:paddingStart="@dimen/_9sdp"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/writePrescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_edit"
+            app:backgroundTint="@color/colorAccent"
+            app:tint="@color/white"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/_15sdp"
+            />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 
 </layout>

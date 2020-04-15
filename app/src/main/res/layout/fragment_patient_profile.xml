@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".View.Patient.Profile.PatientProfile">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:theme="@style/overFlowMenuTheme"
+                app:popupTheme="@style/popupStyle"
+                />
+
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView"
+                        android:layout_width="@dimen/_150sdp"
+                        android:layout_height="@dimen/_150sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:elevation="@dimen/_7sdp"
+                        app:cardCornerRadius="@dimen/_15sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:cardBackgroundColor="@color/doctorProfileColor"
+                        >
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:cardCornerRadius="@dimen/_15sdp"
+                            android:layout_margin="@dimen/_3sdp"
+                            >
+
+                            <ImageView
+                                android:id="@+id/profilePicture"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/doctorProfileColor"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/ic_launcher" />
+                        </androidx.cardview.widget.CardView>
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/input_box_style"
+                        android:fontFamily="@font/nevrada"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_16sdp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@+id/cardView"
+                        app:layout_constraintStart_toStartOf="@+id/cardView"
+                        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/nameEditLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="true"
+                        android:gravity="center"
+                        android:minWidth="@dimen/_50sdp"
+                        android:textColorHint="@color/white"
+                        android:visibility="gone"
+                        app:boxStrokeColor="@color/white"
+                        app:boxStrokeErrorColor="@color/red"
+                        app:layout_constraintBottom_toBottomOf="@id/name"
+                        app:layout_constraintEnd_toEndOf="@id/name"
+                        app:layout_constraintStart_toStartOf="@id/name"
+                        app:layout_constraintTop_toTopOf="@id/name"
+                        tools:visibility="visible">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/nameEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:inputType="textPersonName"
+                            android:minWidth="@dimen/_50sdp"
+                            android:singleLine="true"
+                            android:fontFamily="@font/nevrada"
+                            android:textColor="@color/white"
+                            android:theme="@style/textInputEditTextTheme" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:id="@+id/saveName"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:background="@drawable/ic_done"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/nameEditLayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/nameEditLayout"
+                        app:layout_constraintTop_toTopOf="@+id/nameEditLayout"
+                        tools:visibility="visible" />
+
+                    <ImageView
+                        android:id="@+id/closeNameEdit"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:background="@drawable/ic_close"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/nameEditLayout"
+                        app:layout_constraintEnd_toStartOf="@id/nameEditLayout"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/nameEditLayout"
+                        tools:visibility="visible" />
+
+                    <LinearLayout
+                        android:id="@+id/divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginStart="@dimen/_20sdp"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:background="@color/gray"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/name" />
+
+                    <TextView
+                        android:id="@+id/emailTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/nevrada"
+                        android:gravity="center"
+                        android:text="@string/profileEmailTitle"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14sdp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/divider" />
+
+                    <TextView
+                        android:id="@+id/email"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:fontFamily="@font/nevrada"
+                        android:textColor="@color/white"
+                        android:textIsSelectable="true"
+                        android:textSize="@dimen/_14sdp"
+                        app:layout_constraintBottom_toBottomOf="@id/emailTitle"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/emailTitle"
+                        app:layout_constraintTop_toTopOf="@id/emailTitle"
+                        tools:text="patientInfoBank@gmail.com" />
+
+                    <TextView
+                        android:id="@+id/contactTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/nevrada"
+                        android:gravity="center"
+                        android:text="@string/profileContactTitle"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14sdp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/emailTitle" />
+
+                    <TextView
+                        android:id="@+id/contact"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:fontFamily="@font/nevrada"
+                        android:textColor="@color/white"
+                        android:textIsSelectable="true"
+                        android:textSize="@dimen/_14sdp"
+                        app:layout_constraintBottom_toBottomOf="@id/contactTitle"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/contactTitle"
+                        app:layout_constraintTop_toTopOf="@id/contactTitle"
+                        tools:text="0162745798" />
+
+                    <EditText
+                        android:id="@+id/contactEditText"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:fontFamily="@font/nevrada"
+                        android:inputType="phone"
+                        android:maxLength="11"
+                        android:minWidth="@dimen/_50sdp"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/contact"
+                        app:layout_constraintEnd_toStartOf="@+id/closeContactEdit"
+                        app:layout_constraintStart_toStartOf="@id/contact"
+                        app:layout_constraintTop_toTopOf="@id/contact" />
+
+                    <ImageView
+                        android:id="@+id/saveContact"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:background="@drawable/ic_done"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/contact"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/contact"
+                        tools:visibility="visible" />
+
+                    <ImageView
+                        android:id="@+id/closeContactEdit"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:background="@drawable/ic_close"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/saveContact"
+                        app:layout_constraintEnd_toStartOf="@id/saveContact"
+                        app:layout_constraintTop_toTopOf="@+id/saveContact"
+                        tools:visibility="visible" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/progressBackground"
+            android:visibility="gone"
+            >
+            <ImageView
+                android:id="@+id/progressHeart"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_120sdp"
+                android:src="@drawable/heart"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

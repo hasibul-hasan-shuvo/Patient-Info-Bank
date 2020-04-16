@@ -8,9 +8,9 @@ import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
 import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.Utils.Spinner.SpinnerCategoryUtils
-import kotlinx.android.synthetic.main.view_spinner.view.*
+import kotlinx.android.synthetic.main.view_user_category_spinner.view.*
 
-class SpinnerAdapter(context: Context, val categories: ArrayList<SpinnerCategoryUtils>): ArrayAdapter<SpinnerCategoryUtils>(context, 0, categories) {
+class UserCateogrySpinnerAdapter(context: Context, val categories: ArrayList<SpinnerCategoryUtils>): ArrayAdapter<SpinnerCategoryUtils>(context, 0, categories) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         return initView(position, convertView, parent, false)
     }
@@ -27,7 +27,7 @@ class SpinnerAdapter(context: Context, val categories: ArrayList<SpinnerCategory
         var view: View
         if(convertView == null) {
             view = LayoutInflater.from(context).inflate(
-                R.layout.view_spinner,
+                R.layout.view_user_category_spinner,
                 viewGroup,
                 false
             )

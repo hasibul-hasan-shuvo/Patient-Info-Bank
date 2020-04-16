@@ -49,7 +49,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:cardBackgroundColor="@color/doctorProfileColor"
+                        app:cardBackgroundColor="@color/patientProfileColor"
                         >
                         <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
@@ -62,7 +62,7 @@
                                 android:id="@+id/profilePicture"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="@color/doctorProfileColor"
+                                android:background="@color/patientProfileColor"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/ic_launcher" />
                         </androidx.cardview.widget.CardView>

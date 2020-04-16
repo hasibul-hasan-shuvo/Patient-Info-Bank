@@ -33,6 +33,7 @@ class PatientActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_patient)
+
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_patient)
         setUpNavigationView()
@@ -103,23 +104,5 @@ class PatientActivity : AppCompatActivity() {
                 binding.navigationView.setItemSelected(selectedId)
             }
         })
-    }
-    private fun signOut() {
-        Log.d(TAG, "Sign out")
-        val firebaseAuth = FirebaseAuth.getInstance()
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .build()
-
-        val googleSignInClient =  GoogleSignIn.getClient(this, gso)
-        if (googleSignInClient != null) {
-            googleSignInClient.signOut()
-            firebaseAuth.signOut()
-
-            val intent = Intent(this, Login::class.java)
-            startActivity(intent)
-            CustomIntent.customType(this, "left-to-right")
-            finish()
-        }
     }
 }

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="divisions">
+        <item>Dhaka</item>
+        <item>Barisal</item>
+        <item>Chittagong</item>
+        <item>Khulna</item>
+        <item>Mymensingh</item>
+        <item>Rajshahi</item>
+        <item>Rangpur</item>
+        <item>Sylhet</item>
+    </string-array>
+
+    <string-array name="Dhaka">
+        <item>Dhaka</item>
+        <item>Gazipur</item>
+        <item>Kishoreganj</item>
+        <item>Manikganj</item>
+        <item>Munshiganj</item>
+        <item>Narayanganj</item>
+        <item>Narsingdi</item>
+        <item>Tangail</item>
+        <item>Faridpur</item>
+        <item>Gopalganj</item>
+        <item>Madaripur</item>
+        <item>Rajbari</item>
+        <item>Shariatpur</item>
+    </string-array>
+    <string-array name="Barisal">
+        <item>Barisal</item>
+        <item>Barguna</item>
+        <item>Bhola</item>
+        <item>Jhalokati</item>
+        <item>Patuakhali</item>
+        <item>Pirojpur</item>
+    </string-array>
+
+    <string-array name="Chittagong">
+        <item>Brahmanbaria</item>
+        <item>Chandpur</item>
+        <item>Chittagong</item>
+        <item>Cox\'s Bazar</item>
+        <item>Comilla</item>
+        <item>Lakshmipur</item>
+        <item>Noakhali</item>
+        <item>Feni</item>
+        <item>Khagrachari</item>
+        <item>Rangamati</item>
+        <item>Bandarban</item>
+    </string-array>
+
+    <string-array name="Khulna">
+        <item>Bagerhat</item>
+        <item>Chuadanga</item>
+        <item>Jessore</item>
+        <item>Jhenaidah</item>
+        <item>Khulna</item>
+        <item>Kushtia</item>
+        <item>Magura</item>
+        <item>Meherpur</item>
+        <item>Narail</item>
+        <item>Satkhira</item>
+    </string-array>
+
+    <string-array name="Mymensingh">
+        <item>Mymensingh</item>
+        <item>Netrokona</item>
+        <item>Jamalpur</item>
+        <item>Sherpur</item>
+    </string-array>
+
+    <string-array name="Rajshahi">
+        <item>Bogura</item>
+        <item>Chapainawabganj</item>
+        <item>Joypurhat</item>
+        <item>Naogaon</item>
+        <item>Natore</item>
+        <item>Pabna</item>
+        <item>Rajshahi</item>
+        <item>Sirajgonj</item>
+    </string-array>
+
+    <string-array name="Rangpur">
+        <item>Panchagarh</item>
+        <item>Thakurgaon</item>
+        <item>Dinajpur</item>
+        <item>Nilphamari</item>
+        <item>Lalmonirhat</item>
+        <item>Kurigram</item>
+        <item>Rangpur</item>
+        <item>Gaibandha</item>
+    </string-array>
+
+    <string-array name="Sylhet">
+        <item>Habiganj</item>
+        <item>Moulvibazar</item>
+        <item>Sunamganj</item>
+        <item>Sylhet</item>
+    </string-array>
+</resources>

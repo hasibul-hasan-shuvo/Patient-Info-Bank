@@ -10,10 +10,12 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.Doctor.Prescription.PatientPrescription"></activity>
+        <activity android:name=".View.Patient.Blood.FindDonor"></activity>
+        <activity android:name=".View.Patient.Blood.BeADonor" />
+        <activity android:name=".View.Doctor.Prescription.PatientPrescription" />
         <activity android:name=".View.Patient.PatientActivity" />
         <activity android:name=".View.Login.UserCategory" />
-        <activity android:name=".View.Login.Login"></activity>
+        <activity android:name=".View.Login.Login" />
         <activity
             android:name=".View.SplashScreen.SplashScreen"
             android:screenOrientation="fullSensor">
@@ -23,7 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.Doctor.DoctorActivity"></activity>
+        <activity android:name=".View.Doctor.DoctorActivity" />
     </application>
 
 </manifest>

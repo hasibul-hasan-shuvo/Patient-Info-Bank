@@ -14,7 +14,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import finalyear.project.patientinfobank.Adapter.UserCategory.SpinnerAdapter
+import finalyear.project.patientinfobank.Adapter.UserCategory.UserCateogrySpinnerAdapter
 import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.Utils.Spinner.SpinnerCategoryUtils
 import finalyear.project.patientinfobank.Utils.UserCategory.UserCategoryUtils
@@ -33,7 +33,7 @@ class UserCategory : AppCompatActivity() {
     private lateinit var binding: ActivityUserCategoryBinding
     private var categoryValues = arrayListOf<SpinnerCategoryUtils>()
     private var degreesList = arrayListOf<String>()
-    private lateinit var spinnerAdapter: SpinnerAdapter
+    private lateinit var userCateogrySpinnerAdapter: UserCateogrySpinnerAdapter
     private lateinit var animation: Animation
     private var isDoctor by Delegates.notNull<Boolean>()
     private var isInValidDate = true
@@ -52,8 +52,8 @@ class UserCategory : AppCompatActivity() {
         categoryValues.add(SpinnerCategoryUtils("Doctor", R.drawable.ic_doctor))
         categoryValues.add(SpinnerCategoryUtils("Patient", R.drawable.ic_patient))
 
-        spinnerAdapter = SpinnerAdapter(this, categoryValues)
-        binding.category.setAdapter(spinnerAdapter)
+        userCateogrySpinnerAdapter = UserCateogrySpinnerAdapter(this, categoryValues)
+        binding.category.setAdapter(userCateogrySpinnerAdapter)
 
         getCurrentDate()
 

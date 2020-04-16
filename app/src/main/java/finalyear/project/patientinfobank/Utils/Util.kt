@@ -15,6 +15,7 @@ class Util {
         // Toolbar titles
         val PROFILE = "Profile"
         val PATIENT_PRESCRIPTION = "Patient information"
+        val BE_A_DONOR = "Donor information"
 
 
         // Sign in

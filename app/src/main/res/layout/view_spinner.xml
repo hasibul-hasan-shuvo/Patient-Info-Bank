@@ -4,36 +4,20 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorPrimaryDark"
     >
-    <LinearLayout
+
+    <TextView
+        android:id="@+id/spinnerItemText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingStart="@dimen/_5sdp"
-        android:paddingEnd="@dimen/_5sdp"
-        android:paddingTop="@dimen/_5sdp"
-        android:paddingBottom="@dimen/_5sdp"
-        >
-        <ImageView
-            android:id="@+id/spinnerItemIcon"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
-            tools:src="@drawable/ic_patient"
-            />
-
-        <TextView
-            android:id="@+id/spinnerItemText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Patient"
-            android:textSize="@dimen/_12sdp"
-            android:textColor="@color/white"
-            android:layout_marginStart="@dimen/_10sdp"
-            />
-    </LinearLayout>
-
+        tools:text="Patient"
+        android:textSize="@dimen/_12sdp"
+        android:textColor="@color/white"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginBottom="@dimen/_6sdp"
+        />
     <View
         android:id="@+id/spinnerItemDivider"
         android:layout_width="match_parent"

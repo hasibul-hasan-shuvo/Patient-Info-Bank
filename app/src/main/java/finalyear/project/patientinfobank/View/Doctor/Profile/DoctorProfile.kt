@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.common.base.Strings.isNullOrEmpty
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
@@ -22,6 +23,7 @@ import com.squareup.picasso.Picasso
 import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.Utils.UserCategory.UserCategoryUtils
 import finalyear.project.patientinfobank.Utils.Util
+import finalyear.project.patientinfobank.Utils.ValidityChecker
 import finalyear.project.patientinfobank.View.Login.Login
 import finalyear.project.patientinfobank.databinding.FragmentDoctorProfileBinding
 import kotlinx.android.synthetic.main.activity_login.*
@@ -60,6 +62,14 @@ class DoctorProfile : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        if (isNullOrEmpty(userCategoryUtils.phoneNumber))
+            retrieveData()
+    }
+
+    // Method to setup toolbar
     private fun setUpToolbar() {
 
         binding.toolbar.title = Util.PROFILE
@@ -77,18 +87,20 @@ class DoctorProfile : Fragment() {
     }
 
 
-
+    // Creating option menu
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater!!.inflate(R.menu.menu_profile, menu)
         Log.d(TAG, "OptionMenu")
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    // Method to change profile picture
     private fun changeProfilePicture() {
 
         Log.d(TAG, "Change profile picture")
     }
 
+    // Method to change name
     private fun changeName() {
         Log.d(TAG, "Change name")
         if (binding.contact.visibility == View.INVISIBLE)
@@ -105,12 +117,11 @@ class DoctorProfile : Fragment() {
         binding.nameEditText.setSelection(name.length)
 
         binding.saveName.setOnClickListener {
-            if (binding.nameEditText.text.toString() == ""
-                || binding.nameEditText.text == null) {
+            val newName = binding.nameEditText.text.toString()
+            if (isNullOrEmpty(newName)) {
                 binding.nameEditText.error = Util.EMPTY_ERROR_MESSAGE
                 binding.nameEditText.requestFocus()
             } else {
-                val newName = binding.nameEditText.text.toString()
                 name = newName
                 val updateUserProfileChangeRequest = UserProfileChangeRequest.Builder()
                     .setDisplayName(newName)
@@ -133,6 +144,7 @@ class DoctorProfile : Fragment() {
     }
 
 
+    // Updating user profile
     private fun updateUserProfile(updateUserProfileChangeRequest: UserProfileChangeRequest) {
 
         runProgess()
@@ -169,6 +181,7 @@ class DoctorProfile : Fragment() {
             }
     }
 
+    // Method to change contact
     private fun changeContact() {
         Log.d(TAG, "Change contact")
         if (binding.name.visibility == View.INVISIBLE) {
@@ -197,6 +210,7 @@ class DoctorProfile : Fragment() {
         }
     }
 
+    // Updating contact into database
     private fun updateContact() {
 
         runProgess()
@@ -230,25 +244,24 @@ class DoctorProfile : Fragment() {
             }
     }
 
+    // Checking contact validity
     private fun checkContactValidity(): Boolean {
 
         val phoneNumber = binding.contactEditText.text.toString()
         Log.d(TAG, "CheckValidity: $phoneNumber")
-        if (phoneNumber == null ||
-            phoneNumber == Util.EMPTY_VALUE) {
+        if (isNullOrEmpty(phoneNumber)) {
             binding.contactEditText.requestFocus()
             binding.contactEditText.error = Util.EMPTY_ERROR_MESSAGE
             return false
         }
 
         // Checking the phone number is valid or not
-        val regex = "^01".toRegex()
+        val validityChecker = ValidityChecker()
 
-        if (phoneNumber.length < 11 ||
-            !regex.containsMatchIn(phoneNumber)) {
+        if (!validityChecker.isValidPhoneNumber(phoneNumber)) {
             binding.contactEditText.requestFocus()
             binding.contactEditText.error = Util.INVALID_PHONE_NUMBER_ERROR_MESSAGE
-            binding.contactEditText.setSelection(2)
+            binding.contactEditText.setSelection(phoneNumber.length)
             return false
         }
 
@@ -263,6 +276,7 @@ class DoctorProfile : Fragment() {
         binding.contact.visibility = View.VISIBLE
     }
 
+    // Degree Layout setting
     private fun setAddDegreeLayout() {
         binding.addDegreeButton.setOnClickListener {
             val degree = binding.doctorDegree.text.toString()
@@ -275,6 +289,8 @@ class DoctorProfile : Fragment() {
             }
         }
     }
+
+    // Updating DegreeList into database
     private fun updateDegreeList() {
 
         runProgess()
@@ -295,7 +311,7 @@ class DoctorProfile : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
                 stopProgress()
-                binding.doctorDegree.setText("")
+                binding.doctorDegree.setText(Util.EMPTY_VALUE)
             }
             .addOnFailureListener{
                 Log.d(TAG, "UpdateUserCategory: ${it.message}")
@@ -308,6 +324,7 @@ class DoctorProfile : Fragment() {
             }
     }
 
+    // Method to sign out
     private fun signOut() {
         Log.d(TAG, "Sign out")
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -325,29 +342,25 @@ class DoctorProfile : Fragment() {
             activity?.finish()
         }
     }
-    override fun onResume() {
-        super.onResume()
 
-        if (userCategoryUtils.phoneNumber == "" ||
-                userCategoryUtils.phoneNumber == null)
-            retrieveData()
-    }
 
+    // Fetching data from database
     private fun retrieveData() {
         runProgess()
 
         name = firebaseAuth.currentUser?.displayName.toString()
         email = firebaseAuth.currentUser?.email.toString()
 
-        if (email != null) {
+        if (!isNullOrEmpty(email)) {
             val firebaseFirestore = FirebaseFirestore.getInstance()
             firebaseFirestore
                 .collection(Util.USER_CATEGORY_DATABASE)
                 .document(email)
                 .get()
                 .addOnSuccessListener {
+                    Log.d(TAG, "user: ${userCategoryUtils.toString()}")
                     if (it != null)
-                    userCategoryUtils = it.toObject(UserCategoryUtils::class.java)!!
+                        userCategoryUtils = it.toObject(UserCategoryUtils::class.java)!!
                     setViewsData()
 
                     stopProgress()
@@ -364,6 +377,7 @@ class DoctorProfile : Fragment() {
 
     }
 
+    // Setting data into views
     private fun setViewsData() {
         try {
             // Setting profile picture

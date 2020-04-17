@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import com.google.common.base.Strings.isNullOrEmpty
 
 import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.Utils.Util
@@ -62,8 +63,8 @@ class DoctorHome : Fragment() {
     }
 
     private fun checkValidity(): Boolean {
-        if (binding.searchId.text.toString() == "" ||
-                binding.searchId.text.toString() == null) {
+        val searchId = binding.searchId.text.toString()
+        if (isNullOrEmpty(searchId)) {
             binding.searchId.error = Util.EMPTY_ERROR_MESSAGE
             return false
         }

@@ -37,11 +37,14 @@ class Util {
         val EMPTY_ERROR_MESSAGE = "Field is empty"
         val NO_DEGREE_ADDED_ERROR_MESSAGE = "No degree is added"
         val INVALID_PHONE_NUMBER_ERROR_MESSAGE = "Invalid phone number"
+        val INVALID_EMAIL_ERROR_MESSAGE = "Invalid email"
         val INVALID_BIRTH_DATE_ERROR_MESSAGE = "Invalid birth date"
+        val LENGTH_LESS_THAN_3_ERROR_MESSAGE = "At least 3 character"
 
 
         // DatabasePaths
         val USER_CATEGORY_DATABASE = "UsersCategory"
+        val BLOOD_DONOR_DATABASE = "BloodDonor"
 
         // FirebaseDatabase utils
         // UserCategory:

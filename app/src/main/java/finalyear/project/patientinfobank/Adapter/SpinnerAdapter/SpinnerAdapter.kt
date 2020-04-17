@@ -14,9 +14,7 @@ class SpinnerAdapter(context: Context, val items: Array<String>): ArrayAdapter<S
         return initView(position, convertView, parent, false)
     }
 
-    override fun getItem(position: Int): String? {
-        return items[position]
-    }
+    override fun getItem(position: Int): String? = items[position]
 
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
         return initView(position, convertView, parent, true)

@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.common.base.Strings.isNullOrEmpty
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
@@ -19,6 +20,7 @@ import com.squareup.picasso.Picasso
 import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.Utils.UserCategory.UserCategoryUtils
 import finalyear.project.patientinfobank.Utils.Util
+import finalyear.project.patientinfobank.Utils.ValidityChecker
 import finalyear.project.patientinfobank.View.Login.Login
 import finalyear.project.patientinfobank.databinding.FragmentPatientProfileBinding
 import maes.tech.intentanim.CustomIntent
@@ -54,6 +56,7 @@ class PatientProfile : Fragment() {
         // Inflate the layout for this fragment
         return binding.root
     }
+
     private fun setUpToolbar() {
 
         binding.toolbar.title = Util.PROFILE
@@ -70,19 +73,26 @@ class PatientProfile : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (isNullOrEmpty(userCategoryUtils.phoneNumber))
+            retrieveData()
+    }
 
-
+    // Creating option menu
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater!!.inflate(R.menu.menu_profile, menu)
         Log.d(TAG, "OptionMenu")
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    // Method to change profile picture
     private fun changeProfilePicture() {
 
         Log.d(TAG, "Change profile picture")
     }
 
+    // Method to change name
     private fun changeName() {
         Log.d(TAG, "Change name")
         if (binding.contact.visibility == View.INVISIBLE)
@@ -99,12 +109,11 @@ class PatientProfile : Fragment() {
         binding.nameEditText.setSelection(name.length)
 
         binding.saveName.setOnClickListener {
-            if (binding.nameEditText.text.toString() == ""
-                || binding.nameEditText.text == null) {
+            val newName = binding.nameEditText.text.toString()
+            if (isNullOrEmpty(newName)) {
                 binding.nameEditText.error = Util.EMPTY_ERROR_MESSAGE
                 binding.nameEditText.requestFocus()
             } else {
-                val newName = binding.nameEditText.text.toString()
                 name = newName
                 val updateUserProfileChangeRequest = UserProfileChangeRequest.Builder()
                     .setDisplayName(newName)
@@ -127,6 +136,7 @@ class PatientProfile : Fragment() {
     }
 
 
+    // Updating user profile
     private fun updateUserProfile(updateUserProfileChangeRequest: UserProfileChangeRequest) {
 
         runProgess()
@@ -163,6 +173,7 @@ class PatientProfile : Fragment() {
             }
     }
 
+    // Method to change contact
     private fun changeContact() {
         Log.d(TAG, "Change contact")
         if (binding.name.visibility == View.INVISIBLE) {
@@ -191,6 +202,7 @@ class PatientProfile : Fragment() {
         }
     }
 
+    // Updating contact into database
     private fun updateContact() {
 
         runProgess()
@@ -205,6 +217,7 @@ class PatientProfile : Fragment() {
                 userCategoryUtils.phoneNumber
             )
             .addOnSuccessListener {
+                Log.d(TAG, "UpdateUserCategory: Success")
                 Toast.makeText(
                     context,
                     Util.UPDATE_SUCCESSFUL_MESSAGE,
@@ -224,25 +237,24 @@ class PatientProfile : Fragment() {
             }
     }
 
+    // Checking phone number validity
     private fun checkContactValidity(): Boolean {
 
         val phoneNumber = binding.contactEditText.text.toString()
         Log.d(TAG, "CheckValidity: $phoneNumber")
-        if (phoneNumber == null ||
-            phoneNumber == Util.EMPTY_VALUE) {
+        if (isNullOrEmpty(phoneNumber)) {
             binding.contactEditText.requestFocus()
             binding.contactEditText.error = Util.EMPTY_ERROR_MESSAGE
             return false
         }
 
         // Checking the phone number is valid or not
-        val regex = "^01".toRegex()
 
-        if (phoneNumber.length < 11 ||
-            !regex.containsMatchIn(phoneNumber)) {
+        val validityChecker = ValidityChecker()
+        if (!validityChecker.isValidPhoneNumber(phoneNumber)) {
             binding.contactEditText.requestFocus()
             binding.contactEditText.error = Util.INVALID_PHONE_NUMBER_ERROR_MESSAGE
-            binding.contactEditText.setSelection(2)
+            binding.contactEditText.setSelection(phoneNumber.length)
             return false
         }
 
@@ -257,6 +269,7 @@ class PatientProfile : Fragment() {
         binding.contact.visibility = View.VISIBLE
     }
 
+    // Method to sign out
     private fun signOut() {
         Log.d(TAG, "Sign out")
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -274,21 +287,16 @@ class PatientProfile : Fragment() {
             activity?.finish()
         }
     }
-    override fun onResume() {
-        super.onResume()
 
-        if (userCategoryUtils.phoneNumber == "" ||
-            userCategoryUtils.phoneNumber == null)
-            retrieveData()
-    }
 
+    // Fetching data from database
     private fun retrieveData() {
         runProgess()
 
         name = firebaseAuth.currentUser?.displayName.toString()
         email = firebaseAuth.currentUser?.email.toString()
 
-        if (email != null) {
+        if (!isNullOrEmpty(email)) {
             val firebaseFirestore = FirebaseFirestore.getInstance()
             firebaseFirestore
                 .collection(Util.USER_CATEGORY_DATABASE)
@@ -313,6 +321,7 @@ class PatientProfile : Fragment() {
 
     }
 
+    // Setting data into views
     private fun setViewsData() {
         try {
             // Setting profile picture
@@ -345,6 +354,7 @@ class PatientProfile : Fragment() {
     private fun stopProgress() {
         binding.progress.visibility = View.GONE
     }
+
     private fun runProgess() {
 
         val animation = AnimationUtils.loadAnimation(context, R.anim.heart_beat)

@@ -15,9 +15,7 @@ class UserCateogrySpinnerAdapter(context: Context, val categories: ArrayList<Spi
         return initView(position, convertView, parent, false)
     }
 
-    override fun getItem(position: Int): SpinnerCategoryUtils? {
-        return categories[position]
-    }
+    override fun getItem(position: Int): SpinnerCategoryUtils? = categories[position]
 
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
         return initView(position, convertView, parent, true)

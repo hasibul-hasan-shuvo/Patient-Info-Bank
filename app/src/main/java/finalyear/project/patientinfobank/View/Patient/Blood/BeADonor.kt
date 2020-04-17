@@ -7,11 +7,17 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.AdapterView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import com.google.common.base.Strings.isNullOrEmpty
+import com.google.firebase.firestore.FirebaseFirestore
 import finalyear.project.patientinfobank.Adapter.SpinnerAdapter.SpinnerAdapter
 import finalyear.project.patientinfobank.R
+import finalyear.project.patientinfobank.Utils.BloodDonor.BloodDonorInformationUtils
 import finalyear.project.patientinfobank.Utils.Util
+import finalyear.project.patientinfobank.Utils.ValidityChecker
 import finalyear.project.patientinfobank.databinding.ActivityBeADonorBinding
 import java.util.*
 
@@ -29,6 +35,11 @@ class BeADonor : AppCompatActivity() {
     private var day: Int = 0
     private var month: Int = 0
     private var year: Int = 0
+    private lateinit var fullname: String
+    private lateinit var address: String
+    private lateinit var phoneNumber: String
+    private lateinit var email: String
+    private lateinit var birthDate: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,6 +80,12 @@ class BeADonor : AppCompatActivity() {
         return true
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)
+    }
+
+    // Setting division spinner
     private fun setDivisionSpinner() {
         val divisionsList = resources.getStringArray(R.array.divisions)
 
@@ -100,6 +117,7 @@ class BeADonor : AppCompatActivity() {
         }
     }
 
+    // Setting district spinner
     private fun setDistrictSpinner(identifier: Int) {
         val districtList = resources.getStringArray(identifier)
 
@@ -126,6 +144,7 @@ class BeADonor : AppCompatActivity() {
         }
     }
 
+    // Setting blood group spinner
     private fun setBloodGroupSpinner() {
         val bloodGroupsList = resources.getStringArray(R.array.bloodGroup)
 
@@ -152,6 +171,7 @@ class BeADonor : AppCompatActivity() {
         }
     }
 
+    // Method to get current date
     private fun getCurrentDate() {
         val calendar = Calendar.getInstance()
         day = calendar.get(Calendar.DAY_OF_MONTH)
@@ -206,10 +226,123 @@ class BeADonor : AppCompatActivity() {
 
         datePickerDialog.show()
     }
-    
+
+
+    // Saving information into database
     private fun saveDonorInformation() {
         Log.d(TAG, "Save")
+
+        if (isValidData()) {
+            runProgess()
+
+            val bloodDonorInformationUtils = BloodDonorInformationUtils(
+                fullname,
+                division!!,
+                district!!,
+                address,
+                phoneNumber,
+                email,
+                birthDate,
+                bloodGroup!!
+            )
+
+            val database: FirebaseFirestore = FirebaseFirestore.getInstance()
+
+            database
+                .collection(Util.BLOOD_DONOR_DATABASE)
+                .document(district!!)
+                .collection(bloodGroup!!)
+                .document(phoneNumber)
+                .set(bloodDonorInformationUtils)
+                .addOnSuccessListener {
+                    Toast.makeText(
+                        this,
+                        Util.REGISTRATION_SUCCESSFUL_MESSAGE,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    stopProgress()
+                    finish()
+                    overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)
+                }
+                .addOnFailureListener {
+                    Toast.makeText(
+                        this,
+                        Util.REGISTRATION_FAILED_MESSAGE,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    stopProgress()
+                }
+        }
     }
 
+
+    // Checking input data validity
+    fun isValidData(): Boolean {
+        fullname = binding.fullName.text.toString()
+        address = binding.address.text.toString()
+        phoneNumber = binding.phoneNumber.text.toString()
+        email = binding.email.text.toString()
+        birthDate = binding.birthDate.text.toString()
+
+        if (isNullOrEmpty(fullname)) {
+            binding.fullName.requestFocus()
+            binding.fullName.error = Util.EMPTY_ERROR_MESSAGE
+            return false
+        } else if (fullname.length < 3) {
+            binding.fullName.requestFocus()
+            binding.fullName.error = Util.LENGTH_LESS_THAN_3_ERROR_MESSAGE
+            binding.fullName.setSelection(fullname.length)
+            return false
+        }
+
+        if (isNullOrEmpty(address)) {
+            binding.address.requestFocus()
+            binding.address.error = Util.EMPTY_ERROR_MESSAGE
+            return false
+        }
+
+        if (isNullOrEmpty(phoneNumber)) {
+            binding.phoneNumber.requestFocus()
+            binding.phoneNumber.error = Util.EMPTY_ERROR_MESSAGE
+            return false
+        }
+
+        // Checking the phone number is valid or not
+
+        val validityChecker = ValidityChecker()
+        if (!validityChecker.isValidPhoneNumber(phoneNumber)) {
+            binding.phoneNumber.requestFocus()
+            binding.phoneNumber.error = Util.INVALID_PHONE_NUMBER_ERROR_MESSAGE
+            binding.phoneNumber.setSelection(phoneNumber.length)
+            return false
+        }
+
+        if (!validityChecker.isValidEmail(email)) {
+            binding.email.requestFocus()
+            binding.email.error = Util.INVALID_EMAIL_ERROR_MESSAGE
+            binding.email.setSelection(email.length)
+            return false
+        }
+
+        if(isInValidDate) {
+            binding.birthDate.requestFocus()
+            binding.birthDate.error = Util.INVALID_BIRTH_DATE_ERROR_MESSAGE
+            return false
+        }
+
+        return true
+    }
+
+    private fun stopProgress() {
+        binding.progress.visibility = View.GONE
+    }
+
+    private fun runProgess() {
+
+        val animation = AnimationUtils.loadAnimation(this, R.anim.heart_beat)
+        binding.progressHeart.startAnimation(animation)
+
+        binding.progress.visibility = View.VISIBLE
+    }
 
 }

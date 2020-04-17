@@ -53,6 +53,7 @@ class Login : AppCompatActivity() {
         }
     }
 
+    // Logo animation setting
     private fun setLogoAnimation() {
 
         window?.enterTransition  = null
@@ -61,6 +62,7 @@ class Login : AppCompatActivity() {
 
     }
 
+    // Google sign in window is creating
     private fun googleSignInClientCreate() {
 
         // Configure Google Sign In
@@ -78,6 +80,7 @@ class Login : AppCompatActivity() {
         startActivityForResult(signInIntent, Util.RC_SIGN_IN)
     }
 
+    // Receiving google account
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -140,6 +143,8 @@ class Login : AppCompatActivity() {
 
     }
 
+
+    // Opening new window based on login email category
     private fun updateUI(currentUser: FirebaseUser) {
         val email = currentUser.email
         val database = FirebaseFirestore.getInstance()

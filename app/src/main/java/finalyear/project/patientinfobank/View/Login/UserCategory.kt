@@ -12,6 +12,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import com.google.common.base.Strings.isNullOrEmpty
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import finalyear.project.patientinfobank.Adapter.UserCategory.UserCateogrySpinnerAdapter
@@ -19,6 +20,7 @@ import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.Utils.Spinner.SpinnerCategoryUtils
 import finalyear.project.patientinfobank.Utils.UserCategory.UserCategoryUtils
 import finalyear.project.patientinfobank.Utils.Util
+import finalyear.project.patientinfobank.Utils.ValidityChecker
 import finalyear.project.patientinfobank.View.Doctor.DoctorActivity
 import finalyear.project.patientinfobank.View.Patient.PatientActivity
 import finalyear.project.patientinfobank.databinding.ActivityUserCategoryBinding
@@ -71,7 +73,7 @@ class UserCategory : AppCompatActivity() {
     // Setting up final submit button
     private fun setFinalSubmissionListener() {
         binding.userCategorySubmit.setOnClickListener {
-            if (checkValidity()) {
+            if (isValidData()) {
                 Log.d(TAG, "Information is correct:")
                 val phoneNumber = binding.phoneNumber.text.toString()
                 val patientBirthDate = binding.patientBirthDate.text.toString()
@@ -138,24 +140,22 @@ class UserCategory : AppCompatActivity() {
 
     // Checking validity of the fields,
     // is all information is valid or not
-    private fun checkValidity(): Boolean {
+    private fun isValidData(): Boolean {
         val phoneNumber = binding.phoneNumber.text.toString()
         val patientBirthDate = binding.patientBirthDate.text.toString()
 
-        if (phoneNumber == null ||
-            phoneNumber == Util.EMPTY_VALUE) {
+        if (isNullOrEmpty(phoneNumber)) {
             binding.phoneNumber.requestFocus()
             binding.phoneNumber.error = Util.EMPTY_ERROR_MESSAGE
             return false
         }
 
-        // Checking the phone number is valid or not
-        val regex = "^01".toRegex()
+        val validityChecker = ValidityChecker()
 
-        if (phoneNumber.length < 11 ||
-                !regex.containsMatchIn(phoneNumber)) {
+        if (!validityChecker.isValidPhoneNumber(phoneNumber)) {
             binding.phoneNumber.requestFocus()
             binding.phoneNumber.error = Util.INVALID_PHONE_NUMBER_ERROR_MESSAGE
+            binding.phoneNumber.setSelection(phoneNumber.length)
             return false
         }
 

@@ -13,7 +13,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.google.common.base.Strings.isNullOrEmpty
 import com.google.firebase.firestore.FirebaseFirestore
-import finalyear.project.patientinfobank.Adapter.SpinnerAdapter.SpinnerAdapter
+import finalyear.project.patientinfobank.Adapter.SpinnerAdapter.BeDonorSpinnerAdapter
 import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.Utils.BloodDonor.BloodDonorInformationUtils
 import finalyear.project.patientinfobank.Utils.Util
@@ -76,7 +76,6 @@ class BeADonor : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         Log.d(TAG, "Back pressed")
         onBackPressed()
-        overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)
         return true
     }
 
@@ -89,7 +88,7 @@ class BeADonor : AppCompatActivity() {
     private fun setDivisionSpinner() {
         val divisionsList = resources.getStringArray(R.array.divisions)
 
-        val spinnerAdapter = SpinnerAdapter(this, divisionsList)
+        val spinnerAdapter = BeDonorSpinnerAdapter(this, divisionsList)
 
         binding.division.adapter = spinnerAdapter
 
@@ -121,7 +120,7 @@ class BeADonor : AppCompatActivity() {
     private fun setDistrictSpinner(identifier: Int) {
         val districtList = resources.getStringArray(identifier)
 
-        val spinnerAdapter = SpinnerAdapter(this, districtList)
+        val spinnerAdapter = BeDonorSpinnerAdapter(this, districtList)
 
         binding.district.adapter = spinnerAdapter
 
@@ -148,7 +147,7 @@ class BeADonor : AppCompatActivity() {
     private fun setBloodGroupSpinner() {
         val bloodGroupsList = resources.getStringArray(R.array.bloodGroup)
 
-        val spinnerAdapter = SpinnerAdapter(this, bloodGroupsList)
+        val spinnerAdapter = BeDonorSpinnerAdapter(this, bloodGroupsList)
 
         binding.bloodGroup.adapter = spinnerAdapter
 

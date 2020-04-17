@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import finalyear.project.patientinfobank.R
 import kotlinx.android.synthetic.main.view_user_category_spinner.view.*
 
-class SpinnerAdapter(context: Context, val items: Array<String>): ArrayAdapter<String>(context, 0, items) {
+class FindDonorSpinnerAdapter(context: Context, val items: Array<String>): ArrayAdapter<String>(context, 0, items) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         return initView(position, convertView, parent, false)
     }
@@ -24,7 +24,7 @@ class SpinnerAdapter(context: Context, val items: Array<String>): ArrayAdapter<S
         var view: View
         if(convertView == null) {
             view = LayoutInflater.from(context).inflate(
-                R.layout.view_spinner,
+                R.layout.view_find_donor_spinner,
                 viewGroup,
                 false
             )
@@ -37,7 +37,7 @@ class SpinnerAdapter(context: Context, val items: Array<String>): ArrayAdapter<S
         }
 
         if (isDropDown) {
-            view.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary))
+            view.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
             if (position == items.size - 1) {
                 view.spinnerItemDivider.visibility = View.GONE
             }

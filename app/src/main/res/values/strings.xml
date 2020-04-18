@@ -10,7 +10,7 @@
 
     <string name="noDonorFound">No donor is found</string>
 
-<!--    hints-->
+    <!--    hints-->
     <string name="userCategoryHint">User category</string>
     <string name="phoneNumberHint">Phone number</string>
     <string name="patientBirthDateHint">Patient birth date</string>
@@ -25,6 +25,8 @@
     <string name="addressHint">Address</string>
     <string name="divisionHint">Division</string>
     <string name="districtHint">District</string>
+    <string name="divisionTitle">Division:</string>
+    <string name="districtTitle">District:</string>
 
     <string name="beADonor">Be A Donor</string>
     <string name="findADonor">Find A Donor</string>
@@ -52,4 +54,8 @@
     <string name="searchBarTransition">search_bar_transition</string>
     <string name="logoTransition">logo_transition</string>
     <string name="donorNameTransition">donor_name_transition</string>
+    <string name="donorDivisionTransition">donor_division_transition</string>
+    <string name="donorDistrictTransition">donor_district_transition</string>
+    <string name="donorBloodGroupTransition">donor_blood_group_transition</string>
+    <string name="donorBloodGroupIconTransition">donor_blood_group_icon_transition</string>
 </resources>

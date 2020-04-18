@@ -1,5 +1,8 @@
 package finalyear.project.patientinfobank.Utils.BloodDonor
 
+import java.io.Serializable
+
+@SuppressWarnings("serial")
 class BloodDonorInformationUtils(
     var fullName: String,
     var division: String,
@@ -9,7 +12,7 @@ class BloodDonorInformationUtils(
     var email: String,
     var birthDate: String,
     var bloodGroup: String
-) {
+): Serializable {
     constructor(): this(
         "",
         "",

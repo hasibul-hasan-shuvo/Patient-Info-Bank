@@ -151,67 +151,56 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/name" />
 
-                    <TextView
-                        android:id="@+id/emailTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <ImageView
+                        android:id="@+id/emailIcon"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:src="@drawable/ic_email"
                         android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:fontFamily="@font/nevrada"
-                        android:gravity="center"
-                        android:text="@string/profileEmailTitle"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14sdp"
-                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/email"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/divider" />
+                        app:layout_constraintTop_toTopOf="@+id/email" />
 
                     <TextView
                         android:id="@+id/email"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:layout_marginEnd="@dimen/_10sdp"
-                        android:fontFamily="@font/nevrada"
-                        android:textColor="@color/white"
-                        android:textIsSelectable="true"
-                        android:textSize="@dimen/_14sdp"
-                        app:layout_constraintBottom_toBottomOf="@id/emailTitle"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/emailTitle"
-                        app:layout_constraintTop_toTopOf="@id/emailTitle"
-                        tools:text="patientInfoBank@gmail.com" />
-
-                    <TextView
-                        android:id="@+id/contactTitle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dip"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:fontFamily="@font/nevrada"
-                        android:gravity="center"
-                        android:text="@string/profileContactTitle"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_14sdp"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/nevrada"
+                        android:textIsSelectable="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/emailIcon"
+                        app:layout_constraintTop_toBottomOf="@+id/divider"
+                        tools:text="patientInfoBank@gmail.com" />
+
+
+                    <ImageView
+                        android:id="@+id/contactIcon"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:src="@drawable/ic_phone"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/contact"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/emailTitle" />
+                        app:layout_constraintTop_toTopOf="@+id/contact" />
 
                     <TextView
                         android:id="@+id/contact"
-                        android:layout_width="0dp"
+                        android:layout_width="0dip"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:layout_marginEnd="@dimen/_10sdp"
-                        android:fontFamily="@font/nevrada"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
                         android:textColor="@color/white"
-                        android:textIsSelectable="true"
                         android:textSize="@dimen/_14sdp"
-                        app:layout_constraintBottom_toBottomOf="@id/contactTitle"
+                        android:fontFamily="@font/nevrada"
+                        android:textIsSelectable="true"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/contactTitle"
-                        app:layout_constraintTop_toTopOf="@id/contactTitle"
-                        tools:text="0162745798" />
+                        app:layout_constraintStart_toEndOf="@+id/contactIcon"
+                        app:layout_constraintTop_toBottomOf="@+id/email"
+                        tools:text="01627415001" />
 
                     <EditText
                         android:id="@+id/contactEditText"
@@ -224,6 +213,7 @@
                         android:minWidth="@dimen/_50sdp"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_14sdp"
+                        android:visibility="invisible"
                         app:layout_constraintBottom_toBottomOf="@+id/contact"
                         app:layout_constraintEnd_toStartOf="@+id/closeContactEdit"
                         app:layout_constraintStart_toStartOf="@id/contact"
@@ -254,6 +244,30 @@
                         app:layout_constraintEnd_toStartOf="@id/saveContact"
                         app:layout_constraintTop_toTopOf="@+id/saveContact"
                         tools:visibility="visible" />
+
+
+                    <ImageView
+                        android:id="@+id/ageIcon"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:src="@drawable/ic_age"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/birthDate"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/birthDate" />
+
+                    <TextView
+                        android:id="@+id/birthDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        app:layout_constraintStart_toEndOf="@+id/ageIcon"
+                        app:layout_constraintTop_toBottomOf="@+id/contact"
+                        android:fontFamily="@font/nevrada"
+                        tools:text="08/12/2020" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.core.widget.NestedScrollView>

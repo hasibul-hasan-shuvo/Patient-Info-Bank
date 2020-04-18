@@ -311,7 +311,7 @@ class UserCategory : AppCompatActivity() {
                 this.month = month
                 this.year = year
 
-                val date = "%02d/%02d/%d".format(day, month, year)
+                val date = "%02d/%02d/%d".format(day, month+1, year)
                 binding.patientBirthDate.setText(date)
                 var calendar = Calendar.getInstance()
                 calendar.set(Calendar.DAY_OF_MONTH, day)

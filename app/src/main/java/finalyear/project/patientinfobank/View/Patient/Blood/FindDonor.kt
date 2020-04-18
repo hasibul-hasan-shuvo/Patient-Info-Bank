@@ -30,6 +30,7 @@ class FindDonor : AppCompatActivity() {
     private lateinit var binding: ActivityFindDonorBinding
     private var donorInformationList = arrayListOf<BloodDonorInformationUtils>()
     private lateinit var findDonorAdapter: FindDonorAdapter
+    private lateinit var alertDialog: AlertDialog
 
     private var bloodGroup: String? = null
     private var division: String? = null
@@ -39,8 +40,11 @@ class FindDonor : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_find_donor)
 
+        window.enterTransition = null
         binding = DataBindingUtil.setContentView(this, R.layout.activity_find_donor)
 
+        createDialog()
+        alertDialog.show()
         setUpToolbar()
     }
 
@@ -67,7 +71,7 @@ class FindDonor : AppCompatActivity() {
         Log.d(TAG, "Refresh")
         binding.apply {
             invalidateAll()
-            openDialog()
+            alertDialog.show()
             donorInformationList.clear()
             if (emptyListMessage.visibility == View.VISIBLE)
                 emptyListMessage.visibility = View.GONE
@@ -124,13 +128,9 @@ class FindDonor : AppCompatActivity() {
     }
 
 
-    override fun onResume() {
-        super.onResume()
-        openDialog()
-    }
 
     // Opening alert dialog to get division, district and blood group
-    private fun openDialog() {
+    private fun createDialog() {
         val builder = AlertDialog.Builder(this)
         val dialogView = LayoutInflater
             .from(this)
@@ -139,16 +139,17 @@ class FindDonor : AppCompatActivity() {
         setDivisionSpinner(dialogView)
         setBloodGroupSpinner(dialogView)
 
+        setUpDialogView(dialogView)
+
         builder.setView(dialogView)
 
-        val alertDialog = builder.create()
+        alertDialog = builder.create()
         alertDialog.setCancelable(false)
         alertDialog.setCanceledOnTouchOutside(false)
         alertDialog
             .window
             ?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        setUpDialogView(dialogView, alertDialog)
 
         alertDialog.show()
     }
@@ -242,7 +243,7 @@ class FindDonor : AppCompatActivity() {
         }
     }
 
-    private fun setUpDialogView(dialogView: View?, alertDialog: AlertDialog) {
+    private fun setUpDialogView(dialogView: View?) {
         dialogView?.search?.setOnClickListener {
             fetchData()
             alertDialog.dismiss()

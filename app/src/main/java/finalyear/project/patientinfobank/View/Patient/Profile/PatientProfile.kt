@@ -337,6 +337,7 @@ class PatientProfile : Fragment() {
             binding.name.text = name
             binding.email.text = email
             binding.contact.text = userCategoryUtils.phoneNumber
+            binding.birthDate.text = userCategoryUtils.patientBirthDate
 
             val degreesList = userCategoryUtils.doctorDegreeList
             val arrayAdapter = context?.let { degreesList?.let { it1 ->

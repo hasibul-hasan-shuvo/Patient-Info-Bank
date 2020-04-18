@@ -9,8 +9,12 @@ class Util {
         val OPERATION_FAILED_MESSAGE = "Operation failed"
         val DATA_NOT_FOUND_MESSAGE = "Data not found!"
         val UPDATE_SUCCESSFUL_MESSAGE = "Update successful"
+        val PERMISSION_DENIED = "PERMISSION DENIED"
 
+        // Intent value key
         val SEARCH_PATIENT_ID = "SearchPatientId"
+        val DONOR_INFORMATION = "DonorInformation"
+        val REQUEST_CALL = 1
 
         // Toolbar titles
         val PROFILE = "Profile"
@@ -53,6 +57,15 @@ class Util {
         val USER_CATEGORY_PHONE_NUMBER = "phoneNumber"
         val USER_CATEGORY_DOCTOR_DEGREE_LIST = "doctorDegreeList"
         val USER_CATEGORY_PATIENT_BIRTH_DATE = "patientBirthDate"
+
+        // Chooser title
+        val SEND_MAIL = "Send mail:"
+
+        // Clipboard key
+        val CONTACT_CLIP_BOARD_LABEL = "Contact"
+        val MAIL_CLIP_BOARD_LABEL = "Mail"
+        val MAIL_COPIED = "Email copied"
+        val CONTACT_COPIED = "Contact copied"
     }
 
 }

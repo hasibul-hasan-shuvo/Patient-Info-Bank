@@ -338,6 +338,7 @@ class PatientProfile : Fragment() {
             binding.email.text = email
             binding.contact.text = userCategoryUtils.phoneNumber
             binding.birthDate.text = userCategoryUtils.patientBirthDate
+            binding.patientId.text = email.subSequence(0, email.indexOf('@'))
 
             val degreesList = userCategoryUtils.doctorDegreeList
             val arrayAdapter = context?.let { degreesList?.let { it1 ->

@@ -7,6 +7,7 @@
     <string name="signIn">Sign in</string>
     <string name="signOut">Sign Out</string>
 
+    <string name="patientIdTitle">Your Patient Id</string>
 
     <string name="noDonorFound">No donor is found</string>
 

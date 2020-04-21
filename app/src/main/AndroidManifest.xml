@@ -3,6 +3,7 @@
     package="finalyear.project.patientinfobank">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <application
         android:name="androidx.multidex.MultiDexApplication"
         android:allowBackup="true"
@@ -11,7 +12,18 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.Patient.Blood.DonorInformation"></activity>
+        <activity android:name=".View.Doctor.Prescription.MedicineWrite"></activity>
+        <activity android:name=".View.Doctor.Prescription.AdviceWrite" />
+        <activity android:name=".View.Doctor.Prescription.OEWrite" />
+        <activity android:name=".View.Doctor.Prescription.CCWrite" />
+        <activity android:name=".View.Doctor.Prescription.PatientPrescriptionWrite">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".View.Patient.Blood.DonorInformation" />
         <activity android:name=".View.Patient.Blood.FindDonor" />
         <activity android:name=".View.Patient.Blood.BeADonor" />
         <activity android:name=".View.Doctor.Prescription.PatientPrescription" />
@@ -20,13 +32,7 @@
         <activity android:name=".View.Login.Login" />
         <activity
             android:name=".View.SplashScreen.SplashScreen"
-            android:screenOrientation="fullSensor">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:screenOrientation="fullSensor" />
         <activity android:name=".View.Doctor.DoctorActivity" />
     </application>
 

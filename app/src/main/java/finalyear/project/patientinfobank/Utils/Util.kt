@@ -15,6 +15,7 @@ class Util {
         val SEARCH_PATIENT_ID = "SearchPatientId"
         val DONOR_INFORMATION = "DonorInformation"
         val REQUEST_CALL = 1
+        val WRITE_PRESCRIPTION_REQUEST_CODE = 0
 
         // Toolbar titles
         val PROFILE = "Profile"
@@ -54,6 +55,7 @@ class Util {
         // FirebaseDatabase utils
         // UserCategory:
         val USER_CATEGORY_IS_DOCTOR = "doctor"
+        val USER_CATEGORY_NAME = "name"
         val USER_CATEGORY_PHONE_NUMBER = "phoneNumber"
         val USER_CATEGORY_DOCTOR_DEGREE_LIST = "doctorDegreeList"
         val USER_CATEGORY_PATIENT_BIRTH_DATE = "patientBirthDate"

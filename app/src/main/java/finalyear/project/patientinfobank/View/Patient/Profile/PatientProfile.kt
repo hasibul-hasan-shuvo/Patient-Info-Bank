@@ -145,18 +145,11 @@ class PatientProfile : Fragment() {
             .currentUser
             ?.updateProfile(updateUserProfileChangeRequest)
             ?.addOnSuccessListener {
-                Toast.makeText(
-                    context,
-                    Util.UPDATE_SUCCESSFUL_MESSAGE,
-                    Toast.LENGTH_SHORT
-                ).show()
-                binding.name.text = name
+                userCategoryUtils.name = name
+                updateName()
                 if (binding.name.visibility == View.INVISIBLE) {
                     closeNameEditOption()
                 }
-
-                binding.progress.visibility = View.GONE
-                binding.progressHeart.visibility = View.GONE
             }
             ?.addOnFailureListener {
                 Log.d(TAG, "Failed changing user profile: ${it.message}")
@@ -223,6 +216,42 @@ class PatientProfile : Fragment() {
                     Util.UPDATE_SUCCESSFUL_MESSAGE,
                     Toast.LENGTH_SHORT
                 ).show()
+                stopProgress()
+                closeContactEditOption()
+            }
+            .addOnFailureListener{
+                Log.d(TAG, "UpdateUserCategory: ${it.message}")
+                Toast.makeText(
+                    context,
+                    Util.OPERATION_FAILED_MESSAGE,
+                    Toast.LENGTH_SHORT
+                ).show()
+                stopProgress()
+            }
+    }
+
+    // Updating name into database
+    private fun updateName() {
+
+        runProgess()
+
+        val database = FirebaseFirestore.getInstance()
+
+        database
+            .collection(Util.USER_CATEGORY_DATABASE)
+            .document(email)
+            .update(
+                Util.USER_CATEGORY_NAME,
+                userCategoryUtils.name
+            )
+            .addOnSuccessListener {
+                Log.d(TAG, "UpdateUserCategory: Success")
+                Toast.makeText(
+                    context,
+                    Util.UPDATE_SUCCESSFUL_MESSAGE,
+                    Toast.LENGTH_SHORT
+                ).show()
+                binding.name.text = name
                 stopProgress()
                 closeContactEditOption()
             }

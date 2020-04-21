@@ -75,14 +75,26 @@ class UserCategory : AppCompatActivity() {
         binding.userCategorySubmit.setOnClickListener {
             if (isValidData()) {
                 Log.d(TAG, "Information is correct:")
+                val name = FirebaseAuth.getInstance().currentUser?.displayName
                 val phoneNumber = binding.phoneNumber.text.toString()
                 val patientBirthDate = binding.patientBirthDate.text.toString()
                 if (isDoctor) {
-                    val userCategoryUtils = UserCategoryUtils(isDoctor, phoneNumber, doctorDegreeList = degreesList)
+                    val userCategoryUtils = UserCategoryUtils(
+                        isDoctor,
+                        name!!,
+                        phoneNumber,
+                        doctorDegreeList = degreesList
+                    )
                     Log.d(TAG, "Submit: $userCategoryUtils")
                     uploadToDatabase(userCategoryUtils)
                 } else {
-                    val userCategoryUtils = UserCategoryUtils(isDoctor, phoneNumber, patientBirthDate, ArrayList())
+                    val userCategoryUtils = UserCategoryUtils(
+                        isDoctor,
+                        name!!,
+                        phoneNumber,
+                        patientBirthDate,
+                        ArrayList()
+                    )
                     Log.d(TAG, "Submit: $userCategoryUtils")
                     uploadToDatabase(userCategoryUtils)
                 }
@@ -238,7 +250,7 @@ class UserCategory : AppCompatActivity() {
             } else {
 
                 if (binding.degreesList.visibility == View.GONE) {
-                    animation = AnimationUtils.loadAnimation(this, R.anim.bottomtotop)
+                    animation = AnimationUtils.loadAnimation(this, R.anim.positiontotop)
                     binding.degreesList.startAnimation(animation)
                     binding.degreesListHint.startAnimation(animation)
                     binding.degreesListUndo.startAnimation(animation)

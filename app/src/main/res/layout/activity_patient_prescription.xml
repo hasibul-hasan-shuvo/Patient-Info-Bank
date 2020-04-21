@@ -18,6 +18,8 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:theme="@style/overFlowMenuTheme"
+                app:popupTheme="@style/popupStyle"
                 />
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/patientIdSearchLayout"

@@ -10,6 +10,16 @@
     <string name="patientIdTitle">Your Patient Id</string>
 
     <string name="noDonorFound">No donor is found</string>
+    <string name="ccTitle">C/C:</string>
+    <string name="oeTitle">O/E:</string>
+    <string name="adviceTitle">Advice:</string>
+    <string name="cc">C/C</string>
+    <string name="oe">O/E</string>
+    <string name="advice">Advice</string>
+    <string name="medicine">Medicine</string>
+    <string name="nameTitle">Name:</string>
+    <string name="ageTitle">Age:</string>
+    <string name="dateTitle">Date:</string>
 
     <!--    hints-->
     <string name="userCategoryHint">User category</string>
@@ -17,7 +27,7 @@
     <string name="patientBirthDateHint">Patient birth date</string>
     <string name="doctorDegreeHint">Doctor degree</string>
     <string name="degreesListHint">Degrees list</string>
-    <string name="nameHint">Degrees list</string>
+    <string name="nameHint">Name</string>
     <string name="searchHint">Search by patient id</string>
     <string name="fullNameHint">Full name</string>
     <string name="bloodGroupHint">Blood group</string>
@@ -59,4 +69,8 @@
     <string name="donorDistrictTransition">donor_district_transition</string>
     <string name="donorBloodGroupTransition">donor_blood_group_transition</string>
     <string name="donorBloodGroupIconTransition">donor_blood_group_icon_transition</string>
+    <string name="writeCCTransition">write_cc_transition</string>
+    <string name="writeOETransition">write_oe_transition</string>
+    <string name="writeAdviceTransition">write_advice_transition</string>
+    <string name="writeMedicineTransition">write_medicine_transition</string>
 </resources>

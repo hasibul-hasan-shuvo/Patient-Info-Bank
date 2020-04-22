@@ -15,6 +15,7 @@
     <string name="adviceTitle">Advice:</string>
     <string name="cc">C/C</string>
     <string name="oe">O/E</string>
+    <string name="oeValue">O/E value</string>
     <string name="advice">Advice</string>
     <string name="medicine">Medicine</string>
     <string name="nameTitle">Name:</string>
@@ -69,8 +70,4 @@
     <string name="donorDistrictTransition">donor_district_transition</string>
     <string name="donorBloodGroupTransition">donor_blood_group_transition</string>
     <string name="donorBloodGroupIconTransition">donor_blood_group_icon_transition</string>
-    <string name="writeCCTransition">write_cc_transition</string>
-    <string name="writeOETransition">write_oe_transition</string>
-    <string name="writeAdviceTransition">write_advice_transition</string>
-    <string name="writeMedicineTransition">write_medicine_transition</string>
 </resources>

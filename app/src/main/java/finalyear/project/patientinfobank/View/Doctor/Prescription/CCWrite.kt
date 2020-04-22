@@ -10,6 +10,5 @@ class CCWrite : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cc_write)
 
-
     }
 }

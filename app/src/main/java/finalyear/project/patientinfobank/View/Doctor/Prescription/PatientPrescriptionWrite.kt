@@ -147,7 +147,7 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
     }
 
     private fun openEditorActivity(optionKey: Int) {
-        var intent: Intent? = null
+        var intent: Intent?
 
         when (optionKey) {
             0 -> {

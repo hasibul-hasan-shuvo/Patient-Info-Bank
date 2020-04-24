@@ -1,9 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".View.Doctor.Prescription.MedicineWrite">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimaryDark"
+            android:theme="@style/overFlowMenuTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:popupTheme="@style/popupStyle" />
+
+        <ListView
+            android:id="@+id/medicineList"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:background="@drawable/prescription_box_style"
+            android:nestedScrollingEnabled="true"
+            android:scrollbarStyle="insideOverlay"
+            app:layout_constraintBottom_toTopOf="@+id/medicineTypeTextLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/medicineTypeTextLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:hint="@string/medicineType"
+            app:layout_constraintBottom_toTopOf="@id/breakfastCheckbox"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <AutoCompleteTextView
+                android:id="@+id/medicineType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:maxLines="1"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_12sdp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/medicineNameTextLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:hint="@string/medicine"
+            app:layout_constraintTop_toTopOf="@id/medicineTypeTextLayout"
+            app:layout_constraintBottom_toBottomOf="@id/medicineTypeTextLayout"
+            app:layout_constraintStart_toEndOf="@id/medicineTypeTextLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+
+            <AutoCompleteTextView
+                android:id="@+id/medicineName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:maxLines="1"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_12sdp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <CheckBox
+            android:id="@+id/breakfastCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/breakfast"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/lunchCheckbox"
+            app:layout_constraintBottom_toTopOf="@id/periodFullLayout"
+            />
+        <CheckBox
+            android:id="@+id/lunchCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lunch"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintTop_toTopOf="@id/breakfastCheckbox"
+            app:layout_constraintBottom_toBottomOf="@id/breakfastCheckbox"
+            app:layout_constraintStart_toEndOf="@id/breakfastCheckbox"
+            app:layout_constraintEnd_toStartOf="@id/nightCheckbox"
+            />
+        <CheckBox
+            android:id="@+id/nightCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dinner"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintTop_toTopOf="@id/lunchCheckbox"
+            app:layout_constraintBottom_toBottomOf="@id/lunchCheckbox"
+            app:layout_constraintStart_toEndOf="@id/lunchCheckbox"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/periodFullLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/beforeMeal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/periodLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:hint="@string/period"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/period"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="numberDecimal"
+                    android:maxLength="3"
+                    android:singleLine="true"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_12sdp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Spinner
+                android:id="@+id/periodDayMonthYear"
+                android:layout_width="@dimen/_90sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_height="0dip"
+                android:background="@drawable/prescription_box_style"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/periodLayout"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:entries="@array/dayMonthYear"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <CheckBox
+            android:id="@+id/beforeMeal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/beforeMeal"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toTopOf="@id/commentLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/afterMeal"
+            />
+        <CheckBox
+            android:id="@+id/afterMeal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/afterMeal"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintTop_toTopOf="@id/beforeMeal"
+            app:layout_constraintBottom_toBottomOf="@id/beforeMeal"
+            app:layout_constraintStart_toEndOf="@id/beforeMeal"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/commentLayout"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/addButton"
+            app:layout_constraintStart_toStartOf="parent"
+            android:hint="@string/comment"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/comment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_12sdp"
+                android:singleLine="true"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/addButton"
+            android:layout_width="@dimen/_45sdp"
+            android:layout_height="@dimen/_45sdp"
+            android:src="@drawable/ic_add_black"
+            app:layout_constraintBottom_toBottomOf="@id/commentLayout"
+            app:layout_constraintTop_toTopOf="@id/commentLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

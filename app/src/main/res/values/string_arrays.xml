@@ -10,4 +10,10 @@
         <item>O+</item>
         <item>O-</item>
     </string-array>
+
+    <string-array name="dayMonthYear">
+        <item>Day</item>
+        <item>Month</item>
+        <item>Year</item>
+    </string-array>
 </resources>

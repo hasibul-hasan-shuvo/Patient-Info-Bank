@@ -16,10 +16,24 @@ class Util {
         val DONOR_INFORMATION = "DonorInformation"
         val REQUEST_CALL = 1
         val WRITE_PRESCRIPTION_REQUEST_CODE = 0
+        val CC_LIST = "CCList"
+        val OE_LIST = "OEList"
+        val ADVICE_LIST = "AdviceList"
+        val MEDICINE_LIST = "MedicineList"
+
+        // Intent result key
+        val RESULT_CC = 0
+        val RESULT_OE = 1
+        val RESULT_ADVICE = 2
+        val RESULT_MEDICINE = 3
 
         // Toolbar titles
         val PROFILE = "Profile"
         val PATIENT_PRESCRIPTION = "Patient information"
+        val CC_TITLE = "C/C"
+        val OE_TITLE = "O/E"
+        val ADVICE_TITLE = "Advice"
+        val MEDICINE_TITLE = "Medicines"
         val BE_A_DONOR = "Donor information"
         val FIND_A_DONOR = "Donor list"
 

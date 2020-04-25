@@ -54,7 +54,7 @@ class BeADonor : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_be_a_donor, menu)
+        menuInflater.inflate(R.menu.menu_done, menu)
         return super.onCreateOptionsMenu(menu)
     }
 

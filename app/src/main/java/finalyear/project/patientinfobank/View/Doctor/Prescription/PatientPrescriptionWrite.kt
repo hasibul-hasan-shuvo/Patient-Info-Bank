@@ -1,7 +1,6 @@
 package finalyear.project.patientinfobank.View.Doctor.Prescription
 
 import android.app.Activity
-import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -18,9 +17,8 @@ import finalyear.project.patientinfobank.Utils.UserCategory.UserCategoryUtils
 import finalyear.project.patientinfobank.Utils.Util
 import finalyear.project.patientinfobank.Utils.UtilFunctions
 import finalyear.project.patientinfobank.databinding.ActivityPatientPrescriptionWriteBinding
-import android.util.Pair
 import android.widget.ArrayAdapter
-import android.widget.ListView
+import kotlinx.android.synthetic.main.activity_cc_write.*
 import java.util.*
 
 class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
@@ -31,6 +29,11 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
     private lateinit var patientId: String
     private var writeVisible = false
 
+    private var ccList = arrayListOf<String>()
+    private var oeList = arrayListOf<String>()
+    private var adviceList = arrayListOf<String>()
+    private var medicineList = arrayListOf<String>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_patient_prescription_write)
@@ -40,20 +43,97 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
 
         setUpToolbar()
         setUpListeners()
+        tempCall()
     }
 
     override fun onResume() {
         super.onResume()
 //        patientId = intent.getStringExtra(Util.SEARCH_PATIENT_ID)
 //        fetchPatientInfo()
+
+    }
+
+    private fun tempCall() {
+
         val values = arrayListOf<String>()
         values.add("sfdlkj")
         values.add("sfdlkj")
         values.add("sfdlkj")
         values.add("sfdlkj")
 
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, values)
-        binding.ccList.adapter = adapter
+
+
+        ccList.clear()
+        oeList.clear()
+        adviceList.clear()
+        medicineList.clear()
+
+        ccList.addAll(values)
+        oeList.addAll(values)
+        adviceList.addAll(values)
+        medicineList.addAll(values)
+
+        setCCList()
+        setOEList()
+        setAdviceList()
+        setMedicineList()
+    }
+
+    private fun setCCList() {
+        val adapter = ArrayAdapter(
+            this,
+            R.layout.view_prescription_cc_oe_advice_list,
+            R.id.text,
+            ccList
+        )
+        if (ccList.size == 0)
+            binding.ccList.adapter = null
+        else {
+            binding.ccList.adapter = adapter
+        }
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun setOEList() {
+        val adapter = ArrayAdapter(
+            this,
+            R.layout.view_prescription_cc_oe_advice_list,
+            R.id.text,
+            oeList
+        )
+
+        if (oeList.size == 0)
+            binding.oeList.adapter = null
+        else {
+            binding.oeList.adapter = adapter
+        }
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun setAdviceList() {
+        val adapter = ArrayAdapter(
+            this,
+            R.layout.view_prescription_cc_oe_advice_list,
+            R.id.text,
+            adviceList
+        )
+
+        if (adviceList.size == 0)
+            binding.adviceList.adapter = null
+        else {
+            binding.adviceList.adapter = adapter
+        }
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun setMedicineList() {
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, medicineList)
+        if (medicineList.size == 0)
+            binding.medicineList.adapter = null
+        else {
+            binding.medicineList.adapter = adapter
+        }
+        adapter.notifyDataSetChanged()
     }
 
     // Setting views
@@ -107,7 +187,7 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
 
     // Setting menu bar
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_be_a_donor, menu)
+        menuInflater.inflate(R.menu.menu_done, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -148,19 +228,25 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
 
     private fun openEditorActivity(optionKey: Int) {
         var intent: Intent?
+        var bundle: Bundle? = null
 
+        Log.d(TAG, ccList[0])
         when (optionKey) {
             0 -> {
                 intent = Intent(this, CCWrite::class.java)
+                intent.putExtra(Util.CC_LIST, ccList)
             }
             1 -> {
                 intent = Intent(this, OEWrite::class.java)
+                intent.putExtra(Util.OE_LIST, oeList)
             }
             2 -> {
                 intent = Intent(this, AdviceWrite::class.java)
+                intent.putExtra(Util.ADVICE_LIST, adviceList)
             }
             else -> {
                 intent = Intent(this, MedicineWrite::class.java)
+                intent.putExtra(Util.MEDICINE_LIST, medicineList)
             }
         }
 
@@ -176,8 +262,52 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == Util.WRITE_PRESCRIPTION_REQUEST_CODE
-            && resultCode == Activity.RESULT_OK) {
-            //
+            && resultCode == Util.RESULT_CC) {
+
+            val tempValue = data?.extras?.get(Util.CC_LIST) as Collection<String>
+            Log.d(TAG, tempValue.toString())
+
+            ccList.clear()
+
+            Log.d(TAG, ccList.size.toString())
+
+            ccList.addAll(
+                data
+                    ?.extras
+                    ?.get(Util.CC_LIST) as Collection<String>
+            )
+
+            setCCList()
+
+        } else if (requestCode == Util.WRITE_PRESCRIPTION_REQUEST_CODE
+            && resultCode == Util.RESULT_OE) {
+
+            oeList.clear()
+            oeList.addAll(
+                data
+                    ?.extras
+                    ?.get(Util.OE_LIST) as Collection<String>
+            )
+
+            setOEList()
+
+        } else if (requestCode == Util.WRITE_PRESCRIPTION_REQUEST_CODE
+            && resultCode == Util.RESULT_ADVICE) {
+
+            adviceList.clear()
+
+            adviceList.addAll(
+                data
+                    ?.extras
+                    ?.get(Util.ADVICE_LIST) as Collection<String>
+            )
+
+            Log.d(TAG, adviceList.size.toString())
+            setAdviceList()
+
+        } else if (requestCode == Util.WRITE_PRESCRIPTION_REQUEST_CODE
+            && resultCode == Util.RESULT_MEDICINE) {
+            medicineList.clear()
         }
     }
 

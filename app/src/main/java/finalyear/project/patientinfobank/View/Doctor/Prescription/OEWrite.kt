@@ -7,11 +7,13 @@ import android.view.Menu
 import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import com.google.common.base.Strings
+import finalyear.project.patientinfobank.Adapter.Prescription.CCOEAdviceAdapter
 import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.Utils.Util
+import finalyear.project.patientinfobank.View.CommonInterfaces.PrescriptionItemView
 import finalyear.project.patientinfobank.databinding.ActivityOeWriteBinding
 
-class OEWrite : AppCompatActivity() {
+class OEWrite : AppCompatActivity(), PrescriptionItemView {
     private val TAG = "OEWrite"
 
     private lateinit var binding: ActivityOeWriteBinding
@@ -53,12 +55,13 @@ class OEWrite : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        setList()
+        if (list.size > 0)
+            setList()
     }
 
     private fun setList() {
 
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
+        val adapter = CCOEAdviceAdapter(this, list, this)
         binding.oeList.adapter = adapter
     }
 
@@ -101,6 +104,11 @@ class OEWrite : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         overridePendingTransition(R.anim.left_to_right, R.anim.righttoleft)
+    }
+
+    override fun onItemClick(position: Int) {
+        list.removeAt(position)
+        setList()
     }
 
 }

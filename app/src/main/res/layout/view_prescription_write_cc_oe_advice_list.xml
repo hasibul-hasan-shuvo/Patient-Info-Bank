@@ -10,7 +10,7 @@
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
-        android:textSize="@dimen/_12sdp"
+        android:textSize="@dimen/_18sdp"
         android:layout_marginHorizontal="@dimen/_5sdp"
         android:layout_marginVertical="@dimen/_5sdp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -18,12 +18,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@id/deleteButton"
         tools:text="@string/advice"
+        android:fontFamily="@font/hand_writing"
         />
 
     <ImageButton
         android:id="@+id/deleteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
         android:src="@drawable/ic_delete"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="@+id/text"

@@ -99,10 +99,10 @@
             app:layout_constraintTop_toTopOf="@id/breakfastCheckbox"
             app:layout_constraintBottom_toBottomOf="@id/breakfastCheckbox"
             app:layout_constraintStart_toEndOf="@id/breakfastCheckbox"
-            app:layout_constraintEnd_toStartOf="@id/nightCheckbox"
+            app:layout_constraintEnd_toStartOf="@id/dinnerCheckbox"
             />
         <CheckBox
-            android:id="@+id/nightCheckbox"
+            android:id="@+id/dinnerCheckbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/dinner"

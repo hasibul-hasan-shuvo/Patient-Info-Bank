@@ -3,15 +3,18 @@ package finalyear.project.patientinfobank.View.Doctor.Prescription
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import com.google.common.base.Strings.isNullOrEmpty
+import finalyear.project.patientinfobank.Adapter.Prescription.CCOEAdviceAdapter
 import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.Utils.Util
+import finalyear.project.patientinfobank.View.CommonInterfaces.PrescriptionItemView
 import finalyear.project.patientinfobank.databinding.ActivityAdviceWriteBinding
 
-class AdviceWrite : AppCompatActivity() {
+class AdviceWrite : AppCompatActivity(), PrescriptionItemView {
     private val TAG = "AdviceWrite"
 
     private lateinit var binding: ActivityAdviceWriteBinding
@@ -50,13 +53,14 @@ class AdviceWrite : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
-        setList()
+        if (list.size > 0)
+            setList()
     }
 
     private fun setList() {
 
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
+        Log.d(TAG, list.size.toString())
+        val adapter = CCOEAdviceAdapter(this, list, this)
         binding.adviceList.adapter = adapter
     }
 
@@ -86,6 +90,7 @@ class AdviceWrite : AppCompatActivity() {
         var resultIntent = Intent()
         resultIntent.putExtra(Util.ADVICE_LIST, list)
 
+        Log.d(TAG, list.size.toString())
         setResult(Util.RESULT_ADVICE, resultIntent)
         finish()
 
@@ -99,6 +104,11 @@ class AdviceWrite : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         overridePendingTransition(R.anim.left_to_right, R.anim.righttoleft)
+    }
+
+    override fun onItemClick(position: Int) {
+        list.removeAt(position)
+        setList()
     }
 
 }

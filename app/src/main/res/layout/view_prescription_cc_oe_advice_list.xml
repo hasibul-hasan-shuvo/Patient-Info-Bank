@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:text="Blood Pressure"
     android:textColor="@android:color/black"
-    android:fontFamily="@font/auto_rich"
+    android:fontFamily="@font/hand_writing"
     android:layout_margin="@dimen/_3sdp"
-    android:textSize="@dimen/_18sdp"
+    android:textSize="@dimen/_16sdp"
     />

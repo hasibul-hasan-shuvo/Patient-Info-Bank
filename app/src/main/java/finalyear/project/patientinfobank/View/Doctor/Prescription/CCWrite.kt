@@ -6,13 +6,17 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.widget.ArrayAdapter
+import androidx.core.view.size
 import androidx.databinding.DataBindingUtil
 import com.google.common.base.Strings
+import finalyear.project.patientinfobank.Adapter.Prescription.CCOEAdviceAdapter
 import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.Utils.Util
+import finalyear.project.patientinfobank.View.CommonInterfaces.PrescriptionItemView
 import finalyear.project.patientinfobank.databinding.ActivityCcWriteBinding
+import kotlinx.android.synthetic.main.activity_cc_write.*
 
-class CCWrite : AppCompatActivity() {
+class CCWrite : AppCompatActivity(), PrescriptionItemView {
 
     private val TAG = "CCWrite"
 
@@ -52,13 +56,13 @@ class CCWrite : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        setList()
+        if (list.size > 0)
+            setList()
     }
 
     private fun setList() {
 
-        Log.d(TAG, list[0])
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
+        val adapter = CCOEAdviceAdapter(this, list, this)
         binding.ccList.adapter = adapter
     }
 
@@ -88,6 +92,7 @@ class CCWrite : AppCompatActivity() {
         var resultIntent = Intent()
         resultIntent.putExtra(Util.CC_LIST, list)
 
+        Log.d(TAG, list.size.toString())
 
         setResult(Util.RESULT_CC, resultIntent)
         finish()
@@ -102,6 +107,11 @@ class CCWrite : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         overridePendingTransition(R.anim.left_to_right, R.anim.righttoleft)
+    }
+
+    override fun onItemClick(position: Int) {
+        list.removeAt(position)
+        setList()
     }
 
 }

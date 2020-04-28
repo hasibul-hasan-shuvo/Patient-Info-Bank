@@ -10,6 +10,8 @@ class Util {
         val DATA_NOT_FOUND_MESSAGE = "Data not found!"
         val UPDATE_SUCCESSFUL_MESSAGE = "Update successful"
         val PERMISSION_DENIED = "PERMISSION DENIED"
+        val MEDICINE_TIME_ERROR_MESSAGE = "Medicine time isn't selected"
+        val MEDICINE_MEAL_ERROR_MESSAGE = "Meal time isn't selected"
 
         // Intent value key
         val SEARCH_PATIENT_ID = "SearchPatientId"

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="@dimen/_5sdp"
+    >
+
+    <TextView
+        android:id="@+id/medicineType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/hand_writing"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/medicineName"
+        tools:text="gap." />
+
+    <TextView
+        android:id="@+id/medicineName"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:fontFamily="@font/hand_writing"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintBottom_toBottomOf="@id/medicineType"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/medicineType"
+        app:layout_constraintTop_toTopOf="@+id/medicineType"
+        app:layout_constraintVertical_bias="1.0"
+        tools:text="Ledipasvir/sofosbuvir 50 mg" />
+
+    <TextView
+        android:id="@+id/medicineTime"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/hand_writing"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/_10sdp"
+        android:textStyle="italic"
+        app:layout_constraintTop_toTopOf="@id/mealTime"
+        app:layout_constraintBottom_toBottomOf="@+id/mealTime"
+        app:layout_constraintStart_toStartOf="@+id/medicineName"
+        app:layout_constraintEnd_toStartOf="@id/mealTime"
+        tools:text="1 - 1 - 1" />
+
+    <TextView
+        android:id="@+id/mealTime"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/hand_writing"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        app:layout_constraintStart_toEndOf="@+id/medicineTime"
+        app:layout_constraintTop_toBottomOf="@+id/medicineName"
+        app:layout_constraintEnd_toStartOf="@id/medicinePeriod"
+        tools:text="before meal after meal" />
+
+    <TextView
+        android:id="@+id/medicinePeriod"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/hand_writing"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/mealTime"
+        app:layout_constraintEnd_toEndOf="@+id/medicineName"
+        app:layout_constraintStart_toEndOf="@+id/mealTime"
+        app:layout_constraintTop_toTopOf="@+id/mealTime"
+        tools:text="5 month" />
+
+    <TextView
+        android:id="@+id/comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/hand_writing"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintEnd_toEndOf="@+id/medicineName"
+        app:layout_constraintStart_toStartOf="@+id/medicineName"
+        app:layout_constraintTop_toBottomOf="@+id/mealTime"
+        tools:text="If no pain then don't take" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

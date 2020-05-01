@@ -358,7 +358,7 @@ class DoctorProfile : Fragment() {
                 .document(email)
                 .get()
                 .addOnSuccessListener {
-                    Log.d(TAG, "user: ${userCategoryUtils.toString()}")
+                    Log.d(TAG, "user: $userCategoryUtils")
                     if (it != null)
                         userCategoryUtils = it.toObject(UserCategoryUtils::class.java)!!
                     setViewsData()

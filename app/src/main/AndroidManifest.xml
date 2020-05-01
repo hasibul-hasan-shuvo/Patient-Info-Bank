@@ -12,28 +12,41 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.Doctor.Prescription.MedicineWrite"></activity>
-        <activity android:name=".View.Doctor.Prescription.AdviceWrite" />
-        <activity android:name=".View.Doctor.Prescription.OEWrite" />
-        <activity android:name=".View.Doctor.Prescription.CCWrite" />
-        <activity android:name=".View.Doctor.Prescription.PatientPrescriptionWrite">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".View.Doctor.Prescription.MedicineWrite"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".View.Doctor.Prescription.AdviceWrite"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".View.Doctor.Prescription.OEWrite"
+            android:screenOrientation="portrait" />
+        <activity android:name=".View.Doctor.Prescription.CCWrite"
+            android:screenOrientation="portrait" />
+        <activity android:name=".View.Doctor.Prescription.PatientPrescriptionWrite"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".View.Patient.Blood.DonorInformation" />
-        <activity android:name=".View.Patient.Blood.FindDonor" />
-        <activity android:name=".View.Patient.Blood.BeADonor" />
-        <activity android:name=".View.Doctor.Prescription.PatientPrescription" />
-        <activity android:name=".View.Patient.PatientActivity" />
-        <activity android:name=".View.Login.UserCategory" />
-        <activity android:name=".View.Login.Login" />
+        <activity android:name=".View.Patient.Blood.DonorInformation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".View.Patient.Blood.FindDonor"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".View.Patient.Blood.BeADonor"
+            android:screenOrientation="portrait" />
+        <activity android:name=".View.Doctor.Prescription.PatientPrescription"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".View.Patient.PatientActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".View.Login.UserCategory"
+            android:screenOrientation="portrait" />
+        <activity android:name=".View.Login.Login"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".View.SplashScreen.SplashScreen"
-            android:screenOrientation="fullSensor" />
-        <activity android:name=".View.Doctor.DoctorActivity" />
+            android:screenOrientation="portrait" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity android:name=".View.Doctor.DoctorActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

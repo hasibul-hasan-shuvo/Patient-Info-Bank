@@ -2,6 +2,7 @@ package finalyear.project.patientinfobank.View.Doctor.Prescription
 
 import android.app.Activity
 import android.content.Intent
+import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -18,8 +19,10 @@ import finalyear.project.patientinfobank.Utils.Util
 import finalyear.project.patientinfobank.Utils.UtilFunctions
 import finalyear.project.patientinfobank.databinding.ActivityPatientPrescriptionWriteBinding
 import android.widget.ArrayAdapter
+import com.google.firebase.auth.FirebaseAuth
 import finalyear.project.patientinfobank.Adapter.Prescription.PrescriptionMedicineAdapter
 import finalyear.project.patientinfobank.Utils.Prescription.MedicineUtils
+import finalyear.project.patientinfobank.Utils.Prescription.PrescriptionUtils
 import kotlinx.android.synthetic.main.activity_cc_write.*
 import java.util.*
 
@@ -30,6 +33,13 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
     private lateinit var patientInfo: UserCategoryUtils
     private lateinit var patientId: String
     private var writeVisible = false
+
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var doctorUtils: UserCategoryUtils
+    private var isDoctorPrescribedBefore = false
+    private lateinit var doctorEmail: String
+    private lateinit var doctorId: String
 
     private var ccList = arrayListOf<String>()
     private var oeList = arrayListOf<String>()
@@ -45,15 +55,19 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
 
         setUpToolbar()
         setUpListeners()
+        fetchPatientInfo()
     }
 
     override fun onResume() {
         super.onResume()
-//        patientId = intent.getStringExtra(Util.SEARCH_PATIENT_ID)
-//        fetchPatientInfo()
 
+        firebaseAuth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
+
+        FetchDoctorInformation().execute()
     }
 
+    // Setting cc list
     private fun setCCList() {
         val adapter = ArrayAdapter(
             this,
@@ -69,6 +83,7 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
         adapter.notifyDataSetChanged()
     }
 
+    // Setting oe list
     private fun setOEList() {
         val adapter = ArrayAdapter(
             this,
@@ -85,6 +100,7 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
         adapter.notifyDataSetChanged()
     }
 
+    // Setting advice list
     private fun setAdviceList() {
         val adapter = ArrayAdapter(
             this,
@@ -101,6 +117,7 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
         adapter.notifyDataSetChanged()
     }
 
+    // Setting medicine list
     private fun setMedicineList() {
         val adapter = PrescriptionMedicineAdapter(this, medicineList)
         if (medicineList.size == 0)
@@ -127,6 +144,7 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
 
     // Fetching patient info from database
     private fun fetchPatientInfo() {
+        patientId = intent.getStringExtra(Util.SEARCH_PATIENT_ID)
         runProgess()
         val email = "$patientId@gmail.com"
         if (!Strings.isNullOrEmpty(email)) {
@@ -183,7 +201,59 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
     }
 
     private fun savePrescription() {
-        //
+        if (medicineList.size > 0) {
+
+            val calendar = Calendar.getInstance()
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+            val month = calendar.get(Calendar.MONTH)
+            val year = calendar.get(Calendar.YEAR)
+            val email = firebaseAuth.currentUser?.email
+            val key = ("${email?.split("@")?.get(0)}-$day${month+1}$year")
+
+            Log.d(TAG, key)
+
+            val prescriptionUtils = PrescriptionUtils(
+                doctorUtils,
+                ccList,
+                oeList,
+                adviceList,
+                medicineList
+            )
+
+            firestore
+                .collection(Util.PATIENT_PRESCRIPTION_DATABASE)
+                .document(patientId)
+                .collection(Util.PRESCRIPTION_DATABASE)
+                .document(key)
+                .set(prescriptionUtils)
+                .addOnSuccessListener {
+                    Toast.makeText(
+                        this,
+                        Util.PRESCRIPTION_SUCCESSFUL_MESSAGE,
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    SaveMedicinesAndDoctorInformation().execute()
+                    finish()
+                    overridePendingTransition(R.anim.left_to_right, R.anim.righttoleft)
+
+                }.addOnFailureListener {
+                    Toast.makeText(
+                        this,
+                        Util.PRESCRIPTION_FAILED_MESSAGE,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    Log.d(TAG, it.message)
+                }
+
+
+        } else {
+            Toast.makeText(
+                this,
+                Util.MEDICINE_LIST_IS_EMPTY,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     override fun onClick(v: View?) {
@@ -383,6 +453,90 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
         binding.progressHeart.startAnimation(animation)
 
         binding.progress.visibility = View.VISIBLE
+    }
+
+
+    // Fetching doctor information in background
+    private inner class FetchDoctorInformation: AsyncTask<Void, Void, Void>() {
+        override fun doInBackground(vararg params: Void?): Void? {
+            doctorEmail = firebaseAuth.currentUser?.email!!
+            doctorId = doctorEmail?.split("@")?.get(0)
+
+            Log.d(TAG, doctorEmail)
+            if (doctorEmail != null) {
+                firestore
+                    .collection(Util.USER_CATEGORY_DATABASE)
+                    .document(doctorEmail)
+                    .get()
+                    .addOnSuccessListener {
+                            if (it != null)
+                                doctorUtils = it.toObject(UserCategoryUtils::class.java)!!
+
+                        Log.d(TAG, "user: $doctorUtils")
+                    }
+                    .addOnFailureListener {
+                        Log.d(TAG, it.message)
+                    }
+                firestore
+                    .collection(Util.PATIENT_PRESCRIPTION_DATABASE)
+                    .document(patientId)
+                    .collection(Util.DOCTOR_LIST_DATABASE)
+                    .document(doctorId!!)
+                    .get()
+                    .addOnSuccessListener {
+                        isDoctorPrescribedBefore = it != null
+                        Log.d(TAG, isDoctorPrescribedBefore.toString())
+                    }
+                    .addOnFailureListener {
+                        Log.d(TAG, "Failed Doctor: ${it.message}")
+                    }
+            }
+            return null
+        }
+
+    }
+
+    private inner class SaveMedicinesAndDoctorInformation: AsyncTask<Void, Void, Void>() {
+        override fun doInBackground(vararg params: Void?): Void? {
+
+            medicineList.forEach {
+                val medicineName = it.medicineName.trim()
+                val medicine = Pair("medicineName", medicineName)
+
+                // Adding medicine to the patient list
+                firestore
+                    .collection(Util.PATIENT_PRESCRIPTION_DATABASE)
+                    .document(patientId)
+                    .collection(Util.MEDICINE_LIST_DATABASE)
+                    .document(medicineName)
+                    .set(medicine)
+                    .addOnSuccessListener {name ->
+                        Log.d(TAG, "Medicine name: ${it.medicineName}")
+                    }
+                    .addOnFailureListener { e ->
+                        Log.d(TAG, "Medicine failed: ${e.message}")
+                    }
+            }
+
+            // Adding doctor information to patient prescription
+            // if it is the first time of visiting
+            if (!isDoctorPrescribedBefore) {
+                firestore
+                    .collection(Util.PATIENT_PRESCRIPTION_DATABASE)
+                    .document(patientId)
+                    .collection(Util.DOCTOR_LIST_DATABASE)
+                    .document(doctorId)
+                    .set(doctorUtils)
+                    .addOnSuccessListener {
+                        Log.d(TAG, "Doctor list success")
+                    }
+                    .addOnFailureListener {
+                        Log.d(TAG, "Doctor list Failure")
+                    }
+            }
+            return  null
+        }
+
     }
 
 }

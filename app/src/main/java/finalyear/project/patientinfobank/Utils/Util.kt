@@ -9,9 +9,9 @@ class Util {
         val OPERATION_FAILED_MESSAGE = "Operation failed"
         val DATA_NOT_FOUND_MESSAGE = "Data not found!"
         val UPDATE_SUCCESSFUL_MESSAGE = "Update successful"
+        val PRESCRIPTION_SUCCESSFUL_MESSAGE = "Prescribed successfully"
+        val PRESCRIPTION_FAILED_MESSAGE = "Prescription uploading failed"
         val PERMISSION_DENIED = "PERMISSION DENIED"
-        val MEDICINE_TIME_ERROR_MESSAGE = "Medicine time isn't selected"
-        val MEDICINE_MEAL_ERROR_MESSAGE = "Meal time isn't selected"
 
         // Intent value key
         val SEARCH_PATIENT_ID = "SearchPatientId"
@@ -62,11 +62,18 @@ class Util {
         val INVALID_EMAIL_ERROR_MESSAGE = "Invalid email"
         val INVALID_BIRTH_DATE_ERROR_MESSAGE = "Invalid birth date"
         val LENGTH_LESS_THAN_3_ERROR_MESSAGE = "At least 3 character"
+        val MEDICINE_TIME_ERROR_MESSAGE = "Medicine time isn't selected"
+        val MEDICINE_MEAL_ERROR_MESSAGE = "Meal time isn't selected"
+        val MEDICINE_LIST_IS_EMPTY = "No medicine is prescribed"
 
 
         // DatabasePaths
         val USER_CATEGORY_DATABASE = "UsersCategory"
         val BLOOD_DONOR_DATABASE = "BloodDonor"
+        val PRESCRIPTION_DATABASE = "Prescriptions"
+        val PATIENT_PRESCRIPTION_DATABASE = "Patients Prescription"
+        val DOCTOR_LIST_DATABASE = "Doctor List"
+        val MEDICINE_LIST_DATABASE = "Medicine List"
 
         // FirebaseDatabase utils
         // UserCategory:

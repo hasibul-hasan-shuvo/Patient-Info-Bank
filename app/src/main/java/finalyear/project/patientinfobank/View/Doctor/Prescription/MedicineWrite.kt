@@ -98,6 +98,11 @@ class MedicineWrite : AppCompatActivity(), PrescriptionItemView {
             medicineType = binding.medicineType.text.toString()
             medicineName = binding.medicineName.text.toString()
 
+            // Trimming medicine name
+            medicineName = medicineName.trim()
+
+
+
             if (medicineName.length > 1)
                 medicineName = medicineName[0].toUpperCase() + medicineName.substring(1)
 

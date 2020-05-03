@@ -12,6 +12,8 @@ class Util {
         val PRESCRIPTION_SUCCESSFUL_MESSAGE = "Prescribed successfully"
         val PRESCRIPTION_FAILED_MESSAGE = "Prescription uploading failed"
         val PERMISSION_DENIED = "PERMISSION DENIED"
+        val NO_INTERNET_CONNECTION = "No internet connection available"
+        val MEDICINE_NAME = "medicineName"
 
         // Intent value key
         val SEARCH_PATIENT_ID = "SearchPatientId"
@@ -38,6 +40,7 @@ class Util {
         val MEDICINE_TITLE = "Medicines"
         val BE_A_DONOR = "Donor information"
         val FIND_A_DONOR = "Donor list"
+        val PRESCRIPTION_TITLE = "Prescription"
 
 
         // Sign in

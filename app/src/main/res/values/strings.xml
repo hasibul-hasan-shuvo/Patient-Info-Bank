@@ -29,6 +29,8 @@
     <string name="comment">Comment</string>
     <string name="beforeMeal">Before meal</string>
     <string name="afterMeal">After meal</string>
+    <string name="medicineBeforeTaken">The Medicines have taken::</string>
+    <string name="patientIdNotFound">Invalid patient id</string>
 
     <!--    hints-->
     <string name="userCategoryHint">User category</string>

@@ -8,22 +8,21 @@ import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.google.common.base.Strings
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import finalyear.project.patientinfobank.Adapter.Prescription.PrescriptionMedicineAdapter
 import finalyear.project.patientinfobank.R
+import finalyear.project.patientinfobank.Utils.Prescription.MedicineUtils
+import finalyear.project.patientinfobank.Utils.Prescription.PrescriptionUtils
 import finalyear.project.patientinfobank.Utils.UserCategory.UserCategoryUtils
 import finalyear.project.patientinfobank.Utils.Util
 import finalyear.project.patientinfobank.Utils.UtilFunctions
 import finalyear.project.patientinfobank.databinding.ActivityPatientPrescriptionWriteBinding
-import android.widget.ArrayAdapter
-import com.google.firebase.auth.FirebaseAuth
-import finalyear.project.patientinfobank.Adapter.Prescription.PrescriptionMedicineAdapter
-import finalyear.project.patientinfobank.Utils.Prescription.MedicineUtils
-import finalyear.project.patientinfobank.Utils.Prescription.PrescriptionUtils
-import kotlinx.android.synthetic.main.activity_cc_write.*
 import java.util.*
 
 class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
@@ -154,9 +153,11 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
                 .document(email)
                 .get()
                 .addOnSuccessListener {
-                    if (it != null)
+                    Log.d(TAG, it.toString())
+                    if (it.data != null) {
                         patientInfo = it.toObject(UserCategoryUtils::class.java)!!
-                    setViews()
+                        setViews()
+                    }
                     stopProgress()
                 }
                 .addOnFailureListener {
@@ -186,7 +187,7 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
 
     // Setting toolbar
     private fun setUpToolbar() {
-        binding.toolbar.title = Util.PATIENT_PRESCRIPTION
+        binding.toolbar.title = Util.PRESCRIPTION_TITLE
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -469,7 +470,7 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
                     .document(doctorEmail)
                     .get()
                     .addOnSuccessListener {
-                            if (it != null)
+                            if (it.data != null)
                                 doctorUtils = it.toObject(UserCategoryUtils::class.java)!!
 
                         Log.d(TAG, "user: $doctorUtils")
@@ -501,7 +502,7 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
 
             medicineList.forEach {
                 val medicineName = it.medicineName.trim()
-                val medicine = Pair("medicineName", medicineName)
+                val medicine = mapOf(Util.MEDICINE_NAME to medicineName)
 
                 // Adding medicine to the patient list
                 firestore

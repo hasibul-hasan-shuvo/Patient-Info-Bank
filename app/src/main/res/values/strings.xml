@@ -31,6 +31,10 @@
     <string name="afterMeal">After meal</string>
     <string name="medicineBeforeTaken">The Medicines have taken::</string>
     <string name="patientIdNotFound">Invalid patient id</string>
+    <string name="prescriptionList">Your prescriptions::</string>
+    <string name="visitedDoctors">Visited doctors list::</string>
+    <string name="prescribedOn">Prescribed on</string>
+    <string name="by">by</string>
 
     <!--    hints-->
     <string name="userCategoryHint">User category</string>

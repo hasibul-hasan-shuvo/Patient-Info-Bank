@@ -4,6 +4,7 @@ import finalyear.project.patientinfobank.Utils.UserCategory.UserCategoryUtils
 import java.io.Serializable
 
 data class PrescriptionUtils(
+    var date: String,
     var doctorUtils: UserCategoryUtils?,
     var CCList: ArrayList<String>,
     var OEList: ArrayList<String>,
@@ -11,6 +12,7 @@ data class PrescriptionUtils(
     var medicineList: ArrayList<MedicineUtils>
 ): Serializable{
     constructor(): this(
+        "",
         null,
         ArrayList<String>(),
         ArrayList<String>(),

@@ -41,6 +41,7 @@ class Util {
         val BE_A_DONOR = "Donor information"
         val FIND_A_DONOR = "Donor list"
         val PRESCRIPTION_TITLE = "Prescription"
+        val PATIENT_HOME_TITLE = "Patient home"
 
 
         // Sign in

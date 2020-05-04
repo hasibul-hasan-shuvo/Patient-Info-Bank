@@ -208,12 +208,17 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
             val day = calendar.get(Calendar.DAY_OF_MONTH)
             val month = calendar.get(Calendar.MONTH)
             val year = calendar.get(Calendar.YEAR)
+            val hour = calendar.get(Calendar.HOUR)
+            val minute = calendar.get(Calendar.MINUTE)
             val email = firebaseAuth.currentUser?.email
-            val key = ("${email?.split("@")?.get(0)}-$day${month+1}$year")
+            val key = ("${email?.split("@")?.get(0)}-$day${month+1}$year$hour$minute")
+
+            val date = "%02d/%02d/%02d".format(day, month, year)
 
             Log.d(TAG, key)
 
             val prescriptionUtils = PrescriptionUtils(
+                date,
                 doctorUtils,
                 ccList,
                 oeList,

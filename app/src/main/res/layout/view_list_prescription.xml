@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/ic_prescription"
+    android:orientation="vertical"
+    android:gravity="center">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/prescribedOn"
+        android:textColor="@color/patientHomeColor"
+        android:textSize="@dimen/_14sdp"
+        android:fontFamily="@font/mtcorsva"
+        />
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="31/10/2020"
+        android:textColor="@color/patientHomeColor"
+        android:textSize="@dimen/_14sdp"
+        android:fontFamily="@font/mtcorsva"
+        android:gravity="center"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/by"
+        android:textColor="@color/patientHomeColor"
+        android:textSize="@dimen/_14sdp"
+        android:fontFamily="@font/mtcorsva"
+        android:gravity="center"
+        />
+    <TextView
+        android:id="@+id/doctorName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Md Hasibul Hasan Shuvo"
+        android:textColor="@color/patientHomeColor"
+        android:textSize="@dimen/_14sdp"
+        android:fontFamily="@font/mtcorsva"
+        android:gravity="center"
+        android:maxLines="4"
+        android:maxWidth="@dimen/_100sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_25sdp"
+        />
+
+</LinearLayout>

@@ -110,7 +110,6 @@ class PatientPrescription : AppCompatActivity() {
                     binding.medicinesList.visibility = View.GONE
                     binding.writePrescription.visibility = View.GONE
                     binding.patientIdNotFound.visibility = View.VISIBLE
-                    fetchMedicineList()
                 } else {
                     binding.medicineBeforeTakenTitleLayout.visibility = View.VISIBLE
                     binding.medicinesList.visibility = View.VISIBLE

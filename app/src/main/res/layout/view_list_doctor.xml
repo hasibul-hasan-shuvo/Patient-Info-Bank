@@ -48,6 +48,7 @@
                     android:layout_marginVertical="@dimen/_5sdp"
                     android:fontFamily="@font/mtcorsva"
                     android:maxLines="3"
+                    android:textIsSelectable="true"
                     android:textColor="@color/patientHomeColor"
                     android:textSize="@dimen/_14sdp"
                     tools:text="01648789543" />

@@ -24,6 +24,8 @@ class Util {
         val OE_LIST = "OEList"
         val ADVICE_LIST = "AdviceList"
         val MEDICINE_LIST = "MedicineList"
+        val DOCTOR_INFORMATION = "DoctorInformation"
+        val PRESCRIPTION_DATE = "Date"
 
         // Intent result key
         val RESULT_CC = 0

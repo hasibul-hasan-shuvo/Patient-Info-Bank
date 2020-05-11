@@ -22,6 +22,7 @@ import finalyear.project.patientinfobank.Utils.Prescription.PrescriptionUtils
 import finalyear.project.patientinfobank.Utils.UserCategory.UserCategoryUtils
 import finalyear.project.patientinfobank.Utils.Util
 import finalyear.project.patientinfobank.databinding.FragmentPatientHomeBinding
+import java.util.*
 import kotlin.math.abs
 
 
@@ -133,7 +134,7 @@ class PatientHome : Fragment() {
     }
 
     private fun setUpPrescriptionList() {
-        prescriptionList.reverse()
+        prescriptionList.sort()
         prescriptionSliderAdapter =  PrescriptionSliderAdapter(context!!, prescriptionList)
         binding.prescriptionList.adapter = prescriptionSliderAdapter
         binding.prescriptionList.clipToPadding = false

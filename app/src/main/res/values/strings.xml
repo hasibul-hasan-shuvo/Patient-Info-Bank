@@ -35,6 +35,7 @@
     <string name="visitedDoctors">Visited doctors list::</string>
     <string name="prescribedOn">Prescribed on</string>
     <string name="by">by</string>
+    <string name="prescribedBy">Dr. </string>
 
     <!--    hints-->
     <string name="userCategoryHint">User category</string>

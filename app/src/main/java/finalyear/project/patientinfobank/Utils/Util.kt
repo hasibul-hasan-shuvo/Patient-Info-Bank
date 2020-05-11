@@ -24,6 +24,7 @@ class Util {
         val OE_LIST = "OEList"
         val ADVICE_LIST = "AdviceList"
         val MEDICINE_LIST = "MedicineList"
+        val PRESCRIPTION_DATA = "PrescriptionData"
         val DOCTOR_INFORMATION = "DoctorInformation"
         val PRESCRIPTION_DATE = "Date"
 

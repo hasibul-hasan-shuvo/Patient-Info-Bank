@@ -48,34 +48,10 @@ class PrescriptionSliderAdapter(
                 val intent = Intent(context, ShowPrescription::class.java)
 
                 intent.putExtra(
-                    Util.DOCTOR_INFORMATION,
-                    prescriptionList[position].doctorUtils
+                    Util.PRESCRIPTION_DATA,
+                    prescriptionList[position]
                 )
 
-                intent.putExtra(
-                    Util.PRESCRIPTION_DATE,
-                    prescriptionList[position].date
-                )
-
-                intent.putExtra(
-                    Util.CC_LIST,
-                    prescriptionList[position].CCList
-                )
-
-                intent.putExtra(
-                    Util.OE_LIST,
-                    prescriptionList[position].OEList
-                )
-
-                intent.putExtra(
-                    Util.ADVICE_LIST,
-                    prescriptionList[position].adviceList
-                )
-
-                intent.putExtra(
-                    Util.MEDICINE_LIST,
-                    prescriptionList[position].medicineList
-                )
                 context.startActivity(intent)
                 (context as Activity).
                 overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)

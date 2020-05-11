@@ -37,6 +37,7 @@ class ShowPrescription : AppCompatActivity() , View.OnClickListener{
     private var writeVisible = false
 
 
+    private var prescription: PrescriptionUtils? = null
     private lateinit var date: String
     private lateinit var doctorInformation: UserCategoryUtils
     private var ccList = arrayListOf<String>()
@@ -65,16 +66,20 @@ class ShowPrescription : AppCompatActivity() , View.OnClickListener{
     }
 
 
+    // Fetching data from parent activity
     private fun fetchIntentData() {
 
-        date = intent.getStringExtra(Util.PRESCRIPTION_DATE)
-        doctorInformation = intent.getSerializableExtra(Util.DOCTOR_INFORMATION) as UserCategoryUtils
-        ccList.addAll(intent.getStringArrayListExtra(Util.CC_LIST))
-        oeList.addAll(intent.getStringArrayListExtra(Util.OE_LIST))
-        adviceList.addAll(intent.getStringArrayListExtra(Util.ADVICE_LIST))
-        medicineList.addAll(intent.getSerializableExtra(Util.MEDICINE_LIST) as Collection<MedicineUtils>)
+        prescription = intent.getSerializableExtra(Util.PRESCRIPTION_DATA) as? PrescriptionUtils
+
+        date = prescription?.date!!
+        doctorInformation = prescription?.doctorUtils!!
+        ccList.addAll(prescription!!.CCList)
+        oeList.addAll(prescription!!.OEList)
+        adviceList.addAll(prescription!!.adviceList)
+        medicineList.addAll(prescription!!.medicineList)
     }
 
+    // Setting doctor information
     private fun setDoctorInformation() {
         binding.name.text = doctorInformation.name
         binding.date.text = date

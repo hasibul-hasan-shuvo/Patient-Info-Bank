@@ -122,12 +122,14 @@ class DoctorProfile : Fragment() {
                 binding.nameEditText.error = Util.EMPTY_ERROR_MESSAGE
                 binding.nameEditText.requestFocus()
             } else {
-                name = newName
+                name = newName.trim()
+                userCategoryUtils.name = name
                 val updateUserProfileChangeRequest = UserProfileChangeRequest.Builder()
                     .setDisplayName(newName)
                     .build()
 
                 updateUserProfile(updateUserProfileChangeRequest)
+                updateName()
             }
         }
 
@@ -243,6 +245,45 @@ class DoctorProfile : Fragment() {
                 stopProgress()
             }
     }
+
+
+    // Updating name into database
+    private fun updateName() {
+
+        runProgess()
+
+        val database = FirebaseFirestore.getInstance()
+
+        database
+            .collection(Util.USER_CATEGORY_DATABASE)
+            .document(email)
+            .update(
+                Util.USER_CATEGORY_NAME,
+                userCategoryUtils.name
+            )
+            .addOnSuccessListener {
+                Log.d(TAG, "UpdateUserCategory: Success")
+                Toast.makeText(
+                    context,
+                    Util.UPDATE_SUCCESSFUL_MESSAGE,
+                    Toast.LENGTH_SHORT
+                ).show()
+                binding.name.text = name
+                stopProgress()
+                closeNameEditOption()
+                closeContactEditOption()
+            }
+            .addOnFailureListener{
+                Log.d(TAG, "UpdateUserCategory: ${it.message}")
+                Toast.makeText(
+                    context,
+                    Util.OPERATION_FAILED_MESSAGE,
+                    Toast.LENGTH_SHORT
+                ).show()
+                stopProgress()
+            }
+    }
+
 
     // Checking contact validity
     private fun checkContactValidity(): Boolean {

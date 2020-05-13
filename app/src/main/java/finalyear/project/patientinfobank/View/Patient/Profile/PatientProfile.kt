@@ -114,7 +114,7 @@ class PatientProfile : Fragment() {
                 binding.nameEditText.error = Util.EMPTY_ERROR_MESSAGE
                 binding.nameEditText.requestFocus()
             } else {
-                name = newName
+                name = newName.trim()
                 val updateUserProfileChangeRequest = UserProfileChangeRequest.Builder()
                     .setDisplayName(newName)
                     .build()

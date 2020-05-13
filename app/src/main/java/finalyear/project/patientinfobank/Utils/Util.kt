@@ -27,6 +27,8 @@ class Util {
         val PRESCRIPTION_DATA = "PrescriptionData"
         val DOCTOR_INFORMATION = "DoctorInformation"
         val PRESCRIPTION_DATE = "Date"
+        val TOOLBAR_NAME = "ToolbarName"
+        val CC_OE_ADVICE_LIST = "CCOEAdvice"
 
         // Intent result key
         val RESULT_CC = 0

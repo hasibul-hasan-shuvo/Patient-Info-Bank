@@ -5,29 +5,26 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
-import android.widget.ArrayAdapter
-import androidx.core.view.size
 import androidx.databinding.DataBindingUtil
 import com.google.common.base.Strings
 import finalyear.project.patientinfobank.Adapter.Prescription.CCOEAdviceAdapter
 import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.Utils.Util
 import finalyear.project.patientinfobank.View.CommonInterfaces.PrescriptionItemView
-import finalyear.project.patientinfobank.databinding.ActivityCcWriteBinding
-import kotlinx.android.synthetic.main.activity_cc_write.*
+import finalyear.project.patientinfobank.databinding.ActivityWriteCcBinding
 
 class CCWrite : AppCompatActivity(), PrescriptionItemView {
 
     private val TAG = "CCWrite"
 
-    private lateinit var binding: ActivityCcWriteBinding
+    private lateinit var binding: ActivityWriteCcBinding
     private var list = arrayListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cc_write)
+        setContentView(R.layout.activity_write_cc)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_cc_write)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_write_cc)
         setUpToolbar()
 
         binding.addButton.setOnClickListener {

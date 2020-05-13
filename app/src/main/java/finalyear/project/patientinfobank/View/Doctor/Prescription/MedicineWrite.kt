@@ -16,7 +16,7 @@ import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.Utils.Prescription.MedicineUtils
 import finalyear.project.patientinfobank.Utils.Util
 import finalyear.project.patientinfobank.View.CommonInterfaces.PrescriptionItemView
-import finalyear.project.patientinfobank.databinding.ActivityMedicineWriteBinding
+import finalyear.project.patientinfobank.databinding.ActivityWriteMedicineBinding
 
 class MedicineWrite : AppCompatActivity(), PrescriptionItemView {
     private val TAG = "MedicineWrite"
@@ -27,13 +27,13 @@ class MedicineWrite : AppCompatActivity(), PrescriptionItemView {
 
     private var dayMonthYear = arrayListOf<String>()
 
-    private lateinit var binding: ActivityMedicineWriteBinding
+    private lateinit var binding: ActivityWriteMedicineBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_medicine_write)
+        setContentView(R.layout.activity_write_medicine)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_medicine_write)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_write_medicine)
         setUpToolbar()
 
         setAutoTextCompleteAdapter()

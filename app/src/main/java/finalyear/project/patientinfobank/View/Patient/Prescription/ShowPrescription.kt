@@ -189,15 +189,18 @@ class ShowPrescription : AppCompatActivity() , View.OnClickListener{
         when (optionKey) {
             0 -> {
                 intent = Intent(this, ShowOECCAdvice::class.java)
-                intent.putExtra(Util.CC_LIST, ccList)
+                intent.putExtra(Util.TOOLBAR_NAME, Util.CC_TITLE)
+                intent.putExtra(Util.CC_OE_ADVICE_LIST, ccList)
             }
             1 -> {
                 intent = Intent(this, ShowOECCAdvice::class.java)
-                intent.putExtra(Util.OE_LIST, oeList)
+                intent.putExtra(Util.TOOLBAR_NAME, Util.OE_TITLE)
+                intent.putExtra(Util.CC_OE_ADVICE_LIST, oeList)
             }
             2 -> {
                 intent = Intent(this, ShowOECCAdvice::class.java)
-                intent.putExtra(Util.ADVICE_LIST, adviceList)
+                intent.putExtra(Util.TOOLBAR_NAME, Util.ADVICE_TITLE)
+                intent.putExtra(Util.CC_OE_ADVICE_LIST, adviceList)
             }
             else -> {
                 intent = Intent(this, ShowMedicines::class.java)

@@ -5,26 +5,25 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
-import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import com.google.common.base.Strings.isNullOrEmpty
 import finalyear.project.patientinfobank.Adapter.Prescription.CCOEAdviceAdapter
 import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.Utils.Util
 import finalyear.project.patientinfobank.View.CommonInterfaces.PrescriptionItemView
-import finalyear.project.patientinfobank.databinding.ActivityAdviceWriteBinding
+import finalyear.project.patientinfobank.databinding.ActivityWriteAdviceBinding
 
 class AdviceWrite : AppCompatActivity(), PrescriptionItemView {
     private val TAG = "AdviceWrite"
 
-    private lateinit var binding: ActivityAdviceWriteBinding
+    private lateinit var binding: ActivityWriteAdviceBinding
     private var list = arrayListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_advice_write)
+        setContentView(R.layout.activity_write_advice)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_advice_write)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_write_advice)
         setUpToolbar()
 
         binding.addButton.setOnClickListener {

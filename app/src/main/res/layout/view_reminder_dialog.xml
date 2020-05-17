@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardCornerRadius="@dimen/_15sdp"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/_20sdp"
+        >
+
+        <TextView
+            android:id="@+id/setReminderTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mtcorsva"
+            android:text="@string/setReminder"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_25sdp"
+            android:textStyle="bold"
+            android:padding="@dimen/_5sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/startTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mtcorsva"
+            android:text="@string/startTitle"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_18sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            app:layout_constraintTop_toBottomOf="@id/setReminderTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/startDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/startTitle"
+            app:layout_constraintStart_toEndOf="@+id/startTitle"
+            app:layout_constraintTop_toTopOf="@+id/startTitle"
+
+            tools:text="17/05/2020" />
+
+        <TextView
+            android:id="@+id/startTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/startDate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/startDate"
+            app:layout_constraintTop_toTopOf="@+id/startDate"
+            tools:text="12:00" />
+
+        <TextView
+            android:id="@+id/endTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mtcorsva"
+            android:text="@string/endTitle"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_18sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/endDate"
+            app:layout_constraintEnd_toStartOf="@+id/endDate"
+            app:layout_constraintTop_toTopOf="@+id/endDate" />
+
+        <TextView
+            android:id="@+id/endDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="@+id/startDate"
+            app:layout_constraintStart_toStartOf="@+id/startDate"
+            app:layout_constraintTop_toBottomOf="@+id/startDate"
+            tools:text="17/05/2020" />
+
+        <TextView
+            android:id="@+id/endTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/endDate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/endDate"
+            app:layout_constraintTop_toTopOf="@+id/endDate"
+            tools:text="12:00" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/intervalLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:hint="@string/interval"
+            android:textColorHint="@color/white"
+            app:hintTextColor="@color/white"
+            android:theme="@style/textInputEditTextTheme"
+            app:layout_constraintStart_toEndOf="@+id/endTitle"
+            app:layout_constraintTop_toBottomOf="@+id/endDate">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/interval"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="numberDecimal"
+                android:maxLength="3"
+                android:singleLine="true"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_12sdp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
+            android:id="@+id/day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+            android:text="@string/day"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp"
+            android:fontFamily="@font/mtcorsva"
+            app:layout_constraintBottom_toBottomOf="@+id/intervalLayout"
+            app:layout_constraintStart_toEndOf="@+id/intervalLayout"
+            app:layout_constraintTop_toTopOf="@+id/intervalLayout" />
+
+        <TextView
+            android:id="@+id/set"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+            android:text="@string/set"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/intervalLayout" />
+
+        <TextView
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+            android:text="@string/cancel"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/set"
+            app:layout_constraintEnd_toStartOf="@+id/set"
+            app:layout_constraintTop_toTopOf="@+id/set" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

@@ -54,6 +54,13 @@
     <string name="districtHint">District</string>
     <string name="divisionTitle">Division:</string>
     <string name="districtTitle">District:</string>
+    <string name="startTitle">Start:</string>
+    <string name="endTitle">End:</string>
+    <string name="interval">Interval</string>
+    <string name="day">Day </string>
+    <string name="set">Set</string>
+    <string name="cancel">Cancel</string>
+    <string name="setReminder">Set reminder</string>
 
     <string name="beADonor">Be A Donor</string>
     <string name="findADonor">Find A Donor</string>

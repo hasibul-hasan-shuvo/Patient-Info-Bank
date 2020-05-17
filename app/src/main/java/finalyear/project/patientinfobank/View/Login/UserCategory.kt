@@ -316,7 +316,7 @@ class UserCategory : AppCompatActivity() {
         binding.patientBirthDate.error = null
         Log.d(TAG, "DatePicker: ")
 
-        val datePickerDialog: DatePickerDialog = DatePickerDialog(
+        val datePickerDialog = DatePickerDialog(
             this,
             DatePickerDialog.OnDateSetListener { view, year, month, day ->
                 this.day = day

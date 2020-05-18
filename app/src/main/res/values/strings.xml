@@ -36,6 +36,7 @@
     <string name="prescribedOn">Prescribed on</string>
     <string name="by">by</string>
     <string name="prescribedBy">Dr. </string>
+    <string name="dateError">Date error</string>
 
     <!--    hints-->
     <string name="userCategoryHint">User category</string>

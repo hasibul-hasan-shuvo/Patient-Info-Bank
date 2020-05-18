@@ -82,11 +82,11 @@
             android:id="@+id/endDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
             android:padding="@dimen/_10sdp"
             android:textColor="@color/white"
-            android:textSize="@dimen/_12sdp"
 
-            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_12sdp"
             app:layout_constraintEnd_toEndOf="@+id/startDate"
             app:layout_constraintStart_toStartOf="@+id/startDate"
             app:layout_constraintTop_toBottomOf="@+id/startDate"
@@ -143,6 +143,21 @@
             app:layout_constraintBottom_toBottomOf="@+id/intervalLayout"
             app:layout_constraintStart_toEndOf="@+id/intervalLayout"
             app:layout_constraintTop_toTopOf="@+id/intervalLayout" />
+
+        <TextView
+            android:id="@+id/error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mtcorsva"
+            android:padding="@dimen/_10sdp"
+            android:text="@string/dateError"
+            android:textColor="@color/red"
+            android:textSize="@dimen/_12sdp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/endTitle"
+            app:layout_constraintEnd_toEndOf="@+id/startDate"
+            app:layout_constraintStart_toStartOf="@+id/startTitle"
+            app:layout_constraintTop_toBottomOf="@+id/startTitle" />
 
         <TextView
             android:id="@+id/set"

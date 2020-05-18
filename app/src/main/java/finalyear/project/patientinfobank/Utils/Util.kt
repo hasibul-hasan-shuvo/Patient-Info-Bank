@@ -14,6 +14,7 @@ class Util {
         val PERMISSION_DENIED = "PERMISSION DENIED"
         val NO_INTERNET_CONNECTION = "No internet connection available"
         val MEDICINE_NAME = "medicineName"
+        val REMINDER_SUCCESSFUL_MESSAGE = "Reminder is set"
 
         // Intent value key
         val SEARCH_PATIENT_ID = "SearchPatientId"
@@ -100,6 +101,10 @@ class Util {
         val MAIL_CLIP_BOARD_LABEL = "Mail"
         val MAIL_COPIED = "Email copied"
         val CONTACT_COPIED = "Contact copied"
+
+
+        // Room Database
+        val ROOM_DATABASE_NAME = "PatientInfoBank"
     }
 
 }

@@ -10,15 +10,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import com.google.common.base.Strings.isNullOrEmpty
 import finalyear.project.patientinfobank.Adapter.Prescription.MedicineAdapter
+import finalyear.project.patientinfobank.Database.RoomDatabaseManager
 import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.Utils.Prescription.MedicineUtils
+import finalyear.project.patientinfobank.Utils.Reminder.MedicineReminderUtils
 import finalyear.project.patientinfobank.Utils.Util
 import finalyear.project.patientinfobank.View.CommonInterfaces.PrescriptionItemView
 import finalyear.project.patientinfobank.databinding.ActivityShowMedicinesBinding
+import kotlinx.android.synthetic.main.view_donor_list.*
 import kotlinx.android.synthetic.main.view_reminder_dialog.view.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -31,6 +35,10 @@ class ShowMedicines : AppCompatActivity(),  PrescriptionItemView{
     private var endDate = arrayListOf<Int>()
 
     private var time = arrayListOf<Int>()
+
+    private lateinit var startDateString: String
+    private lateinit var endDateString: String
+    private lateinit var timeString: String
 
 
     private lateinit var interval: String
@@ -132,18 +140,13 @@ class ShowMedicines : AppCompatActivity(),  PrescriptionItemView{
 
         builder.setView(dialogView)
 
-        dialogView.startDate.text = "%02d/%02d/%d".format(
-            startDate[0], startDate[1], startDate[2]
-        )
-        dialogView.endDate.text = "%02d/%02d/%d".format(
-            endDate[0], endDate[1], endDate[2]
-        )
-        dialogView.startTime.text = "%02d:%02d".format(
-            time[0], time[1]
-        )
-        dialogView.endTime.text = "%02d:%02d".format(
-            time[0], time[1]
-        )
+        setDateString()
+        setTimeString()
+
+        dialogView.startDate.text = startDateString
+        dialogView.endDate.text = endDateString
+        dialogView.startTime.text = timeString
+        dialogView.endTime.text = timeString
 
         val alertDialog = builder.create()
         alertDialog.setCanceledOnTouchOutside(false)
@@ -153,10 +156,21 @@ class ShowMedicines : AppCompatActivity(),  PrescriptionItemView{
         dialogView.set.setOnClickListener {
             interval = dialogView.interval.text.toString()
             if (!isNullOrEmpty(interval)) {
-                saveReminder(position)
-                alertDialog.dismiss()
-                renderDate()
-                renderTime()
+                if (isDateValid()) {
+                    alertDialog.dismiss()
+
+                    setDateString()
+                    setTimeString()
+
+                    Log.d(TAG, "$startDateString $endDateString")
+
+                    saveReminder(position)
+                    renderDate()
+                    renderTime()
+                } else {
+                    if (dialogView.error.visibility == View.INVISIBLE)
+                        dialogView.error.visibility = View.VISIBLE
+                }
             } else {
                 dialogView.interval.error = Util.EMPTY_ERROR_MESSAGE
             }
@@ -169,6 +183,8 @@ class ShowMedicines : AppCompatActivity(),  PrescriptionItemView{
         }
 
         dialogView.startDate.setOnClickListener {
+            if (dialogView.error.visibility == View.VISIBLE)
+                dialogView.error.visibility = View.INVISIBLE
             startDate = openDatePicker(startDate, dialogView.startDate)
             Log.d(TAG, startDate.toString())
         }
@@ -176,6 +192,8 @@ class ShowMedicines : AppCompatActivity(),  PrescriptionItemView{
             time = openTimePicker(time, dialogView)
         }
         dialogView.endDate.setOnClickListener {
+            if (dialogView.error.visibility == View.VISIBLE)
+                dialogView.error.visibility = View.INVISIBLE
             endDate = openDatePicker(endDate, dialogView.endDate)
         }
 
@@ -183,6 +201,56 @@ class ShowMedicines : AppCompatActivity(),  PrescriptionItemView{
         alertDialog.show()
 
 
+    }
+
+    private fun setTimeString() {
+        timeString = "%02d:%02d".format(
+            time[0], time[1]
+        )
+    }
+
+    private fun setDateString() {
+        startDateString =  "%02d/%02d/%d".format(
+            startDate[0], startDate[1], startDate[2]
+        )
+
+        endDateString = "%02d/%02d/%d".format(
+            endDate[0], endDate[1], endDate[2]
+        )
+    }
+
+    private fun isDateValid(): Boolean {
+
+
+        val startCalendar = Calendar.getInstance()
+        startCalendar.set(
+            startDate[2],
+            startDate[1]-1,
+            startDate[0],
+            time[1],
+            time[0]
+        )
+
+        val endCalendar = Calendar.getInstance()
+        endCalendar.set(
+            endDate[2],
+            endDate[1]-1,
+            endDate[0],
+            time[1],
+            time[0]
+        )
+        Log.d(TAG, Calendar.getInstance().timeInMillis.toString())
+        Log.d(TAG, startCalendar.timeInMillis.toString())
+        Log.d(TAG, endCalendar.timeInMillis.toString())
+
+        if (
+            Calendar.getInstance().timeInMillis <= endCalendar.timeInMillis
+            && startCalendar.timeInMillis < endCalendar.timeInMillis
+        ) {
+            return true
+        }
+
+        return false
     }
 
     private fun openTimePicker(
@@ -194,12 +262,11 @@ class ShowMedicines : AppCompatActivity(),  PrescriptionItemView{
             TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
                 time[0] = hourOfDay
                 time[1] = minute
-                dialogView.startTime.text = "%02d:%02d".format(
-                    time[0], time[1]
-                )
-                dialogView.endTime.text = "%02d:%02d".format(
-                    time[0], time[1]
-                )
+
+                setTimeString()
+                dialogView.startTime.text = timeString
+
+                dialogView.endTime.text = timeString
             },
             time[0],
             time[1],
@@ -239,6 +306,42 @@ class ShowMedicines : AppCompatActivity(),  PrescriptionItemView{
 
 
     private fun saveReminder(position: Int) {
-        //
+        
+        try {
+            var id = medicineList[position].medicineName + timeString
+
+
+
+            var medicineReminder: MedicineReminderUtils
+            medicineReminder = MedicineReminderUtils(
+                id,
+                medicineList[position].medicineName,
+                startDateString,
+                endDateString,
+                timeString,
+                interval
+            )
+            val dbManager = RoomDatabaseManager.getInstance(this)
+
+            dbManager?.getMedicineReminderDAO()?.insert(medicineReminder)
+
+            Toast.makeText(
+                this,
+                Util.REMINDER_SUCCESSFUL_MESSAGE,
+                Toast.LENGTH_SHORT
+            ).show()
+
+            Log.d(TAG, "Medicine Reminder: $medicineReminder")
+
+        }catch (e: Exception) {
+
+            Toast.makeText(
+                this,
+                Util.OPERATION_FAILED_MESSAGE,
+                Toast.LENGTH_SHORT
+            ).show()
+
+            Log.d(TAG, "Error: ${e.message}")
+        }
     }
 }

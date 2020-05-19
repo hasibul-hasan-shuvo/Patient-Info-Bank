@@ -9,10 +9,10 @@ import com.google.common.base.Strings
 import finalyear.project.patientinfobank.Adapter.Prescription.CCOEAdviceAdapter
 import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.Utils.Util
-import finalyear.project.patientinfobank.View.CommonInterfaces.PrescriptionItemView
+import finalyear.project.patientinfobank.View.CommonInterfaces.ItemView
 import finalyear.project.patientinfobank.databinding.ActivityWriteOeBinding
 
-class OEWrite : AppCompatActivity(), PrescriptionItemView {
+class OEWrite : AppCompatActivity(), ItemView {
     private val TAG = "OEWrite"
 
     private lateinit var binding: ActivityWriteOeBinding

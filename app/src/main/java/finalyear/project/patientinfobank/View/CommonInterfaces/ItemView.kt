@@ -1,5 +1,5 @@
 package finalyear.project.patientinfobank.View.CommonInterfaces
 
-interface PrescriptionItemView {
+interface ItemView {
     fun onItemClick(position: Int)
 }

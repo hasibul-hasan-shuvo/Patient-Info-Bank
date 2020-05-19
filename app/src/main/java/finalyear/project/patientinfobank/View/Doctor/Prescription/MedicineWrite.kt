@@ -15,10 +15,10 @@ import finalyear.project.patientinfobank.Adapter.Prescription.MedicineAdapter
 import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.Utils.Prescription.MedicineUtils
 import finalyear.project.patientinfobank.Utils.Util
-import finalyear.project.patientinfobank.View.CommonInterfaces.PrescriptionItemView
+import finalyear.project.patientinfobank.View.CommonInterfaces.ItemView
 import finalyear.project.patientinfobank.databinding.ActivityWriteMedicineBinding
 
-class MedicineWrite : AppCompatActivity(), PrescriptionItemView {
+class MedicineWrite : AppCompatActivity(), ItemView {
     private val TAG = "MedicineWrite"
     private var medicineList = arrayListOf<MedicineUtils>()
     private val medicineTypes = arrayListOf<String>("Tab.", "Cap.", "Inj.", "Syrup.")

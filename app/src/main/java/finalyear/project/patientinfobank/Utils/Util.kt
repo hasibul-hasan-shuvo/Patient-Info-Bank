@@ -7,6 +7,7 @@ class Util {
         val REGISTRATION_SUCCESSFUL_MESSAGE = "Registration successful"
         val REGISTRATION_FAILED_MESSAGE = "Registration failed"
         val OPERATION_FAILED_MESSAGE = "Operation failed"
+        val OPERATION_SUCCESSFUL_MESSAGE = "Operation Success"
         val DATA_NOT_FOUND_MESSAGE = "Data not found!"
         val UPDATE_SUCCESSFUL_MESSAGE = "Update successful"
         val PRESCRIPTION_SUCCESSFUL_MESSAGE = "Prescribed successfully"
@@ -39,6 +40,7 @@ class Util {
 
         // Toolbar titles
         val PROFILE = "Profile"
+        val REMINDER_TITLE = "Reminder"
         val PATIENT_PRESCRIPTION = "Patient information"
         val CC_TITLE = "C/C"
         val OE_TITLE = "O/E"

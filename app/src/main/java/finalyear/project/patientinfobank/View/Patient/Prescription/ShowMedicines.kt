@@ -20,14 +20,13 @@ import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.Utils.Prescription.MedicineUtils
 import finalyear.project.patientinfobank.Utils.Reminder.MedicineReminderUtils
 import finalyear.project.patientinfobank.Utils.Util
-import finalyear.project.patientinfobank.View.CommonInterfaces.PrescriptionItemView
+import finalyear.project.patientinfobank.View.CommonInterfaces.ItemView
 import finalyear.project.patientinfobank.databinding.ActivityShowMedicinesBinding
-import kotlinx.android.synthetic.main.view_donor_list.*
 import kotlinx.android.synthetic.main.view_reminder_dialog.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ShowMedicines : AppCompatActivity(),  PrescriptionItemView{
+class ShowMedicines : AppCompatActivity(),  ItemView{
 
     private val TAG = "ShowMedicine"
     private var medicineList = arrayListOf<MedicineUtils>()
@@ -306,11 +305,9 @@ class ShowMedicines : AppCompatActivity(),  PrescriptionItemView{
 
 
     private fun saveReminder(position: Int) {
-        
+
         try {
             var id = medicineList[position].medicineName + timeString
-
-
 
             var medicineReminder: MedicineReminderUtils
             medicineReminder = MedicineReminderUtils(

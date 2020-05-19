@@ -9,15 +9,14 @@ import android.widget.ArrayAdapter
 import com.google.common.base.Strings.isNullOrEmpty
 import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.Utils.Prescription.MedicineUtils
-import finalyear.project.patientinfobank.View.CommonInterfaces.PrescriptionItemView
-import finalyear.project.patientinfobank.View.Doctor.Prescription.MedicineWrite
+import finalyear.project.patientinfobank.View.CommonInterfaces.ItemView
 import kotlinx.android.synthetic.main.view_medicine_view.view.*
 
 class MedicineAdapter(
     context: Context,
     val medicineList: ArrayList<MedicineUtils>,
     val isDoctor: Boolean,
-    private val mainView: PrescriptionItemView?
+    private val mainView: ItemView?
 ): ArrayAdapter<MedicineUtils>(
     context,
     0,

@@ -10,10 +10,10 @@ import com.google.common.base.Strings.isNullOrEmpty
 import finalyear.project.patientinfobank.Adapter.Prescription.CCOEAdviceAdapter
 import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.Utils.Util
-import finalyear.project.patientinfobank.View.CommonInterfaces.PrescriptionItemView
+import finalyear.project.patientinfobank.View.CommonInterfaces.ItemView
 import finalyear.project.patientinfobank.databinding.ActivityWriteAdviceBinding
 
-class AdviceWrite : AppCompatActivity(), PrescriptionItemView {
+class AdviceWrite : AppCompatActivity(), ItemView {
     private val TAG = "AdviceWrite"
 
     private lateinit var binding: ActivityWriteAdviceBinding

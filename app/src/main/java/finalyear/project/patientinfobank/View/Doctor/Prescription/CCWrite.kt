@@ -10,10 +10,10 @@ import com.google.common.base.Strings
 import finalyear.project.patientinfobank.Adapter.Prescription.CCOEAdviceAdapter
 import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.Utils.Util
-import finalyear.project.patientinfobank.View.CommonInterfaces.PrescriptionItemView
+import finalyear.project.patientinfobank.View.CommonInterfaces.ItemView
 import finalyear.project.patientinfobank.databinding.ActivityWriteCcBinding
 
-class CCWrite : AppCompatActivity(), PrescriptionItemView {
+class CCWrite : AppCompatActivity(), ItemView {
 
     private val TAG = "CCWrite"
 

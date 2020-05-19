@@ -1,23 +1,18 @@
 package finalyear.project.patientinfobank.Adapter.Prescription
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import com.google.common.base.Strings.isNullOrEmpty
 import finalyear.project.patientinfobank.R
-import finalyear.project.patientinfobank.Utils.Prescription.MedicineUtils
-import finalyear.project.patientinfobank.View.CommonInterfaces.PrescriptionItemView
-import finalyear.project.patientinfobank.View.Doctor.Prescription.MedicineWrite
-import kotlinx.android.synthetic.main.view_medicine_view.view.*
+import finalyear.project.patientinfobank.View.CommonInterfaces.ItemView
 import kotlinx.android.synthetic.main.view_prescription_write_cc_oe_advice_list.view.*
 
 class CCOEAdviceAdapter(
     context: Context,
     val list: ArrayList<String>,
-    private val mainView: PrescriptionItemView?
+    private val mainView: ItemView?
 ): ArrayAdapter<String>(
     context,
     0,

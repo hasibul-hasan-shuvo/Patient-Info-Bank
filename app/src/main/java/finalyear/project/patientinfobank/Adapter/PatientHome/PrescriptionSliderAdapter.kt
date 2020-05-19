@@ -12,12 +12,14 @@ import androidx.recyclerview.widget.RecyclerView
 import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.Utils.Prescription.PrescriptionUtils
 import finalyear.project.patientinfobank.Utils.Util
+import finalyear.project.patientinfobank.View.CommonInterfaces.ItemView
 import finalyear.project.patientinfobank.View.Patient.Prescription.ShowPrescription
 import kotlinx.android.synthetic.main.view_list_prescription.view.*
 
 class PrescriptionSliderAdapter(
     val context: Context,
-    val prescriptionList: ArrayList<PrescriptionUtils>
+    val prescriptionList: ArrayList<PrescriptionUtils>,
+    val mainView: ItemView
 ) : RecyclerView.Adapter<PrescriptionSliderAdapter.ViewHolder>(){
 
 
@@ -55,6 +57,10 @@ class PrescriptionSliderAdapter(
                 context.startActivity(intent)
                 (context as Activity).
                 overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)
+            }
+
+            holder.itemView.deleteButton.setOnClickListener {
+                mainView.onItemClick(position)
             }
         }catch (e: Exception) {
             Log.d(TAG, e.message)

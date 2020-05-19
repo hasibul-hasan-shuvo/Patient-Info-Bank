@@ -31,8 +31,6 @@ class PatientReminders : Fragment(), ItemView {
 
     private lateinit var dbManager: RoomDatabaseManager
 
-    private lateinit var itemViewInterface: ItemView
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

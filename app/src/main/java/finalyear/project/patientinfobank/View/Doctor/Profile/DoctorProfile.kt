@@ -149,7 +149,7 @@ class DoctorProfile : Fragment() {
     // Updating user profile
     private fun updateUserProfile(updateUserProfileChangeRequest: UserProfileChangeRequest) {
 
-        runProgess()
+        runProgress()
 
         firebaseAuth
             .currentUser
@@ -215,7 +215,7 @@ class DoctorProfile : Fragment() {
     // Updating contact into database
     private fun updateContact() {
 
-        runProgess()
+        runProgress()
 
         val database = FirebaseFirestore.getInstance()
 
@@ -250,7 +250,7 @@ class DoctorProfile : Fragment() {
     // Updating name into database
     private fun updateName() {
 
-        runProgess()
+        runProgress()
 
         val database = FirebaseFirestore.getInstance()
 
@@ -334,7 +334,7 @@ class DoctorProfile : Fragment() {
     // Updating DegreeList into database
     private fun updateDegreeList() {
 
-        runProgess()
+        runProgress()
 
         val database = FirebaseFirestore.getInstance()
 
@@ -387,7 +387,7 @@ class DoctorProfile : Fragment() {
 
     // Fetching data from database
     private fun retrieveData() {
-        runProgess()
+        runProgress()
 
         name = firebaseAuth.currentUser?.displayName.toString()
         email = firebaseAuth.currentUser?.email.toString()
@@ -454,7 +454,7 @@ class DoctorProfile : Fragment() {
     private fun stopProgress() {
         binding.progress.visibility = View.GONE
     }
-    private fun runProgess() {
+    private fun runProgress() {
 
         val animation = AnimationUtils.loadAnimation(context, R.anim.heart_beat)
         binding.progressHeart.startAnimation(animation)

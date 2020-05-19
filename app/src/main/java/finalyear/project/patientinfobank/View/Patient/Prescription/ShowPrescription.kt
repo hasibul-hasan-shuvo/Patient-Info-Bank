@@ -291,7 +291,7 @@ class ShowPrescription : AppCompatActivity() , View.OnClickListener{
         binding.progress.visibility = View.GONE
     }
 
-    private fun runProgess() {
+    private fun runProgress() {
 
         val animation = AnimationUtils.loadAnimation(this, R.anim.heart_beat)
         binding.progressHeart.startAnimation(animation)

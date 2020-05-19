@@ -36,7 +36,6 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
     private lateinit var doctorUtils: UserCategoryUtils
-    private var isDoctorPrescribedBefore = false
     private lateinit var doctorEmail: String
     private lateinit var doctorId: String
 
@@ -144,7 +143,7 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
     // Fetching patient info from database
     private fun fetchPatientInfo() {
         patientId = intent.getStringExtra(Util.SEARCH_PATIENT_ID)
-        runProgess()
+        runProgress()
         val email = "$patientId@gmail.com"
         if (!Strings.isNullOrEmpty(email)) {
             val firebaseFirestore = FirebaseFirestore.getInstance()
@@ -218,6 +217,7 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
             Log.d(TAG, key)
 
             val prescriptionUtils = PrescriptionUtils(
+                key,
                 date,
                 doctorUtils,
                 ccList,
@@ -453,7 +453,7 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
         binding.progress.visibility = View.GONE
     }
 
-    private fun runProgess() {
+    private fun runProgress() {
 
         val animation = AnimationUtils.loadAnimation(this, R.anim.heart_beat)
         binding.progressHeart.startAnimation(animation)
@@ -482,19 +482,6 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
                     }
                     .addOnFailureListener {
                         Log.d(TAG, it.message)
-                    }
-                firestore
-                    .collection(Util.PATIENT_PRESCRIPTION_DATABASE)
-                    .document(patientId)
-                    .collection(Util.DOCTOR_LIST_DATABASE)
-                    .document(doctorId!!)
-                    .get()
-                    .addOnSuccessListener {
-                        isDoctorPrescribedBefore = it != null
-                        Log.d(TAG, isDoctorPrescribedBefore.toString())
-                    }
-                    .addOnFailureListener {
-                        Log.d(TAG, "Failed Doctor: ${it.message}")
                     }
             }
             return null
@@ -525,21 +512,18 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
             }
 
             // Adding doctor information to patient prescription
-            // if it is the first time of visiting
-            if (!isDoctorPrescribedBefore) {
-                firestore
-                    .collection(Util.PATIENT_PRESCRIPTION_DATABASE)
-                    .document(patientId)
-                    .collection(Util.DOCTOR_LIST_DATABASE)
-                    .document(doctorId)
-                    .set(doctorUtils)
-                    .addOnSuccessListener {
-                        Log.d(TAG, "Doctor list success")
-                    }
-                    .addOnFailureListener {
-                        Log.d(TAG, "Doctor list Failure")
-                    }
-            }
+            firestore
+                .collection(Util.PATIENT_PRESCRIPTION_DATABASE)
+                .document(patientId)
+                .collection(Util.DOCTOR_LIST_DATABASE)
+                .document(doctorId)
+                .set(doctorUtils)
+                .addOnSuccessListener {
+                    Log.d(TAG, "Doctor list success")
+                }
+                .addOnFailureListener {
+                    Log.d(TAG, "Doctor list Failure")
+                }
             return  null
         }
 

@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.view.animation.AnimationUtils
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
-import androidx.viewpager2.widget.ViewPager2
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import finalyear.project.patientinfobank.Adapter.PatientHome.DoctorListSliderAdapter
@@ -21,12 +21,12 @@ import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.Utils.Prescription.PrescriptionUtils
 import finalyear.project.patientinfobank.Utils.UserCategory.UserCategoryUtils
 import finalyear.project.patientinfobank.Utils.Util
+import finalyear.project.patientinfobank.View.CommonInterfaces.ItemView
 import finalyear.project.patientinfobank.databinding.FragmentPatientHomeBinding
-import java.util.*
 import kotlin.math.abs
 
 
-class PatientHome : Fragment() {
+class PatientHome : Fragment(), ItemView{
 
     private val TAG = "PatientHome"
 
@@ -54,7 +54,7 @@ class PatientHome : Fragment() {
         binding = FragmentPatientHomeBinding.inflate(inflater, container, false)
 
 
-        runProgess()
+        runProgress()
         setUpToolbar()
         setUpDatabase()
 
@@ -135,7 +135,7 @@ class PatientHome : Fragment() {
 
     private fun setUpPrescriptionList() {
         prescriptionList.sort()
-        prescriptionSliderAdapter =  PrescriptionSliderAdapter(context!!, prescriptionList)
+        prescriptionSliderAdapter =  PrescriptionSliderAdapter(context!!, prescriptionList, this)
         binding.prescriptionList.adapter = prescriptionSliderAdapter
         binding.prescriptionList.clipToPadding = false
         binding.prescriptionList.clipChildren = false
@@ -196,12 +196,70 @@ class PatientHome : Fragment() {
         binding.progress.visibility = View.GONE
     }
 
-    private fun runProgess() {
+    private fun runProgress() {
 
         val animation = AnimationUtils.loadAnimation(context, R.anim.heart_beat)
         binding.progressHeart.startAnimation(animation)
 
         binding.progress.visibility = View.VISIBLE
+    }
+
+    override fun onItemClick(position: Int) {
+        Log.d(TAG, "Clicked: ${prescriptionList[position]}")
+        var builder = AlertDialog.Builder(context!!)
+
+        builder.setTitle(Util.DELETE_MESSAGE)
+
+        val alertDialog = builder.create()
+
+        alertDialog.setOnShowListener {
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                .setTextColor(Color.RED)
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                .setTextColor(Color.GREEN)
+        }
+
+        alertDialog.setButton(
+            AlertDialog.BUTTON_POSITIVE,
+            Util.YES
+        ) { dialog, which ->
+            Log.d(TAG, "Yes")
+            deletePrescription(position)
+        }
+        alertDialog.setButton(
+            AlertDialog.BUTTON_NEGATIVE,
+            Util.CANCEL
+        ) { dialog, which -> Log.d(TAG, "Cancel") }
+
+        alertDialog.show()
+    }
+
+    private fun deletePrescription(position: Int) {
+        firestore
+            .collection(Util.PATIENT_PRESCRIPTION_DATABASE)
+            .document(patientId)
+            .collection(Util.PRESCRIPTION_DATABASE)
+            .document(prescriptionList[position].key.trim())
+            .delete()
+            .addOnSuccessListener {
+                Toast.makeText(
+                    context,
+                    Util.PRESCRIPTION_DELETE_MESSAGE,
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                prescriptionList.removeAt(position)
+                setUpPrescriptionList()
+            }
+            .addOnFailureListener {
+
+                Log.d(TAG, "Error: ${it.message}")
+                Toast.makeText(
+                    context,
+                    Util.OPERATION_FAILED_MESSAGE,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
     }
 
     /** ProgressBar implementation end **/

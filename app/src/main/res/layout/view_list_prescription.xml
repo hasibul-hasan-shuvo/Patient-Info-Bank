@@ -48,4 +48,13 @@
         android:layout_marginStart="@dimen/_25sdp"
         />
 
+    <ImageView
+        android:id="@+id/deleteButton"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:src="@drawable/ic_delete"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        />
+
 </LinearLayout>

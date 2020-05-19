@@ -7,6 +7,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 data class PrescriptionUtils(
+    var key: String,
     var date: String,
     var doctorUtils: UserCategoryUtils?,
     var CCList: ArrayList<String>,
@@ -15,6 +16,7 @@ data class PrescriptionUtils(
     var medicineList: ArrayList<MedicineUtils>
 ): Serializable, Comparable<PrescriptionUtils>{
     constructor(): this(
+        "",
         "",
         null,
         ArrayList<String>(),

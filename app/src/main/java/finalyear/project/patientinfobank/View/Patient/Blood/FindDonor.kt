@@ -98,7 +98,7 @@ class FindDonor : AppCompatActivity() {
     }
 
     private fun fetchData() {
-        runProgess()
+        runProgress()
         val database: FirebaseFirestore = FirebaseFirestore.getInstance()
         database
             .collection(Util.BLOOD_DONOR_DATABASE)
@@ -267,7 +267,7 @@ class FindDonor : AppCompatActivity() {
         binding.progress.visibility = View.GONE
     }
 
-    private fun runProgess() {
+    private fun runProgress() {
 
         val animation = AnimationUtils.loadAnimation(this, R.anim.heart_beat)
         binding.progressHeart.startAnimation(animation)

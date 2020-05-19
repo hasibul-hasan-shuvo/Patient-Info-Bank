@@ -125,6 +125,7 @@ class PatientPrescription : AppCompatActivity() {
 
     // Fetching medicine list
     private fun fetchMedicineList() {
+        medicineList.clear()
         binding.medicineLoadingProgress.visibility = View.VISIBLE
         firestore
             .collection(Util.PATIENT_PRESCRIPTION_DATABASE)

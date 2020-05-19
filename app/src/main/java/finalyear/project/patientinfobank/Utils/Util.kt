@@ -16,6 +16,10 @@ class Util {
         val NO_INTERNET_CONNECTION = "No internet connection available"
         val MEDICINE_NAME = "medicineName"
         val REMINDER_SUCCESSFUL_MESSAGE = "Reminder is set"
+        val DELETE_MESSAGE = "Do you want to delete?"
+        val PRESCRIPTION_DELETE_MESSAGE = "Prescription is deleted"
+        val YES = "Yes"
+        val CANCEL = "Cancel"
 
         // Intent value key
         val SEARCH_PATIENT_ID = "SearchPatientId"

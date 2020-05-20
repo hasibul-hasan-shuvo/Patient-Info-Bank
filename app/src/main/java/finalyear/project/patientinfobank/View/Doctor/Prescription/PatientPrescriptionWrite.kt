@@ -213,12 +213,14 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
             val key = ("${email?.split("@")?.get(0)}-$day$month$year$hour$minute")
 
             val date = "%02d/%02d/%02d".format(day, month, year)
+            val time = "%02d:%02d".format(hour,minute)
 
             Log.d(TAG, key)
 
             val prescriptionUtils = PrescriptionUtils(
                 key,
                 date,
+                time,
                 doctorUtils,
                 ccList,
                 oeList,

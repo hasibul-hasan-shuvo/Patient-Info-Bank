@@ -9,6 +9,7 @@ import kotlin.collections.ArrayList
 data class PrescriptionUtils(
     var key: String,
     var date: String,
+    var time: String,
     var doctorUtils: UserCategoryUtils?,
     var CCList: ArrayList<String>,
     var OEList: ArrayList<String>,
@@ -16,6 +17,7 @@ data class PrescriptionUtils(
     var medicineList: ArrayList<MedicineUtils>
 ): Serializable, Comparable<PrescriptionUtils>{
     constructor(): this(
+        "",
         "",
         "",
         null,
@@ -33,13 +35,20 @@ data class PrescriptionUtils(
         val thisDates = date.split(Regex("/"))
         val otherDates = other.date.split(Regex("/"))
 
-        val thisDate = (Integer.parseInt(thisDates[2].trim()) * 1000) +
-                ((Integer.parseInt(thisDates[1].trim())-1) * 100) +
-                Integer.parseInt(thisDates[0].trim())
+        val thisTime = time.split(Regex(":"))
+        val otherTime = other.time.split(Regex(":"))
 
-        val otherDate = (Integer.parseInt(otherDates[2].trim()) * 1000) +
-                ((Integer.parseInt(otherDates[1].trim())-1) * 100) +
-                Integer.parseInt(otherDates[0].trim())
+        val thisDate = (Integer.parseInt(thisDates[2].trim()) * 10000000) +
+                ((Integer.parseInt(thisDates[1].trim())-1) * 1000000) +
+                (Integer.parseInt(thisDates[0].trim())* 10000) +
+                (Integer.parseInt(thisTime[0].trim()) * 100) +
+                Integer.parseInt(thisTime[1].trim())
+
+        val otherDate = (Integer.parseInt(otherDates[2].trim()) * 10000000) +
+                ((Integer.parseInt(otherDates[1].trim())-1) * 1000000) +
+                (Integer.parseInt(otherDates[0].trim())* 10000) +
+                (Integer.parseInt(otherTime[0].trim()) * 100) +
+                Integer.parseInt(otherTime[1].trim())
 
 
         Log.d(TAG, thisDate.toString())

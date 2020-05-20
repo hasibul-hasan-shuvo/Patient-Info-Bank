@@ -341,4 +341,9 @@ class ShowMedicines : AppCompatActivity(),  ItemView{
             Log.d(TAG, "Error: ${e.message}")
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        RoomDatabaseManager.destroy()
+    }
 }

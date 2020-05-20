@@ -1,7 +1,7 @@
 package finalyear.project.patientinfobank.View.Doctor.Prescription
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -9,9 +9,11 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.google.common.base.Strings.isNullOrEmpty
 import finalyear.project.patientinfobank.Adapter.Prescription.MedicineAdapter
+import finalyear.project.patientinfobank.Database.RoomDatabaseManager
 import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.Utils.Prescription.MedicineUtils
 import finalyear.project.patientinfobank.Utils.Util
@@ -27,6 +29,10 @@ class MedicineWrite : AppCompatActivity(), ItemView {
 
     private var dayMonthYear = arrayListOf<String>()
 
+    private var medicineSugestionList = arrayListOf<String>()
+
+    private lateinit var roomDatabaseManager: RoomDatabaseManager
+
     private lateinit var binding: ActivityWriteMedicineBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,9 +40,11 @@ class MedicineWrite : AppCompatActivity(), ItemView {
         setContentView(R.layout.activity_write_medicine)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_write_medicine)
-        setUpToolbar()
+        roomDatabaseManager = RoomDatabaseManager.getInstance(this)!!
 
-        setAutoTextCompleteAdapter()
+        setUpToolbar()
+        setMedicineTypeAdapter()
+
         setListeners()
 
     }
@@ -55,14 +63,34 @@ class MedicineWrite : AppCompatActivity(), ItemView {
         setListView()
     }
 
-    private fun setAutoTextCompleteAdapter() {
-        val medicineTypeAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, medicineTypes)
+    private fun setMedicineTypeAdapter() {
+        val medicineTypeAdapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_list_item_1,
+            medicineTypes
+        )
         binding.medicineType.setAdapter(medicineTypeAdapter)
     }
 
+    private fun setMedicineNameAdapter() {
 
+        val medicineSuggestionAdapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_list_item_1,
+            medicineSugestionList
+        )
+
+        binding.medicineName.setAdapter(medicineSuggestionAdapter)
+    }
+
+
+
+
+    // Setting listener
     private fun setListeners() {
         binding.addButton.setOnClickListener {
+            binding.medicineType.error = null
+            binding.medicineName.error = null
             addMedicine()
         }
 
@@ -83,8 +111,22 @@ class MedicineWrite : AppCompatActivity(), ItemView {
             }
 
         }
+
+        // On medicine type selected setting medicine suggestion list
+        binding.medicineType.setOnItemClickListener { parent, view, position, id ->
+            try {
+                medicineSugestionList = roomDatabaseManager
+                    .getMedicineDAO()
+                    .getAllMedicinesBasedOnTypes(medicineTypes[position]) as ArrayList<String>
+                binding.medicineName.setText(Util.EMPTY_VALUE)
+                setMedicineNameAdapter()
+            }catch (e: Exception) {
+                Log.d(TAG, "LocalDBFeatchingError: ${e.message}")
+            }
+        }
     }
 
+    // Adding medicine to list
     private fun addMedicine() {
         var medicineType: String
         var medicineName: String
@@ -175,11 +217,13 @@ class MedicineWrite : AppCompatActivity(), ItemView {
 
     }
 
+    // Setting medicines into list
     private fun setListView() {
         val adapter = MedicineAdapter(this, medicineList, true, this)
         binding.medicineList.adapter = adapter
     }
 
+    // Checking all field have right value
     private fun checkValidity(): Boolean {
 
         if (isNullOrEmpty(binding.medicineType.text.toString())) {
@@ -227,10 +271,13 @@ class MedicineWrite : AppCompatActivity(), ItemView {
     }
 
 
+    // Sending full list to parent activity
     private fun sendResult() {
+
+        SaveMedicinesToLocalDB().execute()
+
         var resultIntent = Intent()
         resultIntent.putExtra(Util.MEDICINE_LIST, medicineList)
-
 
         setResult(Util.RESULT_MEDICINE, resultIntent)
         finish()
@@ -267,4 +314,26 @@ class MedicineWrite : AppCompatActivity(), ItemView {
         medicineList.removeAt(position)
         setListView()
     }
+
+
+    // Saving medicines to local database
+    private inner class SaveMedicinesToLocalDB: AsyncTask<Void, Void, Void>() {
+        override fun doInBackground(vararg params: Void?): Void? {
+
+            // Saving medicines into local database
+            medicineList.forEach {
+                try {
+                    roomDatabaseManager
+                        .getMedicineDAO()
+                        .insert(it)
+                } catch (e: Exception) {
+                    Log.d(TAG, "LocalDBError: ${e.message}")
+                }
+            }
+
+            return  null
+        }
+    }
+
+
 }

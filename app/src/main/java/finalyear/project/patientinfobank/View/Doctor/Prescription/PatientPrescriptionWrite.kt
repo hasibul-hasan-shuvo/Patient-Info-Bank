@@ -44,12 +44,12 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
     private var adviceList = arrayListOf<String>()
     private var medicineList = arrayListOf<MedicineUtils>()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_patient_prescription_write)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_patient_prescription_write)
-
 
         setUpToolbar()
         setUpListeners()
@@ -484,6 +484,7 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
                         Log.d(TAG, it.message)
                     }
             }
+
             return null
         }
 
@@ -524,6 +525,7 @@ class PatientPrescriptionWrite : AppCompatActivity() , View.OnClickListener{
                 .addOnFailureListener {
                     Log.d(TAG, "Doctor list Failure")
                 }
+
             return  null
         }
 

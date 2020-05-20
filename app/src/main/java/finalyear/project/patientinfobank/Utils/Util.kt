@@ -111,6 +111,20 @@ class Util {
 
         // Room Database
         val ROOM_DATABASE_NAME = "PatientInfoBank"
+        const val ROOM_DATABASE_VERSION = 1
+
+        // Table names
+        const val MEDICINE_REMINDER_TABLE = "Medicine_Reminder"
+        const val MEDICINE_LIST_TABLE = "Medicine_List"
+
+        // Column names
+        const val NAME_COLUMN = "Name"
+        const val ID_COLUMN = "Id"
+        const val TYPE_COLUMN = "Type"
+        const val START_DATE_COLUMN = "Start_Date"
+        const val END_DATE_COLUMN = "End_Date"
+        const val TIME_COLUMN = "Time"
+        const val INTERVAL_COLUMN = "Interval"
     }
 
 }

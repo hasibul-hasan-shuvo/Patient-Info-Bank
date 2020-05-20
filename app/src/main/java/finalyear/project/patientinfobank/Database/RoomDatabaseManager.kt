@@ -4,12 +4,17 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import finalyear.project.patientinfobank.Utils.Prescription.MedicineUtils
 import finalyear.project.patientinfobank.Utils.Reminder.MedicineReminderUtils
 import finalyear.project.patientinfobank.Utils.Util
 
-@Database(entities = [MedicineReminderUtils::class], version = 1)
+@Database(
+    entities = [MedicineReminderUtils::class, MedicineUtils::class],
+    version = Util.ROOM_DATABASE_VERSION
+)
 abstract class RoomDatabaseManager: RoomDatabase() {
     abstract fun getMedicineReminderDAO(): MedicineReminderDAO
+    abstract fun getMedicineDAO(): MedicineDAO
 
     companion object{
         var INSTANCE: RoomDatabaseManager? = null
@@ -29,7 +34,7 @@ abstract class RoomDatabaseManager: RoomDatabase() {
             return INSTANCE
         }
 
-        fun distroy(){
+        fun destroy(){
             INSTANCE = null
         }
     }

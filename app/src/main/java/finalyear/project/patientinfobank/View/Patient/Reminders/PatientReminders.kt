@@ -110,4 +110,9 @@ class PatientReminders : Fragment(), ItemView {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        RoomDatabaseManager.destroy()
+    }
+
 }

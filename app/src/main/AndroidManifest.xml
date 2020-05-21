@@ -3,6 +3,8 @@
     package="finalyear.project.patientinfobank">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.alarm.permission.SET_ALARM"/>
 
     <application
         android:name="androidx.multidex.MultiDexApplication"
@@ -12,9 +14,12 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.Patient.Prescription.ShowOECCAdvice"></activity>
-        <activity android:name=".View.Patient.Prescription.ShowMedicines" />
-        <activity android:name=".View.Patient.Prescription.ShowPrescription" />
+        <activity android:name=".View.Patient.Prescription.ShowOECCAdvice"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".View.Patient.Prescription.ShowMedicines"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".View.Patient.Prescription.ShowPrescription"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".View.Doctor.Prescription.MedicineWrite"
             android:screenOrientation="portrait" />
@@ -63,6 +68,20 @@
         <activity
             android:name=".View.Doctor.DoctorActivity"
             android:screenOrientation="portrait" />
+
+
+        <!-- Reminder receiver service -->
+        <receiver
+            android:name=".Services.ReminderReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.SEND" />
+            </intent-filter>
+        </receiver>
+
+
     </application>
 
 </manifest>

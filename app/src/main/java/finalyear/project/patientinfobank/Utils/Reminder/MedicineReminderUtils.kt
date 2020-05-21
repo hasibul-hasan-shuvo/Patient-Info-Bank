@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import finalyear.project.patientinfobank.Utils.Util
+import java.io.Serializable
 
 @Entity(tableName = Util.MEDICINE_REMINDER_TABLE)
 data class MedicineReminderUtils(
@@ -19,6 +20,8 @@ data class MedicineReminderUtils(
     @ColumnInfo(name = Util.TIME_COLUMN)
     val time: String,
     @ColumnInfo(name = Util.INTERVAL_COLUMN)
-    val interval: String
-) {
+    val interval: String,
+    @ColumnInfo(name = Util.TOTAL_REMINDER_COLUMN)
+    var totalReminder: Int
+): Serializable {
 }

@@ -1,26 +1,21 @@
 package finalyear.project.patientinfobank.View.Patient.Reminders
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import finalyear.project.patientinfobank.Adapter.Reminder.MedicineReminderAdapter
 import finalyear.project.patientinfobank.Database.RoomDatabaseManager
-
-import finalyear.project.patientinfobank.R
+import finalyear.project.patientinfobank.Services.ReminderManager
 import finalyear.project.patientinfobank.Utils.Reminder.MedicineReminderUtils
 import finalyear.project.patientinfobank.Utils.Util
 import finalyear.project.patientinfobank.View.CommonInterfaces.ItemView
-import finalyear.project.patientinfobank.View.Patient.Home.PatientHome
-import finalyear.project.patientinfobank.View.Patient.PatientActivity
-import finalyear.project.patientinfobank.databinding.FragmentPatientProfileBinding
 import finalyear.project.patientinfobank.databinding.FragmentPatientRemindersBinding
 
 class PatientReminders : Fragment(), ItemView {
@@ -36,14 +31,11 @@ class PatientReminders : Fragment(), ItemView {
         savedInstanceState: Bundle?
     ): View? {
 
-
         binding = FragmentPatientRemindersBinding.inflate(inflater, container, false)
 
         dbManager = RoomDatabaseManager.getInstance(context!!)!!
 
         setUpToolbar()
-
-
 
         return binding.root
     }
@@ -51,9 +43,9 @@ class PatientReminders : Fragment(), ItemView {
     override fun onResume() {
         super.onResume()
         fetchData()
-
     }
 
+    // Fetching data from local database
     private fun fetchData() {
         reminderList = dbManager?.getMedicineReminderDAO()?.getAllReminders() as ArrayList<MedicineReminderUtils>
         emptyChecker()
@@ -70,10 +62,11 @@ class PatientReminders : Fragment(), ItemView {
             binding.emptyListMessage.visibility = View.VISIBLE
         } else {
             binding.emptyListMessage.visibility = View.GONE
-            setUpReminderList()
         }
+        setUpReminderList()
     }
 
+    // Setting reminders into list
     private fun setUpReminderList() {
         medicineReminderAdapter = MedicineReminderAdapter(
             context!!,
@@ -92,14 +85,27 @@ class PatientReminders : Fragment(), ItemView {
         Log.d(TAG, "Clicked: ${reminderList[position].name}")
 
         try {
-            dbManager.getMedicineReminderDAO().delete(reminderList[position])
-            reminderList.removeAt(position)
-            Toast.makeText(
-                context,
-                Util.OPERATION_SUCCESSFUL_MESSAGE,
-                Toast.LENGTH_SHORT
-            ).show()
-            emptyChecker()
+
+            val reminderManager = ReminderManager(
+                context = context!!,
+                reminderUtils = reminderList[position]
+            )
+
+            reminderManager.create()
+
+            // Canceling reminder
+            if (reminderManager.cancelReminder()) {
+
+                // Removing reminder from local database
+                dbManager.getMedicineReminderDAO().delete(reminderList[position])
+                reminderList.removeAt(position)
+                Toast.makeText(
+                    context,
+                    Util.OPERATION_SUCCESSFUL_MESSAGE,
+                    Toast.LENGTH_SHORT
+                ).show()
+                emptyChecker()
+            }
         }catch (e: Exception) {
             Toast.makeText(
                 context,

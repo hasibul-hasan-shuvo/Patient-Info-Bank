@@ -20,6 +20,9 @@ class Util {
         val PRESCRIPTION_DELETE_MESSAGE = "Prescription is deleted"
         val YES = "Yes"
         val CANCEL = "Cancel"
+        val MEDICINE_REMINDER_MESSAGE = "Don't forget to take the medicine"
+        val REMINDER_ID = "ReminderNotification"
+        val REMINDER_NAME = "ReminderNotification"
 
         // Intent value key
         val SEARCH_PATIENT_ID = "SearchPatientId"
@@ -31,10 +34,14 @@ class Util {
         val ADVICE_LIST = "AdviceList"
         val MEDICINE_LIST = "MedicineList"
         val PRESCRIPTION_DATA = "PrescriptionData"
-        val DOCTOR_INFORMATION = "DoctorInformation"
-        val PRESCRIPTION_DATE = "Date"
         val TOOLBAR_NAME = "ToolbarName"
         val CC_OE_ADVICE_LIST = "CCOEAdvice"
+        val NOTIFICATION_TITLE = "NotificationTitle"
+        val NOTIFICATION_MESSAGE = "NotificationMessage"
+        val NOTIFICATION_BUNDLE = "NotificationBundle"
+        val PENDING_REMINDER = "PendingReminder"
+        val PENDING_REMINDER_CODE = "PendingReminderCode"
+        val REMINDER_CODE = "ReminderCode"
 
         // Intent result key
         val RESULT_CC = 0
@@ -76,6 +83,7 @@ class Util {
         val NO_DEGREE_ADDED_ERROR_MESSAGE = "No degree is added"
         val INVALID_PHONE_NUMBER_ERROR_MESSAGE = "Invalid phone number"
         val INVALID_EMAIL_ERROR_MESSAGE = "Invalid email"
+        val INVALID_ERROR_MESSAGE = "Invalid"
         val INVALID_BIRTH_DATE_ERROR_MESSAGE = "Invalid birth date"
         val LENGTH_LESS_THAN_3_ERROR_MESSAGE = "At least 3 character"
         val MEDICINE_TIME_ERROR_MESSAGE = "Medicine time isn't selected"
@@ -125,6 +133,7 @@ class Util {
         const val END_DATE_COLUMN = "End_Date"
         const val TIME_COLUMN = "Time"
         const val INTERVAL_COLUMN = "Interval"
+        const val TOTAL_REMINDER_COLUMN = "Total_Reminder"
     }
 
 }

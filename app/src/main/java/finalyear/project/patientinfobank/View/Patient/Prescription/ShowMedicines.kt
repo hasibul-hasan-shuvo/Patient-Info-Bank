@@ -17,6 +17,7 @@ import com.google.common.base.Strings.isNullOrEmpty
 import finalyear.project.patientinfobank.Adapter.Prescription.MedicineAdapter
 import finalyear.project.patientinfobank.Database.RoomDatabaseManager
 import finalyear.project.patientinfobank.R
+import finalyear.project.patientinfobank.Services.ReminderManager
 import finalyear.project.patientinfobank.Utils.Prescription.MedicineUtils
 import finalyear.project.patientinfobank.Utils.Reminder.MedicineReminderUtils
 import finalyear.project.patientinfobank.Utils.Util
@@ -41,6 +42,8 @@ class ShowMedicines : AppCompatActivity(),  ItemView{
 
 
     private lateinit var interval: String
+
+    private val oneDayInMilliSecond = 86400000
 
 
     private lateinit var binding: ActivityShowMedicinesBinding
@@ -75,7 +78,7 @@ class ShowMedicines : AppCompatActivity(),  ItemView{
         time.clear()
         val calendar = Calendar.getInstance()
 
-        time.add(calendar.get(Calendar.HOUR))
+        time.add(calendar.get(Calendar.HOUR_OF_DAY))
         time.add(calendar.get(Calendar.MINUTE))
     }
 
@@ -153,22 +156,28 @@ class ShowMedicines : AppCompatActivity(),  ItemView{
 
 
         dialogView.set.setOnClickListener {
+            dialogView.interval.error = null
             interval = dialogView.interval.text.toString()
             if (!isNullOrEmpty(interval)) {
-                if (isDateValid()) {
-                    alertDialog.dismiss()
+                if (interval == "0") {
+                    dialogView.interval.error = Util.INVALID_ERROR_MESSAGE
+                }
+                else {
+                    if (isDateValid()) {
+                        alertDialog.dismiss()
 
-                    setDateString()
-                    setTimeString()
+                        setDateString()
+                        setTimeString()
 
-                    Log.d(TAG, "$startDateString $endDateString")
+                        Log.d(TAG, "$startDateString $endDateString")
 
-                    saveReminder(position)
-                    renderDate()
-                    renderTime()
-                } else {
-                    if (dialogView.error.visibility == View.INVISIBLE)
-                        dialogView.error.visibility = View.VISIBLE
+                        saveReminder(position)
+                        renderDate()
+                        renderTime()
+                    } else {
+                        if (dialogView.error.visibility == View.INVISIBLE)
+                            dialogView.error.visibility = View.VISIBLE
+                    }
                 }
             } else {
                 dialogView.interval.error = Util.EMPTY_ERROR_MESSAGE
@@ -202,12 +211,14 @@ class ShowMedicines : AppCompatActivity(),  ItemView{
 
     }
 
+    // Formatting time
     private fun setTimeString() {
         timeString = "%02d:%02d".format(
             time[0], time[1]
         )
     }
 
+    // Formatting date
     private fun setDateString() {
         startDateString =  "%02d/%02d/%d".format(
             startDate[0], startDate[1], startDate[2]
@@ -218,6 +229,7 @@ class ShowMedicines : AppCompatActivity(),  ItemView{
         )
     }
 
+    // Checking dates are valid or not
     private fun isDateValid(): Boolean {
 
 
@@ -241,6 +253,16 @@ class ShowMedicines : AppCompatActivity(),  ItemView{
         Log.d(TAG, Calendar.getInstance().timeInMillis.toString())
         Log.d(TAG, startCalendar.timeInMillis.toString())
         Log.d(TAG, endCalendar.timeInMillis.toString())
+
+        val intervalInt = Integer.parseInt(interval)
+
+        if (Calendar.getInstance().timeInMillis > startCalendar.timeInMillis
+            && (startCalendar.timeInMillis + (oneDayInMilliSecond * intervalInt))
+            > endCalendar.timeInMillis
+        )
+        {
+            return false
+        }
 
         if (
             Calendar.getInstance().timeInMillis <= endCalendar.timeInMillis
@@ -309,26 +331,41 @@ class ShowMedicines : AppCompatActivity(),  ItemView{
         try {
             var id = medicineList[position].medicineName + timeString
 
-            var medicineReminder: MedicineReminderUtils
-            medicineReminder = MedicineReminderUtils(
+            var medicineReminder = MedicineReminderUtils(
                 id,
                 medicineList[position].medicineName,
                 startDateString,
                 endDateString,
                 timeString,
-                interval
+                interval,
+                0
             )
-            val dbManager = RoomDatabaseManager.getInstance(this)
 
-            dbManager?.getMedicineReminderDAO()?.insert(medicineReminder)
-
-            Toast.makeText(
+            val reminderManager = ReminderManager(
                 this,
-                Util.REMINDER_SUCCESSFUL_MESSAGE,
-                Toast.LENGTH_SHORT
-            ).show()
+                medicineReminder
+            )
 
-            Log.d(TAG, "Medicine Reminder: $medicineReminder")
+            // Setting reminder
+            reminderManager.create()
+
+            medicineReminder.totalReminder = reminderManager.setReminder()
+
+            if (medicineReminder.totalReminder > 0) {
+
+                val dbManager = RoomDatabaseManager.getInstance(this)
+
+                // Saving reminder into local database
+                dbManager?.getMedicineReminderDAO()?.insert(medicineReminder)
+
+                Toast.makeText(
+                    this,
+                    Util.REMINDER_SUCCESSFUL_MESSAGE,
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                Log.d(TAG, "Medicine Reminder: $medicineReminder")
+            }
 
         }catch (e: Exception) {
 

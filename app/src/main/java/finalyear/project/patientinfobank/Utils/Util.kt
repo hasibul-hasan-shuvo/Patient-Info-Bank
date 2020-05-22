@@ -36,9 +36,6 @@ class Util {
         val PRESCRIPTION_DATA = "PrescriptionData"
         val TOOLBAR_NAME = "ToolbarName"
         val CC_OE_ADVICE_LIST = "CCOEAdvice"
-        val NOTIFICATION_TITLE = "NotificationTitle"
-        val NOTIFICATION_MESSAGE = "NotificationMessage"
-        val NOTIFICATION_BUNDLE = "NotificationBundle"
         val PENDING_REMINDER = "PendingReminder"
         val PENDING_REMINDER_CODE = "PendingReminderCode"
         val REMINDER_CODE = "ReminderCode"
@@ -106,8 +103,15 @@ class Util {
         val USER_CATEGORY_PHONE_NUMBER = "phoneNumber"
         val USER_CATEGORY_DOCTOR_DEGREE_LIST = "doctorDegreeList"
         val USER_CATEGORY_PATIENT_BIRTH_DATE = "patientBirthDate"
-        // Notification:
+        // NotificationUtils:
         val NOTIFICATION_JSON_DATA = "data"
+        val NOTIFICATION_NAME = "PatientInfoBank"
+        val NOTIFICATION_TITLE = "title"
+        val NOTIFICATION_MESSAGE = "message"
+        val NOTIFICATION_BUNDLE = "NotificationBundle"
+        val NOTIFICATION_IMAGE_URL = "imageUrl"
+        val NOTIFICATION_TOPIC = "topic"
+        val NOTIFICATION_COUNTER = "NotificationCounter"
 
         // Chooser title
         val SEND_MAIL = "Send mail:"
@@ -120,10 +124,9 @@ class Util {
 
         // SharedPreference
         val SHARED_PREFERENCE_PATH = "PatientInfoBank"
-        val SHARED_PREFERENCE_MODE = 0
         val GLOBAL_NOTIFICATION_FLAG = "GlobalNotificationFlag"
 
-        // Notification Type
+        // NotificationUtils Type
         val NOTIFICATION_GLOBAL = "global"
 
 
@@ -134,6 +137,7 @@ class Util {
         // Table names
         const val MEDICINE_REMINDER_TABLE = "Medicine_Reminder"
         const val MEDICINE_LIST_TABLE = "Medicine_List"
+        const val NOTIFICATION_TABLE = "Notification"
 
         // Column names
         const val NAME_COLUMN = "Name"
@@ -144,6 +148,12 @@ class Util {
         const val TIME_COLUMN = "Time"
         const val INTERVAL_COLUMN = "Interval"
         const val TOTAL_REMINDER_COLUMN = "Total_Reminder"
+        const val USER_ID_COLUMN = "User_ID"
+        const val TITLE_COLUMN = "Title"
+        const val MESSAGE_COLUMN = "Message"
+        const val TOPIC_COLUMN = "Topic"
+        const val IMAGE_URL_COLUMN = "Image_URL"
+        const val DATE_COLUMN = "Date"
     }
 
 }

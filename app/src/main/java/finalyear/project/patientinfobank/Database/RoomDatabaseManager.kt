@@ -4,17 +4,19 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import finalyear.project.patientinfobank.Utils.Notification.NotificationUtils
 import finalyear.project.patientinfobank.Utils.Prescription.MedicineUtils
 import finalyear.project.patientinfobank.Utils.Reminder.MedicineReminderUtils
 import finalyear.project.patientinfobank.Utils.Util
 
 @Database(
-    entities = [MedicineReminderUtils::class, MedicineUtils::class],
+    entities = [MedicineReminderUtils::class, MedicineUtils::class, NotificationUtils::class],
     version = Util.ROOM_DATABASE_VERSION
 )
 abstract class RoomDatabaseManager: RoomDatabase() {
     abstract fun getMedicineReminderDAO(): MedicineReminderDAO
     abstract fun getMedicineDAO(): MedicineDAO
+    abstract fun getNotificationDAO(): NotificationDAO
 
     companion object{
         var INSTANCE: RoomDatabaseManager? = null

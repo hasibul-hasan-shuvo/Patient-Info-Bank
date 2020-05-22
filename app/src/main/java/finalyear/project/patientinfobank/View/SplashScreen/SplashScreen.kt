@@ -105,14 +105,14 @@ class SplashScreen : AppCompatActivity() {
             firebaseMessaging
                 .subscribeToTopic(Util.NOTIFICATION_GLOBAL)
                 .addOnSuccessListener {
-                    Log.d(TAG, "Global Notification is registered")
+                    Log.d(TAG, "Global NotificationUtils is registered")
                     sharedPreferences
                         .edit()
                         .putBoolean(Util.GLOBAL_NOTIFICATION_FLAG, true)
                         .commit()
                 }
                 .addOnFailureListener {
-                    Log.d(TAG, "Global Notification isn't registered: ${it.message}")
+                    Log.d(TAG, "Global NotificationUtils isn't registered: ${it.message}")
                 }
 
         }

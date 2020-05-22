@@ -2,6 +2,7 @@ package finalyear.project.patientinfobank.View.Patient.Profile
 
 import android.content.Intent
 import android.graphics.Color
+import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -76,7 +77,7 @@ class PatientProfile : Fragment() {
     override fun onResume() {
         super.onResume()
         if (isNullOrEmpty(userCategoryUtils.phoneNumber))
-            retrieveData()
+            FetchData().execute()
     }
 
     // Creating option menu
@@ -316,69 +317,69 @@ class PatientProfile : Fragment() {
             activity?.finish()
         }
     }
+    
 
+    private inner class FetchData: AsyncTask<Void, Void, Void>() {
+        override fun doInBackground(vararg params: Void?): Void? {
+            runProgress()
 
-    // Fetching data from database
-    private fun retrieveData() {
-        runProgress()
+            name = firebaseAuth.currentUser?.displayName.toString()
+            email = firebaseAuth.currentUser?.email.toString()
 
-        name = firebaseAuth.currentUser?.displayName.toString()
-        email = firebaseAuth.currentUser?.email.toString()
+            if (!isNullOrEmpty(email)) {
+                val firebaseFirestore = FirebaseFirestore.getInstance()
+                firebaseFirestore
+                    .collection(Util.USER_CATEGORY_DATABASE)
+                    .document(email)
+                    .get()
+                    .addOnSuccessListener {
+                        if (it != null)
+                            userCategoryUtils = it.toObject(UserCategoryUtils::class.java)!!
+                        setViewsData()
 
-        if (!isNullOrEmpty(email)) {
-            val firebaseFirestore = FirebaseFirestore.getInstance()
-            firebaseFirestore
-                .collection(Util.USER_CATEGORY_DATABASE)
-                .document(email)
-                .get()
-                .addOnSuccessListener {
-                    if (it != null)
-                        userCategoryUtils = it.toObject(UserCategoryUtils::class.java)!!
-                    setViewsData()
+                        stopProgress()
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(
+                            context,
+                            Util.DATA_NOT_FOUND_MESSAGE,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        stopProgress()
+                    }
+            }
+            return null
+        }
+        private fun setViewsData() {
+            try {
+                // Setting profile picture
+                Picasso.get()
+                    .load(firebaseAuth.currentUser?.photoUrl)
+                    .placeholder(R.drawable.ic_launcher)
+                    .error(R.drawable.ic_launcher)
+                    .into(binding.profilePicture)
 
-                    stopProgress()
-                }
-                .addOnFailureListener {
-                    Toast.makeText(
-                        context,
-                        Util.DATA_NOT_FOUND_MESSAGE,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    stopProgress()
-                }
+                Log.d(TAG, "SetViewData: ${firebaseAuth.currentUser?.photoUrl}")
+
+                // Setting name, email, contact
+                binding.name.text = name
+                binding.email.text = email
+                binding.contact.text = userCategoryUtils.phoneNumber
+                binding.birthDate.text = userCategoryUtils.patientBirthDate
+                binding.patientId.text = email.subSequence(0, email.indexOf('@'))
+
+                val degreesList = userCategoryUtils.doctorDegreeList
+                context?.let { degreesList?.let { it1 ->
+                    ArrayAdapter(it, R.layout.view_degrees_list_profile, R.id.degreeViewId,
+                        it1
+                    )
+                } }
+
+            } catch (e: Exception) {
+                Log.d(TAG, "SetViewData: ${e.message}")
+            }
         }
 
-    }
-
-    // Setting data into views
-    private fun setViewsData() {
-        try {
-            // Setting profile picture
-            Picasso.get()
-                .load(firebaseAuth.currentUser?.photoUrl)
-                .placeholder(R.drawable.ic_launcher)
-                .error(R.drawable.ic_launcher)
-                .into(binding.profilePicture)
-
-            Log.d(TAG, "SetViewData: ${firebaseAuth.currentUser?.photoUrl}")
-
-            // Setting name, email, contact
-            binding.name.text = name
-            binding.email.text = email
-            binding.contact.text = userCategoryUtils.phoneNumber
-            binding.birthDate.text = userCategoryUtils.patientBirthDate
-            binding.patientId.text = email.subSequence(0, email.indexOf('@'))
-
-            val degreesList = userCategoryUtils.doctorDegreeList
-            val arrayAdapter = context?.let { degreesList?.let { it1 ->
-                ArrayAdapter(it, R.layout.view_degrees_list_profile, R.id.degreeViewId,
-                    it1
-                )
-            } }
-
-        } catch (e: Exception) {
-            Log.d(TAG, "SetViewData: ${e.message}")
-        }
     }
 
 

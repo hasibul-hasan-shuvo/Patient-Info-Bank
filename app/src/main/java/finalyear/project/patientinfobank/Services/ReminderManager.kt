@@ -17,8 +17,6 @@ class ReminderManager(
 ) {
     private val TAG = "ReminderManager"
 
-    private var oneDayInMilliSecond = 60000
-
     private var REMINDER_REQUEST_CODE: Int = 0
 
     private lateinit var startDate: ArrayList<Int>

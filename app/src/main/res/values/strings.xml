@@ -96,4 +96,8 @@
     <string name="donorDistrictTransition">donor_district_transition</string>
     <string name="donorBloodGroupTransition">donor_blood_group_transition</string>
     <string name="donorBloodGroupIconTransition">donor_blood_group_icon_transition</string>
+
+
+<!--    Notification Channel Id-->
+    <string name="default_notification_channel_id">Patient Info Bank</string>
 </resources>

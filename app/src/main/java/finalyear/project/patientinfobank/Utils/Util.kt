@@ -106,6 +106,8 @@ class Util {
         val USER_CATEGORY_PHONE_NUMBER = "phoneNumber"
         val USER_CATEGORY_DOCTOR_DEGREE_LIST = "doctorDegreeList"
         val USER_CATEGORY_PATIENT_BIRTH_DATE = "patientBirthDate"
+        // Notification:
+        val NOTIFICATION_JSON_DATA = "NotificationJsonData"
 
         // Chooser title
         val SEND_MAIL = "Send mail:"

@@ -98,7 +98,7 @@ dependencies {
     // Authentication
     implementation 'com.google.firebase:firebase-auth:19.3.0'
     // Cloude messaging for notification
-    implementation 'com.google.firebase:firebase-messaging:20.1.0'
+    implementation 'com.google.firebase:firebase-messaging:20.1.7'
     // Cloude storage dependency
     implementation 'com.google.firebase:firebase-storage:19.1.0'
     // Cloude firestore dependency

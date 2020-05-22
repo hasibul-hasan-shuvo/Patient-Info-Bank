@@ -41,11 +41,6 @@ class PatientHome : Fragment(), ItemView{
     private lateinit var patientId: String
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        setHasOptionsMenu(true)
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,9 +48,9 @@ class PatientHome : Fragment(), ItemView{
         // Inflate the layout for this fragment
         binding = FragmentPatientHomeBinding.inflate(inflater, container, false)
 
+        setUpToolbar()
 
         runProgress()
-        setUpToolbar()
         setUpDatabase()
 
         fetchPrescriptionList()
@@ -163,17 +158,12 @@ class PatientHome : Fragment(), ItemView{
     }
 
 
-    /** Notification section starts **/
-
-    // Creating option menu
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater!!.inflate(R.menu.menu_patient_home, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
+    /** notifications section starts **/
     private fun setUpToolbar() {
 
         binding.toolbar.title = Util.PATIENT_HOME_TITLE
         binding.toolbar.setTitleTextColor(Color.WHITE)
+        binding.toolbar.inflateMenu(R.menu.menu_patient_home)
         (activity as AppCompatActivity)?.setSupportActionBar(binding.toolbar)
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {

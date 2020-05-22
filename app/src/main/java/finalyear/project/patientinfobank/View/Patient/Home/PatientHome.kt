@@ -41,6 +41,11 @@ class PatientHome : Fragment(), ItemView{
     private lateinit var patientId: String
 
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -159,18 +164,30 @@ class PatientHome : Fragment(), ItemView{
 
 
     /** notifications section starts **/
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_patient_home, menu)
+        Log.d(TAG, "OptionMenu")
+        super.onCreateOptionsMenu(menu, inflater)
+    }
     private fun setUpToolbar() {
 
         binding.toolbar.title = Util.PATIENT_HOME_TITLE
         binding.toolbar.setTitleTextColor(Color.WHITE)
         binding.toolbar.inflateMenu(R.menu.menu_patient_home)
-        (activity as AppCompatActivity)?.setSupportActionBar(binding.toolbar)
-        binding.toolbar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.notifications -> openNotifications()
-            }
-            return@setOnMenuItemClickListener super.onOptionsItemSelected(it)
+        val menuItem = binding.toolbar.menu.findItem(R.id.notifications)
+
+        val actionView = menuItem.actionView
+        actionView.setOnClickListener {
+            openNotifications()
         }
+
+        (activity as AppCompatActivity)?.setSupportActionBar(binding.toolbar)
+//        binding.toolbar.setOnMenuItemClickListener {
+//            when (it.itemId) {
+//                R.id.notifications -> openNotifications()
+//            }
+//            return@setOnMenuItemClickListener super.onOptionsItemSelected(it)
+//        }
     }
 
     private fun openNotifications() {

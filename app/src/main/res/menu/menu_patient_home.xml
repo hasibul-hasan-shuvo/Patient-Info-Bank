@@ -7,7 +7,7 @@
         android:id="@+id/notifications"
         android:title="@string/notifications"
         android:icon="@drawable/ic_notification"
-        android:visible="true"
+        app:actionLayout="@layout/notification_action_layout"
         app:showAsAction="always"
         />
 

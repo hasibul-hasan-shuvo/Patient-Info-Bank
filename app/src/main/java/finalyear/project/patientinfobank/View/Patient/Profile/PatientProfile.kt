@@ -47,11 +47,11 @@ class PatientProfile : Fragment() {
 
         // Inflate the layout for this fragment
 
+        Log.d(TAG, "Created")
         binding = FragmentPatientProfileBinding.inflate(inflater, container, false)
 
         setUpToolbar()
 
-//        runProgress()
         firebaseAuth = FirebaseAuth.getInstance()
         userCategoryUtils = UserCategoryUtils()
 
@@ -76,10 +76,6 @@ class PatientProfile : Fragment() {
             }
             return@setOnMenuItemClickListener super.onOptionsItemSelected(it)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 
     // Creating option menu
@@ -336,7 +332,6 @@ class PatientProfile : Fragment() {
                             userCategoryUtils = it.toObject(UserCategoryUtils::class.java)!!
                         setViewsData()
 
-//                            stopProgress()
                     }
                     .addOnFailureListener {
                         Toast.makeText(

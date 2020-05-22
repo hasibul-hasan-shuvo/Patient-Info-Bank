@@ -64,6 +64,7 @@ class PatientHome : Fragment(), ItemView{
         fetchPrescriptionList()
         fetchDoctorList()
 
+        Log.d(TAG, "Created")
 
         return binding.root
     }

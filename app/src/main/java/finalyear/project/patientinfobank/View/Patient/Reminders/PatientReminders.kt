@@ -30,6 +30,7 @@ class PatientReminders : Fragment(), ItemView {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d(TAG, "Created")
 
         binding = FragmentPatientRemindersBinding.inflate(inflater, container, false)
 

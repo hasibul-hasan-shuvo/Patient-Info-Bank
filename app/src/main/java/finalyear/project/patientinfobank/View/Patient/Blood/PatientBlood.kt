@@ -30,6 +30,7 @@ class PatientBlood : Fragment(), View.OnClickListener{
             false
         )
 
+        Log.d(TAG, "Created")
         binding.beDonor.setOnClickListener(this)
         binding.findDonor.setOnClickListener(this)
         return binding.root

@@ -1,6 +1,7 @@
 package finalyear.project.patientinfobank.Services
 
 import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import finalyear.project.patientinfobank.Utils.Util
@@ -10,10 +11,14 @@ import org.json.JSONObject
 class FirebaseNotificationService: FirebaseMessagingService() {
 
     private val TAG = "NotificationSerivce"
+    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onMessageReceived(p0: RemoteMessage) {
         super.onMessageReceived(p0)
-        Log.d(TAG, "MessageReceived")
+
+        firebaseAuth = FirebaseAuth.getInstance()
+
+        Log.d(TAG, "MessageReceived: ${firebaseAuth.currentUser?.displayName}")
 
         if (p0.data.isNotEmpty()) {
             try {

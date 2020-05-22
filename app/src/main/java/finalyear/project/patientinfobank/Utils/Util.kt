@@ -107,7 +107,7 @@ class Util {
         val USER_CATEGORY_DOCTOR_DEGREE_LIST = "doctorDegreeList"
         val USER_CATEGORY_PATIENT_BIRTH_DATE = "patientBirthDate"
         // Notification:
-        val NOTIFICATION_JSON_DATA = "NotificationJsonData"
+        val NOTIFICATION_JSON_DATA = "data"
 
         // Chooser title
         val SEND_MAIL = "Send mail:"
@@ -117,6 +117,14 @@ class Util {
         val MAIL_CLIP_BOARD_LABEL = "Mail"
         val MAIL_COPIED = "Email copied"
         val CONTACT_COPIED = "Contact copied"
+
+        // SharedPreference
+        val SHARED_PREFERENCE_PATH = "PatientInfoBank"
+        val SHARED_PREFERENCE_MODE = 0
+        val GLOBAL_NOTIFICATION_FLAG = "GlobalNotificationFlag"
+
+        // Notification Type
+        val NOTIFICATION_GLOBAL = "global"
 
 
         // Room Database

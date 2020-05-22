@@ -1,10 +1,12 @@
 package finalyear.project.patientinfobank.View.SplashScreen
 
 import android.app.ActivityOptions
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.preference.PreferenceManager
 import android.util.Log
 import android.util.Pair
 import android.view.View
@@ -17,6 +19,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 import finalyear.project.patientinfobank.R
 import finalyear.project.patientinfobank.Utils.Util
 import finalyear.project.patientinfobank.View.Doctor.DoctorActivity
@@ -57,12 +60,15 @@ class SplashScreen : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+
+        registerFirebaseNotification()
+
         var time = 8000
         if (firebaseAuth.currentUser != null) {
 
             time = 3000
         }
-        val handler: Handler = Handler()
+        val handler = Handler()
         handler.postDelayed({
             try {
                 if (firebaseAuth.currentUser != null) {
@@ -77,6 +83,42 @@ class SplashScreen : AppCompatActivity() {
             }
         }, time.toLong())
     }
+
+    private fun registerFirebaseNotification() {
+        val sharedPreferences = this.getSharedPreferences(
+            Util.SHARED_PREFERENCE_PATH,
+            Context.MODE_PRIVATE
+        )
+
+        // Fetching globalNotification flag
+        val globalNotification = sharedPreferences
+            .getBoolean(Util.GLOBAL_NOTIFICATION_FLAG, false)
+
+        /**
+         * Registering for firebase global notification
+         * if global notification isn't set yet
+         */
+        if (!globalNotification) {
+            val firebaseMessaging = FirebaseMessaging.getInstance()
+
+            firebaseMessaging.isAutoInitEnabled = true
+            firebaseMessaging
+                .subscribeToTopic(Util.NOTIFICATION_GLOBAL)
+                .addOnSuccessListener {
+                    Log.d(TAG, "Global Notification is registered")
+                    sharedPreferences
+                        .edit()
+                        .putBoolean(Util.GLOBAL_NOTIFICATION_FLAG, true)
+                        .commit()
+                }
+                .addOnFailureListener {
+                    Log.d(TAG, "Global Notification isn't registered: ${it.message}")
+                }
+
+        }
+
+    }
+
 
     private fun checkUserCategory(currentUser: FirebaseUser) {
         val email = currentUser.email

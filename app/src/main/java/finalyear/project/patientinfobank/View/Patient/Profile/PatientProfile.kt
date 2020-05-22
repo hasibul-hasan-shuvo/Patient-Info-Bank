@@ -51,8 +51,12 @@ class PatientProfile : Fragment() {
 
         setUpToolbar()
 
+//        runProgress()
         firebaseAuth = FirebaseAuth.getInstance()
         userCategoryUtils = UserCategoryUtils()
+
+        if (isNullOrEmpty(userCategoryUtils.phoneNumber))
+            fetchData()
 
         // Inflate the layout for this fragment
         return binding.root
@@ -76,8 +80,6 @@ class PatientProfile : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if (isNullOrEmpty(userCategoryUtils.phoneNumber))
-            FetchData().execute()
     }
 
     // Creating option menu
@@ -317,12 +319,9 @@ class PatientProfile : Fragment() {
             activity?.finish()
         }
     }
-    
 
-    private inner class FetchData: AsyncTask<Void, Void, Void>() {
-        override fun doInBackground(vararg params: Void?): Void? {
-            runProgress()
-
+    private fun fetchData() {
+        try {
             name = firebaseAuth.currentUser?.displayName.toString()
             email = firebaseAuth.currentUser?.email.toString()
 
@@ -337,7 +336,7 @@ class PatientProfile : Fragment() {
                             userCategoryUtils = it.toObject(UserCategoryUtils::class.java)!!
                         setViewsData()
 
-                        stopProgress()
+//                            stopProgress()
                     }
                     .addOnFailureListener {
                         Toast.makeText(
@@ -348,40 +347,42 @@ class PatientProfile : Fragment() {
                         stopProgress()
                     }
             }
-            return null
-        }
-        private fun setViewsData() {
-            try {
-                // Setting profile picture
-                Picasso.get()
-                    .load(firebaseAuth.currentUser?.photoUrl)
-                    .placeholder(R.drawable.ic_launcher)
-                    .error(R.drawable.ic_launcher)
-                    .into(binding.profilePicture)
-
-                Log.d(TAG, "SetViewData: ${firebaseAuth.currentUser?.photoUrl}")
-
-                // Setting name, email, contact
-                binding.name.text = name
-                binding.email.text = email
-                binding.contact.text = userCategoryUtils.phoneNumber
-                binding.birthDate.text = userCategoryUtils.patientBirthDate
-                binding.patientId.text = email.subSequence(0, email.indexOf('@'))
-
-                val degreesList = userCategoryUtils.doctorDegreeList
-                context?.let { degreesList?.let { it1 ->
-                    ArrayAdapter(it, R.layout.view_degrees_list_profile, R.id.degreeViewId,
-                        it1
-                    )
-                } }
-
-            } catch (e: Exception) {
-                Log.d(TAG, "SetViewData: ${e.message}")
-            }
+        } catch (e: Exception) {
+            Log.d(TAG, "BackgroundError: ${e.message}")
         }
 
     }
 
+
+    private fun setViewsData() {
+        try {
+            // Setting profile picture
+            Picasso.get()
+                .load(firebaseAuth.currentUser?.photoUrl)
+                .placeholder(R.drawable.ic_launcher)
+                .error(R.drawable.ic_launcher)
+                .into(binding.profilePicture)
+
+            Log.d(TAG, "SetViewData: ${firebaseAuth.currentUser?.photoUrl}")
+
+            // Setting name, email, contact
+            binding.name.text = name
+            binding.email.text = email
+            binding.contact.text = userCategoryUtils.phoneNumber
+            binding.birthDate.text = userCategoryUtils.patientBirthDate
+            binding.patientId.text = email.subSequence(0, email.indexOf('@'))
+
+            val degreesList = userCategoryUtils.doctorDegreeList
+            context?.let { degreesList?.let { it1 ->
+                ArrayAdapter(it, R.layout.view_degrees_list_profile, R.id.degreeViewId,
+                    it1
+                )
+            } }
+
+        } catch (e: Exception) {
+            Log.d(TAG, "SetViewData: ${e.message}")
+        }
+    }
 
     private fun stopProgress() {
         binding.progress.visibility = View.GONE

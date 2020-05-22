@@ -4,14 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".View.Patient.Home.PatientHome">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:background="@color/colorPrimaryDark"
             >
 
             <androidx.appcompat.widget.Toolbar
@@ -35,7 +32,7 @@
 
                     <TextView
                         android:id="@+id/prescriptionListTitle"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dip"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/mtcorsva"
                         android:padding="@dimen/_5sdp"
@@ -43,10 +40,22 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/_18sdp"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/prescriptionProgressBar"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toTopOf="@id/prescriptionList"
+                        />
+
+                    <ProgressBar
+                        android:id="@+id/prescriptionProgressBar"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:indeterminateTint="@color/white"
+                        app:layout_constraintTop_toTopOf="@id/prescriptionListTitle"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@id/prescriptionListTitle"
+                        android:visibility="gone"
                         />
 
                     <androidx.viewpager2.widget.ViewPager2
@@ -61,7 +70,7 @@
 
                     <TextView
                         android:id="@+id/doctorsListTitle"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dip"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/mtcorsva"
                         android:padding="@dimen/_5sdp"
@@ -70,9 +79,21 @@
                         android:textSize="@dimen/_18sdp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="@id/doctorsList"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/doctorProgressBar"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/prescriptionList" />
+
+                    <ProgressBar
+                        android:id="@+id/doctorProgressBar"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:indeterminateTint="@color/white"
+                        app:layout_constraintTop_toTopOf="@id/doctorsListTitle"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@id/doctorsListTitle"
+                        android:visibility="gone"
+                        />
 
                     <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/doctorsList"
@@ -86,24 +107,6 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/progress"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/progressBackground"
-            android:visibility="gone"
-            tools:visibility="visible"
-            >
-            <ImageView
-                android:id="@+id/progressHeart"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_120sdp"
-                android:src="@drawable/heart"
-                android:layout_gravity="center"
-                />
-        </LinearLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
 </layout>

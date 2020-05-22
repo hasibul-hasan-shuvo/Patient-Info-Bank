@@ -1,10 +1,13 @@
 package finalyear.project.patientinfobank.View.Patient.Home
 
+import android.content.Intent
 import android.graphics.Color
+import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.view.animation.AnimationUtils
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -22,6 +25,7 @@ import finalyear.project.patientinfobank.Utils.Prescription.PrescriptionUtils
 import finalyear.project.patientinfobank.Utils.UserCategory.UserCategoryUtils
 import finalyear.project.patientinfobank.Utils.Util
 import finalyear.project.patientinfobank.View.CommonInterfaces.ItemView
+import finalyear.project.patientinfobank.View.Patient.Notification.NotificationList
 import finalyear.project.patientinfobank.databinding.FragmentPatientHomeBinding
 import kotlin.math.abs
 
@@ -40,6 +44,8 @@ class PatientHome : Fragment(), ItemView{
     private lateinit var doctorListSliderAdapter: DoctorListSliderAdapter
     private lateinit var patientId: String
 
+    private lateinit var textView: TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
@@ -54,38 +60,13 @@ class PatientHome : Fragment(), ItemView{
         binding = FragmentPatientHomeBinding.inflate(inflater, container, false)
 
         setUpToolbar()
-
-        runProgress()
         setUpDatabase()
-
         fetchPrescriptionList()
         fetchDoctorList()
 
+
         return binding.root
     }
-
-    private fun fetchDoctorList() {
-
-        doctorsList.clear()
-        firestore
-            .collection(Util.PATIENT_PRESCRIPTION_DATABASE)
-            .document(patientId)
-            .collection(Util.DOCTOR_LIST_DATABASE)
-            .get()
-            .addOnSuccessListener {
-                it?.forEach { document->
-                    Log.d(TAG, document.data.toString())
-                    doctorsList.add(document.toObject(UserCategoryUtils ::class.java))
-                }
-                setUpDoctorsList()
-                stopProgress()
-            }
-            .addOnFailureListener {
-                Log.d(TAG, "FailedDoctorList: ${it.message}")
-                stopProgress()
-            }
-    }
-
 
     private fun setUpDoctorsList() {
 
@@ -110,29 +91,6 @@ class PatientHome : Fragment(), ItemView{
         binding.doctorsList.setPageTransformer(compositePageTransformer)
     }
 
-    private fun fetchPrescriptionList() {
-        prescriptionList.clear()
-        Log.d(TAG, patientId)
-        firestore
-            .collection(Util.PATIENT_PRESCRIPTION_DATABASE)
-            .document(patientId)
-            .collection(Util.PRESCRIPTION_DATABASE)
-            .get()
-            .addOnSuccessListener {
-                it?.forEach { document->
-                    Log.d(TAG, document.data.toString())
-                    prescriptionList.add(document.toObject(PrescriptionUtils:: class.java))
-                }
-
-                setUpPrescriptionList()
-                Log.d(TAG, prescriptionList.toString())
-            }
-            .addOnFailureListener {
-                Log.d(TAG, "FailedPrescriptionList: ${it.message}")
-                stopProgress()
-            }
-    }
-
     private fun setUpPrescriptionList() {
         prescriptionList.sort()
         prescriptionSliderAdapter =  PrescriptionSliderAdapter(context!!, prescriptionList, this)
@@ -155,6 +113,67 @@ class PatientHome : Fragment(), ItemView{
         binding.prescriptionList.setPageTransformer(compositePageTransformer)
     }
 
+    private fun fetchPrescriptionList() {
+        runPrescriptionProgressBar()
+        prescriptionList.clear()
+        Log.d(TAG, patientId)
+        firestore
+            .collection(Util.PATIENT_PRESCRIPTION_DATABASE)
+            .document(patientId)
+            .collection(Util.PRESCRIPTION_DATABASE)
+            .get()
+            .addOnSuccessListener {
+                it?.forEach { document->
+                    Log.d(TAG, document.data.toString())
+                    prescriptionList.add(document.toObject(PrescriptionUtils:: class.java))
+                }
+
+                setUpPrescriptionList()
+                stopPrescriptionProgressBar()
+                Log.d(TAG, prescriptionList.toString())
+            }
+            .addOnFailureListener {
+                Log.d(TAG, "FailedPrescriptionList: ${it.message}")
+            }
+
+    }
+    private fun fetchDoctorList() {
+
+        runDoctorProgressBar()
+        doctorsList.clear()
+        firestore
+            .collection(Util.PATIENT_PRESCRIPTION_DATABASE)
+            .document(patientId)
+            .collection(Util.DOCTOR_LIST_DATABASE)
+            .get()
+            .addOnSuccessListener {
+                it?.forEach { document->
+                    Log.d(TAG, document.data.toString())
+                    doctorsList.add(document.toObject(UserCategoryUtils ::class.java))
+                }
+                setUpDoctorsList()
+                stopDoctorProgressBar()
+            }
+            .addOnFailureListener {
+                Log.d(TAG, "FailedDoctorList: ${it.message}")
+            }
+
+    }
+
+
+    private fun runPrescriptionProgressBar() {
+
+        binding.prescriptionProgressBar.visibility = View.VISIBLE
+    }
+    private fun stopPrescriptionProgressBar() {
+        binding.prescriptionProgressBar.visibility = View.GONE
+    }
+    private fun runDoctorProgressBar() {
+        binding.doctorProgressBar.visibility = View.VISIBLE
+    }
+    private fun stopDoctorProgressBar() {
+        binding.doctorProgressBar.visibility = View.GONE
+    }
 
     private fun setUpDatabase() {
         firebaseAuth = FirebaseAuth.getInstance()
@@ -166,6 +185,15 @@ class PatientHome : Fragment(), ItemView{
     /** notifications section starts **/
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_patient_home, menu)
+
+        val menuItem = menu.findItem(R.id.notifications)
+
+        val actionView = menuItem.actionView
+        textView = actionView.findViewById(R.id.badge)
+        actionView.setOnClickListener {
+            openNotifications()
+        }
+
         Log.d(TAG, "OptionMenu")
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -174,42 +202,33 @@ class PatientHome : Fragment(), ItemView{
         binding.toolbar.title = Util.PATIENT_HOME_TITLE
         binding.toolbar.setTitleTextColor(Color.WHITE)
         binding.toolbar.inflateMenu(R.menu.menu_patient_home)
-        val menuItem = binding.toolbar.menu.findItem(R.id.notifications)
+        val menu = binding.toolbar.menu
+
+        val menuItem = menu.findItem(R.id.notifications)
 
         val actionView = menuItem.actionView
+
         actionView.setOnClickListener {
+            textView = actionView.findViewById(R.id.badge)
             openNotifications()
         }
 
         (activity as AppCompatActivity)?.setSupportActionBar(binding.toolbar)
-//        binding.toolbar.setOnMenuItemClickListener {
-//            when (it.itemId) {
-//                R.id.notifications -> openNotifications()
-//            }
-//            return@setOnMenuItemClickListener super.onOptionsItemSelected(it)
-//        }
     }
 
     private fun openNotifications() {
+        textView.visibility = View.GONE
         Log.d(TAG, "Notifications")
+
+        val intent = Intent(context, NotificationList::class.java)
+        startActivity(intent)
+        activity?.overridePendingTransition(R.anim.left_to_right, R.anim.righttoleft)
     }
 
     /** notifications section ends **/
 
 
 
-    /** ProgressBar implementation start **/
-    private fun stopProgress() {
-        binding.progress.visibility = View.GONE
-    }
-
-    private fun runProgress() {
-
-        val animation = AnimationUtils.loadAnimation(context, R.anim.heart_beat)
-        binding.progressHeart.startAnimation(animation)
-
-        binding.progress.visibility = View.VISIBLE
-    }
 
     override fun onItemClick(position: Int) {
         Log.d(TAG, "Clicked: ${prescriptionList[position]}")
@@ -268,6 +287,4 @@ class PatientHome : Fragment(), ItemView{
                 ).show()
             }
     }
-
-    /** ProgressBar implementation end **/
 }

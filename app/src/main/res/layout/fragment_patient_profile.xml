@@ -28,9 +28,10 @@
 
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dip"
                 android:fillViewport="true"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/toolbar">
@@ -45,18 +46,17 @@
                         android:layout_height="@dimen/_150sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:elevation="@dimen/_7sdp"
+                        app:cardBackgroundColor="@color/patientProfileColor"
                         app:cardCornerRadius="@dimen/_15sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:cardBackgroundColor="@color/patientProfileColor"
-                        >
+                        app:layout_constraintTop_toTopOf="parent">
+
                         <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            app:cardCornerRadius="@dimen/_15sdp"
                             android:layout_margin="@dimen/_3sdp"
-                            >
+                            app:cardCornerRadius="@dimen/_15sdp">
 
                             <ImageView
                                 android:id="@+id/profilePicture"
@@ -105,10 +105,10 @@
                             android:id="@+id/nameEditText"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:fontFamily="@font/nevrada"
                             android:inputType="textPersonName"
                             android:minWidth="@dimen/_50sdp"
                             android:singleLine="true"
-                            android:fontFamily="@font/nevrada"
                             android:textColor="@color/white"
                             android:theme="@style/textInputEditTextTheme" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -155,8 +155,8 @@
                         android:id="@+id/emailIcon"
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
-                        android:src="@drawable/ic_email"
                         android:layout_marginStart="@dimen/_10sdp"
+                        android:src="@drawable/ic_email"
                         app:layout_constraintBottom_toBottomOf="@+id/email"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/email" />
@@ -167,10 +167,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14sdp"
                         android:fontFamily="@font/nevrada"
+                        android:textColor="@color/white"
                         android:textIsSelectable="true"
+                        android:textSize="@dimen/_14sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/emailIcon"
                         app:layout_constraintTop_toBottomOf="@+id/divider"
@@ -181,8 +181,8 @@
                         android:id="@+id/contactIcon"
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
-                        android:src="@drawable/ic_phone"
                         android:layout_marginStart="@dimen/_10sdp"
+                        android:src="@drawable/ic_phone"
                         app:layout_constraintBottom_toBottomOf="@+id/contact"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/contact" />
@@ -193,10 +193,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_15sdp"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14sdp"
                         android:fontFamily="@font/nevrada"
+                        android:textColor="@color/white"
                         android:textIsSelectable="true"
+                        android:textSize="@dimen/_14sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/contactIcon"
                         app:layout_constraintTop_toBottomOf="@+id/email"
@@ -250,8 +250,8 @@
                         android:id="@+id/ageIcon"
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
-                        android:src="@drawable/ic_age"
                         android:layout_marginStart="@dimen/_10sdp"
+                        android:src="@drawable/ic_age"
                         app:layout_constraintBottom_toBottomOf="@+id/birthDate"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/birthDate" />
@@ -260,13 +260,13 @@
                         android:id="@+id/birthDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:fontFamily="@font/nevrada"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_14sdp"
-                        android:layout_marginTop="@dimen/_15sdp"
-                        android:layout_marginStart="@dimen/_10sdp"
                         app:layout_constraintStart_toEndOf="@+id/ageIcon"
                         app:layout_constraintTop_toBottomOf="@+id/contact"
-                        android:fontFamily="@font/nevrada"
                         tools:text="08/12/2020" />
 
                     <androidx.cardview.widget.CardView
@@ -274,13 +274,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_15sdp"
+                        android:elevation="@dimen/_10sdp"
                         app:cardBackgroundColor="@color/colorPrimary"
                         app:cardCornerRadius="@dimen/_15sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/ageIcon"
-                        android:elevation="@dimen/_10sdp"
-                        >
+                        app:layout_constraintTop_toBottomOf="@id/ageIcon">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -292,28 +292,26 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/mtcorsva"
                                 android:text="@string/patientIdTitle"
                                 android:textColor="@color/white"
-                                android:textSize="@dimen/_14sdp"
-                                android:fontFamily="@font/mtcorsva"
-                                />
+                                android:textSize="@dimen/_14sdp" />
 
                             <LinearLayout
                                 android:layout_width="@dimen/_150sdp"
                                 android:layout_height="1dp"
-                                android:background="@color/white"
-                                />
+                                android:background="@color/white" />
+
                             <TextView
                                 android:id="@+id/patientId"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_10sdp"
+                                android:fontFamily="@font/mtcorsva"
                                 android:text="@string/app_name"
                                 android:textColor="@color/white"
-                                android:textSize="@dimen/_26sdp"
-                                android:fontFamily="@font/mtcorsva"
                                 android:textIsSelectable="true"
-                                />
+                                android:textSize="@dimen/_26sdp" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </androidx.constraintlayout.widget.ConstraintLayout>

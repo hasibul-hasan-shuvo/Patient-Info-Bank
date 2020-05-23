@@ -55,7 +55,6 @@ class PatientReminders : Fragment(), ItemView {
     private fun setUpToolbar() {
         binding.toolbar.title = Util.REMINDER_TITLE
         binding.toolbar.setTitleTextColor(Color.WHITE)
-        (activity as AppCompatActivity)?.setSupportActionBar(binding.toolbar)
     }
 
     private fun emptyChecker() {

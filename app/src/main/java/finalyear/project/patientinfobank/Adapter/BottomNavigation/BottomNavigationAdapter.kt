@@ -5,8 +5,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.FragmentStatePagerAdapter
 
-class BottomNavigationAdapter(var fragmentManager: FragmentManager): FragmentPagerAdapter(fragmentManager) {
-    val fragmentList = arrayListOf<Fragment>()
+class BottomNavigationAdapter(fragmentManager: FragmentManager): FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+    private val fragmentList = arrayListOf<Fragment>()
     override fun getItem(position: Int): Fragment {
         return fragmentList[position]
     }

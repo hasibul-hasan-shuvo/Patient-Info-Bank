@@ -7,8 +7,9 @@
         android:id="@+id/notifications"
         android:title="@string/notifications"
         android:icon="@drawable/ic_notification"
-        app:actionLayout="@layout/notification_action_layout"
+        android:visible="true"
         app:showAsAction="always"
+        app:actionLayout="@layout/notification_action_layout"
         />
 
 </menu>

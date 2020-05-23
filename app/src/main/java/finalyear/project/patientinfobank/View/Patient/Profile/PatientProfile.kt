@@ -33,12 +33,8 @@ class PatientProfile : Fragment() {
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var email: String
     private lateinit var name: String
-    private lateinit var userCategoryUtils: UserCategoryUtils
+    private var userCategoryUtils = UserCategoryUtils()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        setHasOptionsMenu(true)
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,10 +49,8 @@ class PatientProfile : Fragment() {
         setUpToolbar()
 
         firebaseAuth = FirebaseAuth.getInstance()
-        userCategoryUtils = UserCategoryUtils()
 
-        if (isNullOrEmpty(userCategoryUtils.phoneNumber))
-            fetchData()
+        fetchData()
 
         // Inflate the layout for this fragment
         return binding.root
@@ -66,7 +60,7 @@ class PatientProfile : Fragment() {
 
         binding.toolbar.title = Util.PROFILE
         binding.toolbar.setTitleTextColor(Color.WHITE)
-        (activity as AppCompatActivity)?.setSupportActionBar(binding.toolbar)
+        binding.toolbar.inflateMenu(R.menu.menu_profile)
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.changeProfilePicture -> changeProfilePicture()
@@ -78,12 +72,6 @@ class PatientProfile : Fragment() {
         }
     }
 
-    // Creating option menu
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater!!.inflate(R.menu.menu_profile, menu)
-        Log.d(TAG, "OptionMenu")
-        super.onCreateOptionsMenu(menu, inflater)
-    }
 
     // Method to change profile picture
     private fun changeProfilePicture() {

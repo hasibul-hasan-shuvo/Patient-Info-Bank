@@ -41,10 +41,6 @@ class DoctorProfile : Fragment() {
     private lateinit var name: String
     private lateinit var userCategoryUtils: UserCategoryUtils
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        setHasOptionsMenu(true)
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,7 +70,7 @@ class DoctorProfile : Fragment() {
 
         binding.toolbar.title = Util.PROFILE
         binding.toolbar.setTitleTextColor(Color.WHITE)
-        (activity as AppCompatActivity)?.setSupportActionBar(binding.toolbar)
+        binding.toolbar.inflateMenu(R.menu.menu_profile)
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.changeProfilePicture -> changeProfilePicture()
@@ -86,13 +82,6 @@ class DoctorProfile : Fragment() {
         }
     }
 
-
-    // Creating option menu
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater!!.inflate(R.menu.menu_profile, menu)
-        Log.d(TAG, "OptionMenu")
-        super.onCreateOptionsMenu(menu, inflater)
-    }
 
     // Method to change profile picture
     private fun changeProfilePicture() {

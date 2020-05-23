@@ -1,6 +1,8 @@
 package finalyear.project.patientinfobank.View.Patient.Home
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.AsyncTask
 import android.os.Bundle
@@ -12,6 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.menu.MenuBuilder
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -28,6 +31,7 @@ import finalyear.project.patientinfobank.View.CommonInterfaces.ItemView
 import finalyear.project.patientinfobank.View.Patient.Notification.NotificationList
 import finalyear.project.patientinfobank.databinding.FragmentPatientHomeBinding
 import kotlin.math.abs
+import kotlin.math.min
 
 
 class PatientHome : Fragment(), ItemView{
@@ -44,13 +48,11 @@ class PatientHome : Fragment(), ItemView{
     private lateinit var doctorListSliderAdapter: DoctorListSliderAdapter
     private lateinit var patientId: String
 
-    private lateinit var textView: TextView
+    private lateinit var badgeView: TextView
 
+    private lateinit var sharedPreferences: SharedPreferences
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        setHasOptionsMenu(true)
-        super.onCreate(savedInstanceState)
-    }
+    private lateinit var email: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,6 +60,8 @@ class PatientHome : Fragment(), ItemView{
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentPatientHomeBinding.inflate(inflater, container, false)
+
+        getEmail()
 
         setUpToolbar()
         setUpDatabase()
@@ -68,6 +72,98 @@ class PatientHome : Fragment(), ItemView{
 
         return binding.root
     }
+
+    private fun getEmail() {
+        email = FirebaseAuth
+            .getInstance()
+            .currentUser
+            ?.email
+            ?.split(
+                Regex("@")
+            )!![0]
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        setUpSharedPreference()
+
+        setNotificationBadge(
+            sharedPreferences.getInt(
+                email + Util.NOTIFICATION_COUNTER,
+                0
+            )
+        )
+    }
+
+
+    /** notifications section starts **/
+    private fun setUpSharedPreference() {
+        sharedPreferences = context?.getSharedPreferences(
+            Util.SHARED_PREFERENCE_PATH,
+            Context.MODE_PRIVATE
+        )!!
+
+        sharedPreferences.registerOnSharedPreferenceChangeListener { sharedPreferences, key ->
+
+            Log.d(TAG, "SharedPreferencecs: $key")
+            if (key == email+ Util.NOTIFICATION_COUNTER) {
+                setNotificationBadge(
+                    sharedPreferences.getInt(
+                        key,
+                        0
+                    )
+                )
+            }
+        }
+    }
+
+    private fun setNotificationBadge(counter: Int) {
+        if (counter == 0) {
+            badgeView.visibility = View.GONE
+        } else {
+            Log.d(TAG, "Counter: $counter")
+            if (badgeView.visibility == View.GONE)
+                badgeView.visibility = View.VISIBLE
+            badgeView.text = min(counter, 99).toString()
+        }
+    }
+
+    private fun setUpToolbar() {
+
+        Log.d(TAG, "Toolbar")
+        binding.toolbar.title = Util.PATIENT_HOME_TITLE
+        binding.toolbar.setTitleTextColor(Color.WHITE)
+        binding.toolbar.inflateMenu(R.menu.menu_patient_home)
+        val menu = binding.toolbar.menu
+
+        val menuItem = menu.findItem(R.id.notifications)
+
+        val actionView = menuItem.actionView
+
+        actionView.setOnClickListener {
+            openNotifications()
+        }
+        badgeView = actionView.findViewById(R.id.badge)
+
+    }
+
+    private fun openNotifications() {
+        badgeView.visibility = View.GONE
+
+        sharedPreferences
+            .edit()
+            .putInt(email + Util.NOTIFICATION_COUNTER, 0)
+            .apply()
+
+//        Log.d(TAG, "Notifications")
+
+        val intent = Intent(context, NotificationList::class.java)
+        startActivity(intent)
+        activity?.overridePendingTransition(R.anim.left_to_right, R.anim.righttoleft)
+    }
+
+    /** notifications section ends **/
 
     private fun setUpDoctorsList() {
 
@@ -124,14 +220,12 @@ class PatientHome : Fragment(), ItemView{
             .collection(Util.PRESCRIPTION_DATABASE)
             .get()
             .addOnSuccessListener {
-                it?.forEach { document->
-                    Log.d(TAG, document.data.toString())
-                    prescriptionList.add(document.toObject(PrescriptionUtils:: class.java))
-                }
+
+                prescriptionList = it.toObjects(PrescriptionUtils:: class.java)
+                        as ArrayList<PrescriptionUtils>
 
                 setUpPrescriptionList()
                 stopPrescriptionProgressBar()
-                Log.d(TAG, prescriptionList.toString())
             }
             .addOnFailureListener {
                 Log.d(TAG, "FailedPrescriptionList: ${it.message}")
@@ -148,10 +242,8 @@ class PatientHome : Fragment(), ItemView{
             .collection(Util.DOCTOR_LIST_DATABASE)
             .get()
             .addOnSuccessListener {
-                it?.forEach { document->
-                    Log.d(TAG, document.data.toString())
-                    doctorsList.add(document.toObject(UserCategoryUtils ::class.java))
-                }
+                doctorsList = it.toObjects(UserCategoryUtils ::class.java)
+                        as ArrayList<UserCategoryUtils>
                 setUpDoctorsList()
                 stopDoctorProgressBar()
             }
@@ -182,51 +274,6 @@ class PatientHome : Fragment(), ItemView{
         patientId = firebaseAuth.currentUser?.email.toString().split("@")[0]
     }
 
-
-    /** notifications section starts **/
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_patient_home, menu)
-
-        val menuItem = menu.findItem(R.id.notifications)
-
-        val actionView = menuItem.actionView
-        textView = actionView.findViewById(R.id.badge)
-        actionView.setOnClickListener {
-            openNotifications()
-        }
-
-        Log.d(TAG, "OptionMenu")
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-    private fun setUpToolbar() {
-
-        binding.toolbar.title = Util.PATIENT_HOME_TITLE
-        binding.toolbar.setTitleTextColor(Color.WHITE)
-        binding.toolbar.inflateMenu(R.menu.menu_patient_home)
-        val menu = binding.toolbar.menu
-
-        val menuItem = menu.findItem(R.id.notifications)
-
-        val actionView = menuItem.actionView
-
-        actionView.setOnClickListener {
-            textView = actionView.findViewById(R.id.badge)
-            openNotifications()
-        }
-
-        (activity as AppCompatActivity)?.setSupportActionBar(binding.toolbar)
-    }
-
-    private fun openNotifications() {
-        textView.visibility = View.GONE
-        Log.d(TAG, "Notifications")
-
-        val intent = Intent(context, NotificationList::class.java)
-        startActivity(intent)
-        activity?.overridePendingTransition(R.anim.left_to_right, R.anim.righttoleft)
-    }
-
-    /** notifications section ends **/
 
 
 

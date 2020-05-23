@@ -58,6 +58,8 @@ class Util {
         val FIND_A_DONOR = "Donor list"
         val PRESCRIPTION_TITLE = "Prescription"
         val PATIENT_HOME_TITLE = "Patient home"
+        val NOTIFICATION_LIST_TITLE = "Notifications"
+        val NOTIFICATION_DATA = "NotificationData"
 
 
         // Sign in

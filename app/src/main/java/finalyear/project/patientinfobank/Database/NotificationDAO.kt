@@ -19,7 +19,7 @@ interface NotificationDAO {
     fun getNotificationById(id: Int): NotificationUtils
 
     @Query("SELECT * FROM Notification WHERE User_ID == :userId")
-    fun getNotificationByUserId(userId: String): NotificationUtils
+    fun getNotificationByUserId(userId: String): List<NotificationUtils>
 
     @Query("SELECT * FROM Notification")
     fun getAllNotifications(): List<NotificationUtils>

@@ -96,6 +96,9 @@
     <string name="donorDistrictTransition">donor_district_transition</string>
     <string name="donorBloodGroupTransition">donor_blood_group_transition</string>
     <string name="donorBloodGroupIconTransition">donor_blood_group_icon_transition</string>
+    <string name="notificationTitleTransition">notification_title_transition</string>
+    <string name="notificationMessageTransition">notification_message_transition</string>
+    <string name="notificationImageTransition">notification_image_transition</string>
 
 
     <!--    NotificationUtils Channel Id-->

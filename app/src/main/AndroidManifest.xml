@@ -14,7 +14,9 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.Patient.Notification.NotificationList"
+        <activity android:name=".View.Patient.Notification.NotificationView"></activity>
+        <activity
+            android:name=".View.Patient.Notification.NotificationList"
             android:screenOrientation="portrait" />
         <activity
             android:name=".View.Patient.Prescription.ShowOECCAdvice"

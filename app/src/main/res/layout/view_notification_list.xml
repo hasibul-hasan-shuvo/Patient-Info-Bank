@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorPrimaryDark"
+    android:layout_marginHorizontal="@dimen/_5sdp"
+    android:layout_marginVertical="@dimen/_3sdp"
+    >
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_80sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_launcher"
+        android:scaleType="centerCrop"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:contentDescription="@string/app_name"
+        android:transitionName="@string/notificationImageTransition"
+        />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12sdp"
+        android:fontFamily="@font/mtcorsva"
+        android:padding="@dimen/_3sdp"
+        android:maxLines="1"
+        app:layout_constraintEnd_toStartOf="@+id/deleteButton"
+        app:layout_constraintStart_toEndOf="@+id/image"
+        app:layout_constraintTop_toTopOf="@id/image"
+        tools:text="@string/app_name"
+        android:transitionName="@string/notificationTitleTransition"
+        />
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="0dip"
+        android:layout_height="0dip"
+        android:drawablePadding="@dimen/_10sdp"
+        android:ellipsize="end"
+        android:fontFamily="@font/mtcorsva"
+        android:maxLines="2"
+        android:padding="@dimen/_3sdp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintBottom_toTopOf="@+id/dateTime"
+        app:layout_constraintEnd_toStartOf="@+id/deleteButton"
+        app:layout_constraintStart_toEndOf="@+id/image"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        tools:text="@string/app_name"
+        android:transitionName="@string/notificationMessageTransition"
+        />
+
+    <TextView
+        android:id="@+id/dateTime"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/mtcorsva"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_10sdp"
+        android:padding="@dimen/_3sdp"
+        app:layout_constraintBottom_toBottomOf="@id/image"
+        app:layout_constraintEnd_toStartOf="@+id/deleteButton"
+        app:layout_constraintStart_toEndOf="@+id/image"
+        tools:text="@string/app_name" />
+
+
+
+    <ImageView
+        android:id="@+id/deleteButton"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:src="@drawable/ic_delete"
+        app:layout_constraintBottom_toBottomOf="@+id/image"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintTop_toTopOf="@+id/image" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/white"
+        android:layout_marginHorizontal="@dimen/_30sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

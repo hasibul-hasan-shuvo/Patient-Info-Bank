@@ -287,18 +287,5 @@ class ShowPrescription : AppCompatActivity() , View.OnClickListener{
     }
 
 
-    private fun stopProgress() {
-        binding.progress.visibility = View.GONE
-    }
-
-    private fun runProgress() {
-
-        val animation = AnimationUtils.loadAnimation(this, R.anim.heart_beat)
-        binding.progressHeart.startAnimation(animation)
-
-        binding.progress.visibility = View.VISIBLE
-    }
-
-
 
 }

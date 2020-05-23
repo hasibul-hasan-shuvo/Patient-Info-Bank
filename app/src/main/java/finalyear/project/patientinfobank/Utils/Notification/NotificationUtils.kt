@@ -25,6 +25,8 @@ data class NotificationUtils(
     @ColumnInfo(name = Util.DATE_COLUMN)
     val date: String?,
     @ColumnInfo(name = Util.TIME_COLUMN)
-    val time: String?
+    val time: String?,
+    @ColumnInfo(name = Util.IS_CHECKED_COLUMN)
+    var isChecked: Boolean
 ): Serializable {
 }

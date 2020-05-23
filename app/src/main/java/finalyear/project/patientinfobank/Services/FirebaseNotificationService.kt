@@ -77,7 +77,8 @@ class FirebaseNotificationService: FirebaseMessagingService() {
             topic,
             imageUrl,
             date,
-            time
+            time,
+            false
         )
 
         val notificationManager = FirebaseNotificationManager(
@@ -120,7 +121,8 @@ class FirebaseNotificationService: FirebaseMessagingService() {
             topic,
             imageUrl,
             date,
-            time
+            time,
+            false
         )
 
         val notificationManager = FirebaseNotificationManager(

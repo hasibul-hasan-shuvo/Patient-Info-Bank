@@ -156,6 +156,7 @@ class Util {
         const val TOPIC_COLUMN = "Topic"
         const val IMAGE_URL_COLUMN = "Image_URL"
         const val DATE_COLUMN = "Date"
+        const val IS_CHECKED_COLUMN = "Is_Checked"
     }
 
 }

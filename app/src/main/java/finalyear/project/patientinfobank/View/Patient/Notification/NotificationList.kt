@@ -25,7 +25,6 @@ class NotificationList : AppCompatActivity(), ItemView {
     private lateinit var userId: String
     
     private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var sharedPreferenceChangeListener: SharedPreferences.OnSharedPreferenceChangeListener
 
     private var notificationList = arrayListOf<NotificationUtils>()
 
@@ -35,6 +34,7 @@ class NotificationList : AppCompatActivity(), ItemView {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_notification_list)
 
+        getEmail()
         setUpToolbar()
         setUpSharedPreference()
 
@@ -42,7 +42,6 @@ class NotificationList : AppCompatActivity(), ItemView {
 
     override fun onResume() {
         super.onResume()
-        getEmail()
 
         fetchData()
     }
@@ -98,6 +97,12 @@ class NotificationList : AppCompatActivity(), ItemView {
             Util.SHARED_PREFERENCE_PATH,
             MODE_PRIVATE
         )!!
+
+
+        sharedPreferences
+            .edit()
+            .putInt(userId+ Util.NOTIFICATION_COUNTER, 0)
+            .apply()
 
         sharedPreferences.registerOnSharedPreferenceChangeListener { sharedPreferences, key ->
             Log.d(TAG, "SharedPreferencecs: $key")

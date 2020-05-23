@@ -68,6 +68,7 @@ class PatientHome : Fragment(), ItemView{
         fetchPrescriptionList()
         fetchDoctorList()
 
+
         Log.d(TAG, "Created")
 
         return binding.root
@@ -85,7 +86,6 @@ class PatientHome : Fragment(), ItemView{
 
     override fun onResume() {
         super.onResume()
-
         setUpSharedPreference()
 
         setNotificationBadge(
@@ -119,6 +119,7 @@ class PatientHome : Fragment(), ItemView{
     }
 
     private fun setNotificationBadge(counter: Int) {
+        Log.d(TAG, "Counter: $counter")
         if (counter == 0) {
             badgeView.visibility = View.GONE
         } else {
